@@ -1,0 +1,3009 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="蓝笺个人博客的视觉研究图册，包含参考站取样、交互状态、桌面与手机线框、游戏分镜及主题样张。"
+    />
+    <title>视觉研究图册 · 蓝笺</title>
+    <link rel="stylesheet" href="atlas.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">跳到正文</a>
+    <header class="mast" id="top">
+      <div>
+        <strong>青屿 / 蓝笺</strong>
+        <p>个人博客设计研究</p>
+      </div>
+    </header>
+    <main id="main">
+      <header class="top">
+        <div>
+          <p class="eyebrow">青屿 / 个人站的视觉与信息设计</p>
+          <h1>视觉研究图册</h1>
+          <p class="deck">
+            主页让人认识我，博客让人读我写的东西，归档让人从年份找回一篇旧文。同一抹蓝，到了不同页面，要做不同的工作。
+          </p>
+        </div>
+        <nav class="index" aria-label="图册目录">
+          <h2>翻到哪一页</h2>
+          <a href="comparison/index.html">三站实测 · 按下、换页与返回</a>
+          <a href="#comparison">参考与成品</a><a href="#observed">参考站</a><a href="#states">交互状态</a
+          ><a href="#wires">页面线框</a><a href="#theme">主题样张</a><a href="#motion">转场分镜</a
+          ><a href="#decisions">取舍与验证</a>
+        </nav>
+      </header>
+      <section class="section" id="observed">
+        <p class="kicker">参考站取样</p>
+        <h2>先看人，再看内容</h2>
+        <p class="lead">
+          以下为浏览器页面截图，点击可查看原图。图注描述可见事实。每张下方另记一条可以借到个人博客的判断。
+        </p>
+        <div class="ev-grid">
+          <article class="ev">
+            <h3>Aira · 主页</h3>
+            <figure>
+              <a href="evidence/aira-home.jpg" aria-label="打开Aira · 主页原图"
+                ><img
+                  loading="lazy"
+                  src="evidence/aira-home.jpg"
+                  alt="淡网格上，头像与多语网名在画面中部并列。座右铭紧贴名字，社交图标作为一行放低。首屏只留下很轻的下滚提示。"
+              /></a>
+              <figcaption>
+                淡网格上，头像与多语网名在画面中部并列。座右铭紧贴名字，社交图标作为一行放低。首屏只留下很轻的下滚提示。
+              </figcaption>
+            </figure>
+            <p><strong>可带走的判断</strong>　让人先认出站主，才需要决定去哪。</p>
+            <p class="source">
+              <a href="https://aira.cafe/">主页</a
+              ><a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/Home/HomeHeader.vue"
+                >首页实现</a
+              >
+            </p>
+          </article>
+          <article class="ev">
+            <h3>Aira · 博客</h3>
+            <figure>
+              <a href="evidence/aira-blog.jpg" aria-label="打开Aira · 博客原图"
+                ><img
+                  loading="lazy"
+                  src="evidence/aira-blog.jpg"
+                  alt="栏目签名很小，下面的白箭头嵌在直边粉色色块里，再接粉色 BLOG。文章以标题、摘要、日期和右下箭头排列。"
+              /></a>
+              <figcaption>
+                栏目签名很小，下面的白箭头嵌在直边粉色色块里，再接粉色 BLOG。文章以标题、摘要、日期和右下箭头排列。
+              </figcaption>
+            </figure>
+            <p><strong>可带走的判断</strong>　字保持完整。色块边缘分出图标，字级、留白分出内容。</p>
+            <p class="source">
+              <a href="https://aira.cafe/blog">博客</a
+              ><a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/SectionTitle.vue"
+                >栏目标题</a
+              >
+            </p>
+          </article>
+          <article class="ev">
+            <h3>Aira · 友链</h3>
+            <figure>
+              <a href="evidence/aira-links.jpg" aria-label="打开Aira · 友链原图"
+                ><img
+                  loading="lazy"
+                  src="evidence/aira-links.jpg"
+                  alt="共用页头与栏目标题，四列头像和名字铺在同一浅色面上。条目间留白，两个相邻名字仍容易分辨。"
+              /></a>
+              <figcaption>
+                共用页头与栏目标题，四列头像和名字铺在同一浅色面上。条目间留白，两个相邻名字仍容易分辨。
+              </figcaption>
+            </figure>
+            <p><strong>可带走的判断</strong>　友链要认人和选去向，适合并排，文章摘要适合单列阅读。</p>
+            <p class="source">
+              <a href="https://aira.cafe/links">友链</a
+              ><a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/FriendLink.vue"
+                >友链条目</a
+              >
+            </p>
+          </article>
+          <article class="ev kira">
+            <h3>KIRAKIRA · 桌面首页</h3>
+            <figure>
+              <a href="evidence/kira-desktop.jpg" aria-label="打开KIRAKIRA · 桌面首页原图"
+                ><img
+                  loading="lazy"
+                  src="evidence/kira-desktop.jpg"
+                  alt="左侧纵向工具栏，顶部分类标签，下面依次是公告、最新和缩略图网格。标签底线与侧栏着色提示当前位置。"
+              /></a>
+              <figcaption>
+                左侧纵向工具栏，顶部分类标签，下面依次是公告、最新和缩略图网格。标签底线与侧栏着色提示当前位置。
+              </figcaption>
+            </figure>
+            <p><strong>可带走的判断</strong>　社区有许多同时可选的内容。蓝笺可借当前状态的清晰程度。</p>
+            <p class="source">
+              <a href="https://kirakira.moe/">首页</a
+              ><a href="https://github.com/KIRAKIRA-DOUGA/KIRAKIRA-Cerasus">前端项目</a>
+            </p>
+          </article>
+          <article class="ev kira">
+            <h3>KIRAKIRA · 手机分区</h3>
+            <figure>
+              <a href="evidence/kira-mobile.jpg" aria-label="打开KIRAKIRA · 手机分区原图"
+                ><img
+                  loading="lazy"
+                  src="evidence/kira-mobile.jpg"
+                  alt="从手机首页底栏选中分区，分区图标与文字呈粉色，其它项收为图标。分区页改用二列带图标与计数的条目。"
+              /></a>
+              <figcaption>
+                从手机首页底栏选中分区，分区图标与文字呈粉色，其它项收为图标。分区页改用二列带图标与计数的条目。
+              </figcaption>
+            </figure>
+            <p><strong>可带走的判断</strong>　把反馈集中在刚点的地方。当前页身份由颜色和文字共同确认。</p>
+            <p class="source">
+              <a href="https://kirakira.moe/category">分区</a
+              ><a href="https://github.com/KIRAKIRA-DOUGA/KIRAKIRA-Cerasus/blob/production/components/BottomNavItem.vue"
+                >底栏实现</a
+              >
+            </p>
+          </article>
+        </div>
+        <aside class="intent">
+          <strong>代入我的说法</strong>
+          <p>
+            我说的「主页感」，是打开它先遇见我，哪怕暂时不点文章，也知道我是谁。我说的「软的地方软，该硬的地方还是硬」，放到这一页就是纸面能安静，名字要站得住，链接要找得到。切页时我想留一点上一页的感觉，可是开始读的时候，字就应该是清楚的。
+          </p>
+        </aside>
+      </section>
+      <section class="section" id="comparison">
+        <p class="kicker">参考与成品</p>
+        <h2>两张图里，看同一件事</h2>
+        <p class="lead">
+          每组先看参考，再看蓝笺。桌面上的阅读顺序、手机上的当前状态，比照同一个任务判断。点击任一图可打开未裁切的截图。
+        </p>
+        <div class="compare-list">
+          <article class="comparison">
+            <div class="compare-lead">
+              <h3>首屏认人</h3>
+              <p>
+                先认头像，再从青屿和 QINGYU
+                组成的一组文字读到座右铭，最后决定去社区或进入博客。蓝色浅网格连接整体，进站动作与身份叙述保持清楚的间距。
+              </p>
+            </div>
+            <div class="compare-pair">
+              <figure>
+                <a href="evidence/aira-home.jpg" aria-label="打开Aira 首页原图"
+                  ><img loading="lazy" src="evidence/aira-home.jpg" alt="Aira 首页截图"
+                /></a>
+                <figcaption>Aira 首页</figcaption>
+              </figure>
+              <figure>
+                <a href="samples/home.jpg" aria-label="打开青屿主页原图"
+                  ><img loading="lazy" src="samples/home.jpg" alt="青屿主页截图"
+                /></a>
+                <figcaption>青屿主页</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="comparison">
+            <div class="compare-lead">
+              <h3>一列用来挑文章</h3>
+              <p>
+                同一行里粗标题先读，摘要辅助判断，日期和箭头退到下一层。蓝笺用直线、斜切栏目记号与蓝色去向提示组织这一列。
+              </p>
+            </div>
+            <div class="compare-pair">
+              <figure>
+                <a href="evidence/aira-blog.jpg" aria-label="打开Aira 博客原图"
+                  ><img loading="lazy" src="evidence/aira-blog.jpg" alt="Aira 博客截图"
+                /></a>
+                <figcaption>Aira 博客</figcaption>
+              </figure>
+              <figure>
+                <a href="samples/blog.jpg" aria-label="打开蓝笺博客原图"
+                  ><img loading="lazy" src="samples/blog.jpg" alt="蓝笺博客截图"
+                /></a>
+                <figcaption>蓝笺博客</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="comparison">
+            <div class="compare-lead">
+              <h3>用人像辨认朋友</h3>
+              <p>连续的头像与名字构成目录。把人像、站点说明和出站箭头放进同一个入口，缩窄页面后减少列数。</p>
+            </div>
+            <div class="compare-pair">
+              <figure>
+                <a href="evidence/aira-links.jpg" aria-label="打开Aira 友链原图"
+                  ><img loading="lazy" src="evidence/aira-links.jpg" alt="Aira 友链截图"
+                /></a>
+                <figcaption>Aira 友链</figcaption>
+              </figure>
+              <figure>
+                <a href="samples/links.jpg" aria-label="打开蓝笺友链原图"
+                  ><img loading="lazy" src="samples/links.jpg" alt="蓝笺友链截图"
+                /></a>
+                <figcaption>蓝笺友链</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="comparison">
+            <div class="compare-lead">
+              <h3>用选中态展开文字</h3>
+              <p>
+                先看两幅图的导航。KIRAKIRA
+                手机底栏选中项展开栏目名。蓝笺小屏导航也让当前项合并图标与文字，其他入口保留图标和可访问名称；键盘聚焦也会展开对应文字。页面上沿保留站标，底栏负责五个目的地。
+              </p>
+            </div>
+            <div class="compare-pair two-phones">
+              <figure>
+                <a href="evidence/kira-mobile.jpg" aria-label="打开KIRAKIRA 手机分区原图"
+                  ><img loading="lazy" src="evidence/kira-mobile.jpg" alt="KIRAKIRA 手机分区截图"
+                /></a>
+                <figcaption>KIRAKIRA 手机分区</figcaption>
+              </figure>
+              <figure>
+                <a href="samples/home-mobile.jpg" aria-label="打开蓝笺手机导航原图"
+                  ><img loading="lazy" src="samples/home-mobile.jpg" alt="蓝笺手机导航截图"
+                /></a>
+                <figcaption>蓝笺手机导航</figcaption>
+              </figure>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="states">
+        <p class="kicker">视觉表达</p>
+        <h2>一个动作，哪些元素一起回应</h2>
+        <p class="lead">
+          「截图」指静止画面，「交互」指实际切换，「源码」指作者写出的规则，「设计假设」留给本项目实验。按压与选中分开看，前者回答点击是否生效，后者告诉读者现在在哪。
+        </p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="可横向滚动的状态表">
+          <table>
+            <thead>
+              <tr>
+                <th>问题</th>
+                <th>对象</th>
+                <th>依据</th>
+                <th>发生了什么</th>
+                <th>迁移到蓝笺</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>结构</td>
+                <td>Aira 主页进入博客与友链</td>
+                <td><span class="status">截图</span></td>
+                <td>顶部入口相同，内页分别进入单列文章卡片和多栏人名目录。</td>
+                <td>按访客此刻要完成的事决定每屏密度。</td>
+              </tr>
+              <tr>
+                <td>分组</td>
+                <td>Aira 栏目标题</td>
+                <td><span class="status">截图＋源码</span></td>
+                <td>
+                  签名、直边图标底块与文字标题沿同一侧组织。<a
+                    href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/SectionTitle.vue"
+                    >标题源码</a
+                  >
+                </td>
+                <td>用色块切分功能，不剪掉文字笔画。</td>
+              </tr>
+              <tr>
+                <td>悬停</td>
+                <td>Aira 文章条目</td>
+                <td><span class="status">源码</span></td>
+                <td>
+                  悬停时卡片上浮、阴影加深，箭头同时变强调色。<a
+                    href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/Blog/BlogCard.vue"
+                    >BlogCard</a
+                  >
+                </td>
+                <td>整行与箭头属于一次操作；正文文本保持安静。</td>
+              </tr>
+              <tr>
+                <td>选中</td>
+                <td>KIRAKIRA 手机底栏</td>
+                <td><span class="status">交互＋源码</span></td>
+                <td>
+                  从首页切到分区，选中的图标旁出现栏目名，原项收起。<a
+                    href="https://github.com/KIRAKIRA-DOUGA/KIRAKIRA-Cerasus/blob/production/components/BottomNavItem.vue"
+                    >BottomNavItem</a
+                  >
+                </td>
+                <td>窄屏也让读者知道当前位置。蓝笺控件可同用颜色与文字。</td>
+              </tr>
+              <tr>
+                <td>按压</td>
+                <td>KIRAKIRA 按钮</td>
+                <td><span class="status">源码</span></td>
+                <td>
+                  Button 使用 v-ripple，并区分 hover、active 与 focus-visible。<a
+                    href="https://github.com/KIRAKIRA-DOUGA/KIRAKIRA-Cerasus/blob/production/components/Button.vue"
+                    >Button</a
+                  >
+                </td>
+                <td>借用状态语义，触控按下、键盘焦点各有明确反馈。</td>
+              </tr>
+              <tr>
+                <td>切页</td>
+                <td>Aira 页面离场</td>
+                <td><span class="status">源码</span></td>
+                <td>
+                  普通页面的退出为上移、淡出；文章里的 DX 演示有独立触发。<a
+                    href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/app.vue"
+                    >全局样式</a
+                  >
+                </td>
+                <td>阅读页适合更短的局部过渡，游戏式演示另作对照。</td>
+              </tr>
+              <tr>
+                <td>可读性</td>
+                <td>蓝笺正文上的弱残影</td>
+                <td><span class="status">设计假设</span></td>
+                <td>已知色块与锚点可独立描述；读者能否感到「刚才那页还在」需要用相同内容比对。</td>
+                <td>在正文首次可读时观察重影；任何可辨双字都回到基线。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source">
+          KIRAKIRA 发布分支有自己的 Vue 按钮、图标、涟漪和底栏实现。已查依赖清单未直接声明
+          <code>@material/web</code>。蓝笺可自主选用 Material Web 并封装自己的状态与主题。
+          <a href="https://github.com/KIRAKIRA-DOUGA/KIRAKIRA-Cerasus/blob/production/package.json">发布分支依赖</a>
+          <a href="https://material-web.dev/components/button/">Material Web 组件文档</a>
+        </p>
+      </section>
+      <section class="section" id="wires">
+        <p class="kicker">视觉信息架构</p>
+        <h2>六种访问目的，十二幅线框</h2>
+        <p class="lead">
+          先让每页只有一个首要任务。黑白草图表现内容顺序、对齐和密度，可与下面的真实样张交叉看。草图中的示意图、导航占位和间距可以在实验后调整。
+        </p>
+        <div class="wires">
+          <article class="wire">
+            <div class="wire-head">
+              <h3>主页</h3>
+              <code>/</code>
+            </div>
+            <p>
+              <strong>记得这是青屿的主页。</strong
+              >用头像认人，罗马字小标叠在大号网名上方，再读座右铭和账号图标。桌面两块并排，手机按此顺序纵排；进入博客有单独入口。
+            </p>
+            <div class="sketch-pair">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="主页 · 桌面草图" viewBox="0 0 350 204">
+                  <title>主页 · 桌面草图</title>
+                  <desc>
+                    用头像认人，罗马字小标叠在大号网名上方，再读座右铭和账号图标。桌面两块并排，手机按此顺序纵排；进入博客有单独入口。
+                  </desc>
+                  <rect x="0.5" y="0.5" width="349" height="203" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M170 1 L170 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M199 1 L199 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M228 1 L228 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M257 1 L257 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M286 1 L286 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M315 1 L315 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M344 1 L344 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L349 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L349 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L349 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L349 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L349 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L349 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L349 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="348" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L349 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+                  <text
+                    x="226"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ◈ 主页　　 博客　　 归档　　 友链
+                  </text>
+                  <circle cx="48" cy="97" r="28" fill="#d6dfe8" />
+                  <circle cx="48" cy="91.96" r="7.5600000000000005" fill="#8797aa" />
+                  <path d="M31.48 110.72q16.52 -26.32 33.04 0" fill="#8797aa" />
+                  <text
+                    x="94"
+                    y="85"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="28"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    青屿
+                  </text>
+                  <text
+                    x="94"
+                    y="57"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#687b90"
+                    font-weight="700"
+                  >
+                    Q I N G Y U
+                  </text>
+                  <text
+                    x="94"
+                    y="117"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="10"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    一句座右铭
+                  </text>
+                  <circle cx="99" cy="132" r="4" fill="#75869a" />
+                  <circle cx="114" cy="132" r="4" fill="#75869a" />
+                  <circle cx="129" cy="132" r="4" fill="#75869a" />
+                  <path d="M94 151 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="110"
+                    y="158"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="9"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    进入博客　→
+                  </text>
+                </svg>
+                <figcaption>桌面</figcaption>
+              </figure>
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="主页 · 移动草图" viewBox="0 0 150 226">
+                  <title>主页 · 移动草图</title>
+                  <desc>
+                    用头像认人，罗马字小标叠在大号网名上方，再读座右铭和账号图标。桌面两块并排，手机按此顺序纵排；进入博客有单独入口。
+                  </desc>
+                  <rect x="0.5" y="0.5" width="149" height="225" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L149 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L149 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L149 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L149 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L149 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L149 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L149 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 221 L149 221" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="148" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L149 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+
+                  <circle cx="75" cy="58" r="17" fill="#d6dfe8" />
+                  <circle cx="75" cy="54.94" r="4.59" fill="#8797aa" />
+                  <path d="M64.97 66.33q10.03 -15.979999999999999 20.06 0" fill="#8797aa" />
+                  <text
+                    x="44"
+                    y="96"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="21"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    青屿
+                  </text>
+                  <text
+                    x="44"
+                    y="76"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#687b90"
+                    font-weight="700"
+                  >
+                    Q I N G Y U
+                  </text>
+                  <text
+                    x="27"
+                    y="128"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="10"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    一句座右铭
+                  </text>
+                  <circle cx="53" cy="143" r="4" fill="#75869a" />
+                  <circle cx="68" cy="143" r="4" fill="#75869a" />
+                  <circle cx="83" cy="143" r="4" fill="#75869a" />
+                  <path d="M48 162 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="64"
+                    y="169"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="9"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    进入博客　→
+                  </text>
+                  <rect x="1" y="203" width="148" height="22" fill="white" />
+                  <path d="M1 203h148" stroke="#d3d9e5" />
+                  <rect x="5" y="205" width="22" height="11" rx="5" fill="#EAF0FD" />
+                  <g transform="translate(16 211)" fill="none" stroke="#446bdd" stroke-width=".85">
+                    <path d="m-4 0 4 -4 4 4 v4 h-3 v-2 h-2 v2 h-3Z" />
+                  </g>
+                  <text
+                    x="16"
+                    text-anchor="middle"
+                    y="222"
+                    font-family="system-ui, sans-serif"
+                    font-size="7"
+                    fill="#446bdd"
+                  >
+                    主页
+                  </text>
+                  <g transform="translate(45 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-3h3l1 1 1-1h3v6H1L0 4l-1-1h-3Z" />
+                  </g>
+                  <g transform="translate(74 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-2h8v5h-8ZM-3-4h6" />
+                  </g>
+                  <g transform="translate(103 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-1 1 3-3m-5 2-1 1a2 2 0 0 0 3 3l2-2m0-4 1-1a2 2 0 0 1 3 3l-1 1" />
+                  </g>
+                  <g transform="translate(132 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <circle cy="-2" r="2" />
+                    <path d="M-4 4q4-6 8 0" />
+                  </g>
+                </svg>
+                <figcaption>手机</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="wire">
+            <div class="wire-head">
+              <h3>博客</h3>
+              <code>/blog/</code>
+            </div>
+            <p>
+              <strong>挑一篇想读的文章。</strong
+              >栏目以斜切色块开头。粗标题领起每一行，摘要、日期与末端箭头组成同一个单列入口。
+            </p>
+            <div class="sketch-pair">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="博客 · 桌面草图" viewBox="0 0 350 204">
+                  <title>博客 · 桌面草图</title>
+                  <desc>栏目以斜切色块开头。粗标题领起每一行，摘要、日期与末端箭头组成同一个单列入口。</desc>
+                  <rect x="0.5" y="0.5" width="349" height="203" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M170 1 L170 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M199 1 L199 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M228 1 L228 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M257 1 L257 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M286 1 L286 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M315 1 L315 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M344 1 L344 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L349 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L349 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L349 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L349 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L349 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L349 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L349 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="348" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L349 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+                  <text
+                    x="226"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ◈ 主页　　 博客　　 归档　　 友链
+                  </text>
+                  <path d="M23 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="40"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    博客
+                  </text>
+                  <path d="M23 59 L327 59" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="23"
+                    y="73"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="14"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="23" y="80" width="209.76" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="23"
+                    y="92"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    日期
+                  </text>
+                  <text
+                    x="317"
+                    y="84"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    →
+                  </text>
+                  <path d="M23 103 L327 103" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="23"
+                    y="117"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="14"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="23" y="124" width="209.76" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="23"
+                    y="136"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    日期
+                  </text>
+                  <text
+                    x="317"
+                    y="128"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    →
+                  </text>
+                  <path d="M23 147 L327 147" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="23"
+                    y="161"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="14"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="23" y="168" width="209.76" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="23"
+                    y="180"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    日期
+                  </text>
+                  <text
+                    x="317"
+                    y="172"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    →
+                  </text>
+                </svg>
+                <figcaption>桌面</figcaption>
+              </figure>
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="博客 · 移动草图" viewBox="0 0 150 226">
+                  <title>博客 · 移动草图</title>
+                  <desc>栏目以斜切色块开头。粗标题领起每一行，摘要、日期与末端箭头组成同一个单列入口。</desc>
+                  <rect x="0.5" y="0.5" width="149" height="225" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L149 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L149 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L149 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L149 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L149 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L149 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L149 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 221 L149 221" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="148" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L149 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+
+                  <path d="M12 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="29"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    博客
+                  </text>
+                  <path d="M12 59 L138 59" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="12"
+                    y="73"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="12" y="80" width="86.94" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="12"
+                    y="92"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    日期
+                  </text>
+                  <text
+                    x="128"
+                    y="84"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    →
+                  </text>
+                  <path d="M12 109 L138 109" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="12"
+                    y="123"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="12" y="130" width="86.94" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="12"
+                    y="142"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    日期
+                  </text>
+                  <text
+                    x="128"
+                    y="134"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    →
+                  </text>
+                  <path d="M12 159 L138 159" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="12"
+                    y="173"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="12" y="180" width="86.94" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="12"
+                    y="192"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    日期
+                  </text>
+                  <text
+                    x="128"
+                    y="184"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    →
+                  </text>
+                  <rect x="1" y="203" width="148" height="22" fill="white" />
+                  <path d="M1 203h148" stroke="#d3d9e5" />
+                  <g transform="translate(16 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-4 0 4 -4 4 4 v4 h-3 v-2 h-2 v2 h-3Z" />
+                  </g>
+                  <rect x="34" y="205" width="22" height="11" rx="5" fill="#EAF0FD" />
+                  <g transform="translate(45 211)" fill="none" stroke="#446bdd" stroke-width=".85">
+                    <path d="M-4-3h3l1 1 1-1h3v6H1L0 4l-1-1h-3Z" />
+                  </g>
+                  <text
+                    x="45"
+                    text-anchor="middle"
+                    y="222"
+                    font-family="system-ui, sans-serif"
+                    font-size="7"
+                    fill="#446bdd"
+                  >
+                    博客
+                  </text>
+                  <g transform="translate(74 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-2h8v5h-8ZM-3-4h6" />
+                  </g>
+                  <g transform="translate(103 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-1 1 3-3m-5 2-1 1a2 2 0 0 0 3 3l2-2m0-4 1-1a2 2 0 0 1 3 3l-1 1" />
+                  </g>
+                  <g transform="translate(132 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <circle cy="-2" r="2" />
+                    <path d="M-4 4q4-6 8 0" />
+                  </g>
+                </svg>
+                <figcaption>手机</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="wire">
+            <div class="wire-head">
+              <h3>文章</h3>
+              <code>/blog/…</code>
+            </div>
+            <p>
+              <strong>专心读正文。</strong
+              >导航保持固定的阅读参照。返回入口、顶端标题、发布时间与单栏正文按阅读顺序出现，动效只交接文章标题。
+            </p>
+            <div class="sketch-pair">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="文章 · 桌面草图" viewBox="0 0 350 204">
+                  <title>文章 · 桌面草图</title>
+                  <desc>
+                    导航保持固定的阅读参照。返回入口、顶端标题、发布时间与单栏正文按阅读顺序出现，动效只交接文章标题。
+                  </desc>
+                  <rect x="0.5" y="0.5" width="349" height="203" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M170 1 L170 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M199 1 L199 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M228 1 L228 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M257 1 L257 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M286 1 L286 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M315 1 L315 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M344 1 L344 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L349 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L349 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L349 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L349 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L349 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L349 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L349 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="348" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L349 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+                  <text
+                    x="226"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ◈ 主页　　 博客　　 归档　　 友链
+                  </text>
+                  <text
+                    x="65"
+                    y="40"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ← 返回博客
+                  </text>
+                  <text
+                    x="65"
+                    y="65"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="23"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    文章标题
+                  </text>
+                  <text
+                    x="65"
+                    y="79"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    发布日期
+                  </text>
+                  <path d="M65 86 L285 86" stroke="#ced5db" opacity="1" fill="none" />
+                  <rect x="65" y="99" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="106" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="113" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="120" width="160.6" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="65"
+                    y="144"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    段落标题
+                  </text>
+                  <rect x="65" y="154" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="161" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="168" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="175" width="220" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="65" y="182" width="160.6" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                </svg>
+                <figcaption>桌面</figcaption>
+              </figure>
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="文章 · 移动草图" viewBox="0 0 150 226">
+                  <title>文章 · 移动草图</title>
+                  <desc>
+                    导航保持固定的阅读参照。返回入口、顶端标题、发布时间与单栏正文按阅读顺序出现，动效只交接文章标题。
+                  </desc>
+                  <rect x="0.5" y="0.5" width="149" height="225" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L149 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L149 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L149 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L149 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L149 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L149 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L149 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 221 L149 221" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="148" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L149 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+
+                  <text
+                    x="12"
+                    y="40"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ← 返回博客
+                  </text>
+                  <text
+                    x="12"
+                    y="65"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="19"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    文章标题
+                  </text>
+                  <text
+                    x="12"
+                    y="79"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    发布日期
+                  </text>
+                  <path d="M12 86 L138 86" stroke="#ced5db" opacity="1" fill="none" />
+                  <rect x="12" y="99" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="106" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="113" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="120" width="91.98" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="12"
+                    y="144"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    段落标题
+                  </text>
+                  <rect x="12" y="154" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="161" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="168" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="175" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="182" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="189" width="126" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="196" width="91.98" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="1" y="203" width="148" height="22" fill="white" />
+                  <path d="M1 203h148" stroke="#d3d9e5" />
+                  <g transform="translate(16 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-4 0 4 -4 4 4 v4 h-3 v-2 h-2 v2 h-3Z" />
+                  </g>
+                  <rect x="34" y="205" width="22" height="11" rx="5" fill="#EAF0FD" />
+                  <g transform="translate(45 211)" fill="none" stroke="#446bdd" stroke-width=".85">
+                    <path d="M-4-3h3l1 1 1-1h3v6H1L0 4l-1-1h-3Z" />
+                  </g>
+                  <text
+                    x="45"
+                    text-anchor="middle"
+                    y="222"
+                    font-family="system-ui, sans-serif"
+                    font-size="7"
+                    fill="#446bdd"
+                  >
+                    博客
+                  </text>
+                  <g transform="translate(74 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-2h8v5h-8ZM-3-4h6" />
+                  </g>
+                  <g transform="translate(103 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-1 1 3-3m-5 2-1 1a2 2 0 0 0 3 3l2-2m0-4 1-1a2 2 0 0 1 3 3l-1 1" />
+                  </g>
+                  <g transform="translate(132 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <circle cy="-2" r="2" />
+                    <path d="M-4 4q4-6 8 0" />
+                  </g>
+                </svg>
+                <figcaption>手机</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="wire">
+            <div class="wire-head">
+              <h3>归档</h3>
+              <code>/archive/</code>
+            </div>
+            <p>
+              <strong>从年份找到旧文。</strong
+              >年份索引先给出跳转目标，年份分组下用对齐的日期与篇名排成密行。手机把索引缩成紧凑的一行。
+            </p>
+            <div class="sketch-pair">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="归档 · 桌面草图" viewBox="0 0 350 204">
+                  <title>归档 · 桌面草图</title>
+                  <desc>年份索引先给出跳转目标，年份分组下用对齐的日期与篇名排成密行。手机把索引缩成紧凑的一行。</desc>
+                  <rect x="0.5" y="0.5" width="349" height="203" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M170 1 L170 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M199 1 L199 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M228 1 L228 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M257 1 L257 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M286 1 L286 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M315 1 L315 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M344 1 L344 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L349 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L349 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L349 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L349 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L349 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L349 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L349 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="348" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L349 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+                  <text
+                    x="226"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ◈ 主页　　 博客　　 归档　　 友链
+                  </text>
+                  <path d="M23 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="40"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    归档
+                  </text>
+                  <text
+                    x="23"
+                    y="70"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#445b74"
+                    font-weight="700"
+                  >
+                    年份索引
+                  </text>
+                  <text
+                    x="23"
+                    y="88"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="9"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    2026
+                  </text>
+                  <text
+                    x="23"
+                    y="104"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="9"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    2025
+                  </text>
+                  <path d="M72 62 L72 183" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="87"
+                    y="67"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#314659"
+                    font-weight="800"
+                  >
+                    2026
+                  </text>
+                  <path d="M87 71 L327 71" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="87"
+                    y="84"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="147"
+                    y="84"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="87"
+                    y="96"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="147"
+                    y="96"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="87"
+                    y="108"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="147"
+                    y="108"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="87"
+                    y="127"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#314659"
+                    font-weight="800"
+                  >
+                    2025
+                  </text>
+                  <path d="M87 131 L327 131" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="87"
+                    y="144"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="147"
+                    y="144"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="87"
+                    y="156"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="147"
+                    y="156"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="87"
+                    y="168"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="147"
+                    y="168"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                </svg>
+                <figcaption>桌面</figcaption>
+              </figure>
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="归档 · 移动草图" viewBox="0 0 150 226">
+                  <title>归档 · 移动草图</title>
+                  <desc>年份索引先给出跳转目标，年份分组下用对齐的日期与篇名排成密行。手机把索引缩成紧凑的一行。</desc>
+                  <rect x="0.5" y="0.5" width="149" height="225" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L149 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L149 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L149 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L149 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L149 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L149 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L149 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 221 L149 221" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="148" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L149 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+
+                  <path d="M12 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="29"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    归档
+                  </text>
+                  <text
+                    x="12"
+                    y="65"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#445b74"
+                    font-weight="700"
+                  >
+                    年份　2026　2025
+                  </text>
+                  <text
+                    x="12"
+                    y="79"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#314659"
+                    font-weight="800"
+                  >
+                    2026
+                  </text>
+                  <path d="M12 83 L138 83" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="12"
+                    y="96"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="43.5"
+                    y="96"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="12"
+                    y="108"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="43.5"
+                    y="108"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="12"
+                    y="120"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="43.5"
+                    y="120"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="12"
+                    y="143"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#314659"
+                    font-weight="800"
+                  >
+                    2025
+                  </text>
+                  <path d="M12 147 L138 147" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="12"
+                    y="160"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="43.5"
+                    y="160"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="12"
+                    y="172"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="43.5"
+                    y="172"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <text
+                    x="12"
+                    y="184"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    月/日
+                  </text>
+                  <text
+                    x="43.5"
+                    y="184"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    手记标题
+                  </text>
+                  <rect x="1" y="203" width="148" height="22" fill="white" />
+                  <path d="M1 203h148" stroke="#d3d9e5" />
+                  <g transform="translate(16 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-4 0 4 -4 4 4 v4 h-3 v-2 h-2 v2 h-3Z" />
+                  </g>
+                  <g transform="translate(45 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-3h3l1 1 1-1h3v6H1L0 4l-1-1h-3Z" />
+                  </g>
+                  <rect x="63" y="205" width="22" height="11" rx="5" fill="#EAF0FD" />
+                  <g transform="translate(74 211)" fill="none" stroke="#446bdd" stroke-width=".85">
+                    <path d="M-4-2h8v5h-8ZM-3-4h6" />
+                  </g>
+                  <text
+                    x="74"
+                    text-anchor="middle"
+                    y="222"
+                    font-family="system-ui, sans-serif"
+                    font-size="7"
+                    fill="#446bdd"
+                  >
+                    归档
+                  </text>
+                  <g transform="translate(103 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-1 1 3-3m-5 2-1 1a2 2 0 0 0 3 3l2-2m0-4 1-1a2 2 0 0 1 3 3l-1 1" />
+                  </g>
+                  <g transform="translate(132 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <circle cy="-2" r="2" />
+                    <path d="M-4 4q4-6 8 0" />
+                  </g>
+                </svg>
+                <figcaption>手机</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="wire">
+            <div class="wire-head">
+              <h3>友链</h3>
+              <code>/links/</code>
+            </div>
+            <p>
+              <strong>找到一个朋友。</strong
+              >每格由人像、名字、站点说明与出站提示组成。桌面形成名录，窄屏减少列数，名字优先保持完整。
+            </p>
+            <div class="sketch-pair">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="友链 · 桌面草图" viewBox="0 0 350 204">
+                  <title>友链 · 桌面草图</title>
+                  <desc>每格由人像、名字、站点说明与出站提示组成。桌面形成名录，窄屏减少列数，名字优先保持完整。</desc>
+                  <rect x="0.5" y="0.5" width="349" height="203" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M170 1 L170 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M199 1 L199 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M228 1 L228 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M257 1 L257 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M286 1 L286 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M315 1 L315 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M344 1 L344 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L349 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L349 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L349 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L349 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L349 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L349 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L349 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="348" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L349 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+                  <text
+                    x="226"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ◈ 主页　　 博客　　 归档　　 友链
+                  </text>
+                  <path d="M23 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="40"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    友链
+                  </text>
+                  <rect x="23" y="58" width="98" height="47" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="35" cy="72" r="7" fill="#d6dfe8" />
+                  <circle cx="35" cy="70.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M30.87 75.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="46"
+                    y="72"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="46" y="78" width="37.24" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="111"
+                    y="70"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="126" y="58" width="98" height="47" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="138" cy="72" r="7" fill="#d6dfe8" />
+                  <circle cx="138" cy="70.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M133.87 75.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="149"
+                    y="72"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="149" y="78" width="37.24" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="214"
+                    y="70"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="229" y="58" width="98" height="47" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="241" cy="72" r="7" fill="#d6dfe8" />
+                  <circle cx="241" cy="70.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M236.87 75.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="252"
+                    y="72"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="252" y="78" width="37.24" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="317"
+                    y="70"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="23" y="112" width="98" height="47" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="35" cy="126" r="7" fill="#d6dfe8" />
+                  <circle cx="35" cy="124.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M30.87 129.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="46"
+                    y="126"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="46" y="132" width="37.24" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="111"
+                    y="124"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="126" y="112" width="98" height="47" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="138" cy="126" r="7" fill="#d6dfe8" />
+                  <circle cx="138" cy="124.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M133.87 129.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="149"
+                    y="126"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="149" y="132" width="37.24" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="214"
+                    y="124"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="229" y="112" width="98" height="47" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="241" cy="126" r="7" fill="#d6dfe8" />
+                  <circle cx="241" cy="124.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M236.87 129.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="252"
+                    y="126"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="252" y="132" width="37.24" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="317"
+                    y="124"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                </svg>
+                <figcaption>桌面</figcaption>
+              </figure>
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="友链 · 移动草图" viewBox="0 0 150 226">
+                  <title>友链 · 移动草图</title>
+                  <desc>每格由人像、名字、站点说明与出站提示组成。桌面形成名录，窄屏减少列数，名字优先保持完整。</desc>
+                  <rect x="0.5" y="0.5" width="149" height="225" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L149 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L149 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L149 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L149 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L149 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L149 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L149 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 221 L149 221" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="148" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L149 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+
+                  <path d="M12 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="29"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    友链
+                  </text>
+                  <rect x="12" y="58" width="126" height="34" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="24" cy="72" r="7" fill="#d6dfe8" />
+                  <circle cx="24" cy="70.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M19.87 75.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="35"
+                    y="72"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="35" y="78" width="47.88" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="128"
+                    y="70"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="12" y="97" width="126" height="34" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="24" cy="111" r="7" fill="#d6dfe8" />
+                  <circle cx="24" cy="109.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M19.87 114.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="35"
+                    y="111"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="35" y="117" width="47.88" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="128"
+                    y="109"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="12" y="136" width="126" height="34" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="24" cy="150" r="7" fill="#d6dfe8" />
+                  <circle cx="24" cy="148.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M19.87 153.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="35"
+                    y="150"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="35" y="156" width="47.88" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="128"
+                    y="148"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="12" y="175" width="126" height="34" rx="2" fill="#fff" stroke="#d2dae1" />
+                  <circle cx="24" cy="189" r="7" fill="#d6dfe8" />
+                  <circle cx="24" cy="187.74" r="1.8900000000000001" fill="#8797aa" />
+                  <path d="M19.87 192.43q4.13 -6.58 8.26 0" fill="#8797aa" />
+                  <text
+                    x="35"
+                    y="189"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    朋友
+                  </text>
+                  <rect x="35" y="195" width="47.88" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="128"
+                    y="187"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ↗
+                  </text>
+                  <rect x="1" y="203" width="148" height="22" fill="white" />
+                  <path d="M1 203h148" stroke="#d3d9e5" />
+                  <g transform="translate(16 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-4 0 4 -4 4 4 v4 h-3 v-2 h-2 v2 h-3Z" />
+                  </g>
+                  <g transform="translate(45 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-3h3l1 1 1-1h3v6H1L0 4l-1-1h-3Z" />
+                  </g>
+                  <g transform="translate(74 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-2h8v5h-8ZM-3-4h6" />
+                  </g>
+                  <rect x="92" y="205" width="22" height="11" rx="5" fill="#EAF0FD" />
+                  <g transform="translate(103 211)" fill="none" stroke="#446bdd" stroke-width=".85">
+                    <path d="m-1 1 3-3m-5 2-1 1a2 2 0 0 0 3 3l2-2m0-4 1-1a2 2 0 0 1 3 3l-1 1" />
+                  </g>
+                  <text
+                    x="103"
+                    text-anchor="middle"
+                    y="222"
+                    font-family="system-ui, sans-serif"
+                    font-size="7"
+                    fill="#446bdd"
+                  >
+                    友链
+                  </text>
+                  <g transform="translate(132 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <circle cy="-2" r="2" />
+                    <path d="M-4 4q4-6 8 0" />
+                  </g>
+                </svg>
+                <figcaption>手机</figcaption>
+              </figure>
+            </div>
+          </article>
+          <article class="wire">
+            <div class="wire-head">
+              <h3>关于</h3>
+              <code>/about/</code>
+            </div>
+            <p>
+              <strong>更深入地认识站主。</strong
+              >重复同一身份组以辨认站主，自我介绍展开成段落。账号取自与首页相同的配置。
+            </p>
+            <div class="sketch-pair">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="关于 · 桌面草图" viewBox="0 0 350 204">
+                  <title>关于 · 桌面草图</title>
+                  <desc>重复同一身份组以辨认站主，自我介绍展开成段落。账号取自与首页相同的配置。</desc>
+                  <rect x="0.5" y="0.5" width="349" height="203" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M170 1 L170 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M199 1 L199 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M228 1 L228 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M257 1 L257 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M286 1 L286 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M315 1 L315 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M344 1 L344 203" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L349 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L349 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L349 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L349 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L349 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L349 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L349 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="348" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L349 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+                  <text
+                    x="226"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    ◈ 主页　　 博客　　 归档　　 友链
+                  </text>
+                  <path d="M23 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="40"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    关于
+                  </text>
+                  <circle cx="44" cy="72" r="11" fill="#d6dfe8" />
+                  <circle cx="44" cy="70.02" r="2.97" fill="#8797aa" />
+                  <path d="M37.51 77.39q6.489999999999999 -10.34 12.979999999999999 0" fill="#8797aa" />
+                  <text
+                    x="62"
+                    y="72"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="14"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    青屿
+                  </text>
+                  <text
+                    x="62"
+                    y="83"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    Q I N G Y U
+                  </text>
+                  <text
+                    x="31"
+                    y="101"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    座右铭
+                  </text>
+                  <path d="M31 109 L327 109" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="31"
+                    y="126"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    自我介绍
+                  </text>
+                  <rect x="31" y="136" width="258.4" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="31" y="143" width="258.4" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="31" y="150" width="258.4" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="31" y="157" width="188.63199999999998" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="31"
+                    y="180"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="9"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    社区账号　◉　◉
+                  </text>
+                </svg>
+                <figcaption>桌面</figcaption>
+              </figure>
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="关于 · 移动草图" viewBox="0 0 150 226">
+                  <title>关于 · 移动草图</title>
+                  <desc>重复同一身份组以辨认站主，自我介绍展开成段落。账号取自与首页相同的配置。</desc>
+                  <rect x="0.5" y="0.5" width="149" height="225" rx="5" fill="#fbfcfc" stroke="#b9c3ca" />
+                  <path d="M25 1 L25 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M54 1 L54 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M83 1 L83 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M112 1 L112 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M141 1 L141 225" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 18 L149 18" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 47 L149 47" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 76 L149 76" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 105 L149 105" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 134 L149 134" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 163 L149 163" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 192 L149 192" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <path d="M1 221 L149 221" stroke="#dce4ed" opacity="0.55" fill="none" />
+                  <rect x="1" y="1" width="148" height="22" rx="4" fill="#fff" stroke="none" />
+                  <path d="M1 23 L149 23" stroke="#ced5db" opacity="1" fill="none" />
+                  <path d="M9 8 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="24"
+                    y="15"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#42576e"
+                    font-weight="700"
+                  >
+                    蓝笺
+                  </text>
+
+                  <path d="M12 41 h12 l-4 7 h-12 Z" fill="#627a99" />
+                  <text
+                    x="29"
+                    y="49"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="15"
+                    fill="#354757"
+                    font-weight="700"
+                  >
+                    关于
+                  </text>
+                  <circle cx="25" cy="72" r="11" fill="#d6dfe8" />
+                  <circle cx="25" cy="70.02" r="2.97" fill="#8797aa" />
+                  <path d="M18.51 77.39q6.489999999999999 -10.34 12.979999999999999 0" fill="#8797aa" />
+                  <text
+                    x="43"
+                    y="72"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="14"
+                    fill="#34485e"
+                    font-weight="800"
+                  >
+                    青屿
+                  </text>
+                  <text
+                    x="43"
+                    y="83"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="7"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    Q I N G Y U
+                  </text>
+                  <text
+                    x="12"
+                    y="101"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="8"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    座右铭
+                  </text>
+                  <path d="M12 109 L138 109" stroke="#ced5db" opacity="1" fill="none" />
+                  <text
+                    x="12"
+                    y="126"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="12"
+                    fill="#34485e"
+                    font-weight="700"
+                  >
+                    自我介绍
+                  </text>
+                  <rect x="12" y="136" width="107.1" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="143" width="107.1" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="150" width="107.1" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="157" width="107.1" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="164" width="107.1" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <rect x="12" y="171" width="78.18299999999999" height="2" rx="1" fill="#b0bbc4" stroke="none" />
+                  <text
+                    x="12"
+                    y="201"
+                    font-family="system-ui,'Microsoft YaHei',sans-serif"
+                    font-size="9"
+                    fill="#354757"
+                    font-weight="400"
+                  >
+                    社区账号　◉　◉
+                  </text>
+                  <rect x="1" y="203" width="148" height="22" fill="white" />
+                  <path d="M1 203h148" stroke="#d3d9e5" />
+                  <g transform="translate(16 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-4 0 4 -4 4 4 v4 h-3 v-2 h-2 v2 h-3Z" />
+                  </g>
+                  <g transform="translate(45 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-3h3l1 1 1-1h3v6H1L0 4l-1-1h-3Z" />
+                  </g>
+                  <g transform="translate(74 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="M-4-2h8v5h-8ZM-3-4h6" />
+                  </g>
+                  <g transform="translate(103 211)" fill="none" stroke="#5a667c" stroke-width=".85">
+                    <path d="m-1 1 3-3m-5 2-1 1a2 2 0 0 0 3 3l2-2m0-4 1-1a2 2 0 0 1 3 3l-1 1" />
+                  </g>
+                  <rect x="121" y="205" width="22" height="11" rx="5" fill="#EAF0FD" />
+                  <g transform="translate(132 211)" fill="none" stroke="#446bdd" stroke-width=".85">
+                    <circle cy="-2" r="2" />
+                    <path d="M-4 4q4-6 8 0" />
+                  </g>
+                  <text
+                    x="132"
+                    text-anchor="middle"
+                    y="222"
+                    font-family="system-ui, sans-serif"
+                    font-size="7"
+                    fill="#446bdd"
+                  >
+                    关于
+                  </text>
+                </svg>
+                <figcaption>手机</figcaption>
+              </figure>
+            </div>
+          </article>
+        </div>
+        <aside class="intent">
+          <strong>内容的边界</strong>
+          <p>
+            一篇 Markdown
+            文章同时进入博客列表、阅读页和归档。关于页的长文独立维护，网名、座右铭和社区链接由项目配置供主页与关于页读取。列表、时间线和正文各自决定排版。
+          </p>
+        </aside>
+      </section>
+      <section class="section" id="theme">
+        <p class="kicker">视觉主题</p>
+        <h2>一张蓝色坐标纸，容纳不同密度</h2>
+        <p class="lead">
+          浅蓝网格在全站延续，栏目以对角切口辨认，几何无衬线字用粗细区分网名、标题和元数据。近白底留给长文，大蓝色只落在当前项、动作和少数视觉锚点。
+        </p>
+        <div class="swatches">
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: #fcfdff"></i><strong>纸面</strong><code>#FCFDFF</code>统一的近白页面背景。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: #446bdd"></i><strong>强调蓝</strong
+            ><code>#446BDD</code>站点强调色、链接和主动作。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: color-mix(in srgb, #446bdd 8%, white)"></i><strong>浅蓝表面</strong
+            ><code>color-mix(in srgb, #446BDD 8%, white)</code>当前项图标背后的轻色面。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: #202738"></i><strong>正文墨色</strong
+            ><code>#202738</code>正文与粗标题保持清晰。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: #5a667c"></i><strong>辅助墨色 / 轮廓</strong
+            ><code>#5A667C</code>元数据、说明与 Material 控件轮廓。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: color-mix(in srgb, #446bdd 15%, #e7ebf2)"></i><strong>分隔线</strong
+            ><code>color-mix(in srgb, #446BDD 15%, #E7EBF2)</code>区分紧密排列的条目与分组。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: color-mix(in srgb, #446bdd 85%, #091a4a)"></i><strong>深蓝</strong
+            ><code>color-mix(in srgb, #446BDD 85%, #091A4A)</code>选中项文字与浅蓝表面上的内容。
+          </div>
+          <div class="swatch">
+            <i aria-hidden="true" style="--c: #ffffff"></i><strong>白色表面</strong
+            ><code>#FFFFFF</code>导航与控件使用的白色表面。
+          </div>
+        </div>
+        <p class="source">
+          色板依据正式站的主题配置与全局 CSS。派生色以实际 sRGB
+          混合公式表示，改变基准蓝后，浅色面、细线和深蓝同步变化。动效原型保留自己的试验配色，主要用于比较层数、方向和模糊范围。
+        </p>
+        <div class="reading">
+          <div>
+            <h3>线与面</h3>
+            <p>头像、轻按钮可以有曲线。归档年份、行边界与日期列保留直线和稳定的起点，扫读沿着这条线进行。</p>
+          </div>
+          <div>
+            <h3>字与图标</h3>
+            <p>
+              标题承担命名，箭头承担去向。按同一条基线组织，图标和文字共用同一个命中区域。纯图标链接另有可访问名称。
+            </p>
+          </div>
+          <div>
+            <h3>读与动</h3>
+            <p>当前、按压与焦点各有表现。正文落定后保留清楚的文字，装饰活动集中在页头或局部表面。</p>
+          </div>
+        </div>
+        <h3>蓝笺页面样张</h3>
+        <fieldset class="sample-check" aria-describedby="sample-help">
+          <legend>查看同一组样张</legend>
+          <p id="sample-help">
+            切换原色与灰度，检查去掉色相之后，网名、文章标题与年份还能否靠字级、明暗和位置被辨认。两种模式使用同一张图；点击图片可打开原色大图。
+          </p>
+          <input type="radio" id="sample-color" name="sample-render" checked />
+          <label for="sample-color">原色</label>
+          <input type="radio" id="sample-gray" name="sample-render" />
+          <label for="sample-gray">灰度</label>
+          <div class="samples">
+            <figure>
+              <a href="samples/home.jpg"
+                ><img loading="lazy" src="samples/home.jpg" alt="主页页面样张，头像、叠排网名和社区行的主次"
+              /></a>
+              <figcaption>主页 · 头像、叠排网名和社区行的主次</figcaption>
+            </figure>
+            <figure>
+              <a href="samples/article.jpg"
+                ><img loading="lazy" src="samples/article.jpg" alt="文章页面样张，正文的行长、对比与页边"
+              /></a>
+              <figcaption>文章 · 正文的行长、对比与页边</figcaption>
+            </figure>
+            <figure>
+              <a href="samples/archive.jpg"
+                ><img loading="lazy" src="samples/archive.jpg" alt="归档页面样张，密集日期、分组与细分隔"
+              /></a>
+              <figcaption>归档 · 密集日期、分组与细分隔</figcaption>
+            </figure>
+          </div>
+        </fieldset>
+      </section>
+      <section class="section" id="motion">
+        <p class="kicker">游戏与网页动效</p>
+        <h2>换画面时，读者的眼睛去了哪里</h2>
+        <p class="lead">
+          把转场拆成可复述的变化。前两条根据游戏开发者或复现作者的资料重绘，后两条是蓝笺双向路径的设计分镜。游戏示意图仅标识形状、方向和注意力，不承担时间测量。
+        </p>
+        <article class="board">
+          <h3>maimai DX UNiVERSE</h3>
+          <p>
+            Aira
+            的网页复现采用蓝色实底、斜向轨迹、中心圆标三层。下图按作者代码重绘时序。没有原机逐帧录像，具体时刻只对应网页演示。
+          </p>
+          <ol class="frames">
+            <li>
+              <svg role="img" aria-label="maimai 分镜第 1 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#f9faf7" />
+                <rect x="15" y="18" width="92" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="28" width="86" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="38" width="80" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="48" width="74" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="58" width="68" height="2" rx="0" fill="#acb8b2" /></svg
+              ><b>1 · 触发</b><small>点击文章内的播放入口。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="maimai 分镜第 2 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#f9faf7" />
+                <rect x="15" y="18" width="92" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="28" width="86" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="38" width="80" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="48" width="74" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="58" width="68" height="2" rx="0" fill="#acb8b2" />
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#a6deeb" />
+                <g transform="translate(8 47) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <g transform="translate(96 60) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <path d="M0 0 H29 L0 26 Z M132 74 H102 L132 49 Z" fill="#caedf3" />
+                <circle cx="66" cy="37" r="36" fill="none" stroke="#d9ffff" stroke-width="4" /></svg
+              ><b>2 · 铺底</b><small>蓝底从透明变实，轨迹从边缘入场。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="maimai 分镜第 3 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#f9faf7" />
+                <rect x="15" y="18" width="92" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="28" width="86" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="38" width="80" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="48" width="74" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="58" width="68" height="2" rx="0" fill="#acb8b2" />
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#76d2f0" />
+                <g transform="translate(8 47) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <g transform="translate(96 60) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <path d="M0 0 H29 L0 26 Z M132 74 H102 L132 49 Z" fill="#caedf3" />
+                <circle cx="66" cy="37" r="22" fill="none" stroke="#d9ffff" stroke-width="4" /></svg
+              ><b>3 · 聚合</b><small>中心圆标由大收小，同时转正。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="maimai 分镜第 4 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#f9faf7" />
+                <rect x="15" y="18" width="92" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="28" width="86" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="38" width="80" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="48" width="74" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="58" width="68" height="2" rx="0" fill="#acb8b2" />
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#4ec0f8" />
+                <g transform="translate(8 47) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <g transform="translate(96 60) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <path d="M0 0 H29 L0 26 Z M132 74 H102 L132 49 Z" fill="#caedf3" />
+                <circle cx="66" cy="37" r="15" fill="none" stroke="#d9ffff" stroke-width="4" /></svg
+              ><b>4 · 遮挡</b><small>约 600 ms 时实色覆盖旧画面。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="maimai 分镜第 5 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#f9faf7" />
+                <rect x="15" y="18" width="92" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="28" width="86" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="38" width="80" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="48" width="74" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="58" width="68" height="2" rx="0" fill="#acb8b2" />
+                <path d="M0 0 H69 L0 60 Z M132 74 H56 L132 12 Z" fill="#4ec0f8" />
+                <g transform="translate(8 47) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <g transform="translate(96 60) rotate(-45)">
+                  <path d="M 0 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 7 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 14 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                  <path d="M 21 0 l 3 -3 l 3 3 l -3 3 Z" fill="#f0a8bf" />
+                </g>
+                <path d="M0 0 H29 L0 26 Z M132 74 H102 L132 49 Z" fill="#caedf3" />
+                <circle cx="66" cy="37" r="32" fill="none" stroke="#d9ffff" stroke-width="4" /></svg
+              ><b>5 · 揭示</b><small>约 800 ms 开始退出，两片背景斜向撤离。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="maimai 分镜第 6 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#f9faf7" />
+                <rect x="15" y="18" width="92" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="28" width="86" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="38" width="80" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="48" width="74" height="2" rx="0" fill="#acb8b2" />
+                <rect x="15" y="58" width="68" height="2" rx="0" fill="#acb8b2" /></svg
+              ><b>6 · 落定</b><small>中心图形放大淡出，露回同一篇文章。</small>
+            </li>
+          </ol>
+          <p class="source">
+            <a href="https://www.sega.jp/arcade/detail/maimai-deluxe-universe/">SEGA 作品页</a
+            ><a href="https://aira.cafe/blog/2">作者演示</a
+            ><a href="https://github.com/Aira-Sakuranomiya/white-aria/tree/main/app/components/DXTransition">动画源码</a
+            ><a
+              href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/content/dxtransitiondemo.vue"
+              >演示时序</a
+            >
+          </p>
+        </article>
+        <article class="board">
+          <h3>Bayonetta Origins · System → Options</h3>
+          <p>
+            白金工作室的 UI 主美说明，深入 Options 时，Cheshire
+            的剪影向读者靠近。两端据官方画面对照，中间几格是对动作的解释性示意，图形经过简化，时长未作测量。
+          </p>
+          <ol class="frames">
+            <li>
+              <svg role="img" aria-label="platinum 分镜第 1 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fbf4df" />
+                <rect x="3" y="3" width="126" height="68" rx="0" fill="#f3eed9" />
+                <text x="96" y="13" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#516858">
+                  System
+                </text>
+                <g transform="translate(92 43) scale(0.62)">
+                  <path
+                    d="M -14 6 Q -25 1 -21 -10 L -13 -8 L -9 -16 L -3 -10 Q 4 -10 7 -2 C 13 9 20 9 25 2 Q 27 -2 25 -5 Q 33 -1 29 6 Q 23 16 10 13 L 6 19 L 2 19 L 1 14 L -7 12 L -11 16 L -17 15 Z"
+                    fill="#9bcfbe"
+                  />
+                </g>
+                <text x="9" y="28" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#3c5246">
+                  菜单
+                </text>
+                <rect x="9" y="34" width="31" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="43" width="27" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="52" width="23" height="2" rx="0" fill="#a0ac95" /></svg
+              ><b>1 · System</b><small>读者先看到系统页与右侧剪影。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="platinum 分镜第 2 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fbf4df" />
+                <rect x="3" y="3" width="126" height="68" rx="0" fill="#f3eed9" />
+                <text x="96" y="13" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#516858">
+                  System
+                </text>
+                <g transform="translate(93 43) scale(0.62)">
+                  <path
+                    d="M -14 6 Q -25 1 -21 -10 L -13 -8 L -9 -16 L -3 -10 Q 4 -10 7 -2 C 13 9 20 9 25 2 Q 27 -2 25 -5 Q 33 -1 29 6 Q 23 16 10 13 L 6 19 L 2 19 L 1 14 L -7 12 L -11 16 L -17 15 Z"
+                    fill="#9bcfbe"
+                  />
+                </g>
+                <text x="9" y="28" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#3c5246">
+                  菜单
+                </text>
+                <rect x="9" y="34" width="31" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="43" width="27" height="2" rx="0" fill="#385747" />
+                <rect x="9" y="52" width="23" height="2" rx="0" fill="#a0ac95" /></svg
+              ><b>2 · 选择</b><small>从菜单选择 Options。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="platinum 分镜第 3 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fbf4df" />
+                <rect x="3" y="3" width="126" height="68" rx="0" fill="#f3eed9" />
+                <text x="96" y="13" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#516858">
+                  System
+                </text>
+                <g transform="translate(94 43) scale(0.74)">
+                  <path
+                    d="M -14 6 Q -25 1 -21 -10 L -13 -8 L -9 -16 L -3 -10 Q 4 -10 7 -2 C 13 9 20 9 25 2 Q 27 -2 25 -5 Q 33 -1 29 6 Q 23 16 10 13 L 6 19 L 2 19 L 1 14 L -7 12 L -11 16 L -17 15 Z"
+                    fill="#9bcfbe"
+                  />
+                </g>
+                <text x="9" y="28" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#3c5246">
+                  菜单
+                </text>
+                <rect x="9" y="34" width="31" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="43" width="27" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="52" width="23" height="2" rx="0" fill="#a0ac95" /></svg
+              ><b>3 · 变化起点</b><small>右上 System 提供位置参照。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="platinum 分镜第 4 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fbf4df" />
+                <rect x="3" y="3" width="126" height="68" rx="0" fill="#f3eed9" />
+                <text x="96" y="13" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#516858">
+                  System
+                </text>
+                <g transform="translate(97 44) scale(0.86)">
+                  <path
+                    d="M -14 6 Q -25 1 -21 -10 L -13 -8 L -9 -16 L -3 -10 Q 4 -10 7 -2 C 13 9 20 9 25 2 Q 27 -2 25 -5 Q 33 -1 29 6 Q 23 16 10 13 L 6 19 L 2 19 L 1 14 L -7 12 L -11 16 L -17 15 Z"
+                    fill="#9bcfbe"
+                  />
+                </g>
+                <text x="9" y="28" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#3c5246">
+                  菜单
+                </text>
+                <rect x="9" y="34" width="31" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="43" width="27" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="52" width="23" height="2" rx="0" fill="#a0ac95" /></svg
+              ><b>4 · 靠近</b><small>右侧同一浅青剪影在视野中变大。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="platinum 分镜第 5 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fbf4df" />
+                <rect x="3" y="3" width="126" height="68" rx="0" fill="#f3eed9" />
+                <text x="96" y="13" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#516858">
+                  System
+                </text>
+                <g transform="translate(101 44) scale(1.03)">
+                  <path
+                    d="M -14 6 Q -25 1 -21 -10 L -13 -8 L -9 -16 L -3 -10 Q 4 -10 7 -2 C 13 9 20 9 25 2 Q 27 -2 25 -5 Q 33 -1 29 6 Q 23 16 10 13 L 6 19 L 2 19 L 1 14 L -7 12 L -11 16 L -17 15 Z"
+                    fill="#9bcfbe"
+                  />
+                </g>
+                <text x="9" y="28" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#3c5246">
+                  Options
+                </text>
+                <rect x="9" y="34" width="31" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="43" width="27" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="52" width="23" height="2" rx="0" fill="#a0ac95" /></svg
+              ><b>5 · 阅读转移</b><small>菜单内容改为具体的设置项。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="platinum 分镜第 6 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fbf4df" />
+                <rect x="3" y="3" width="126" height="68" rx="0" fill="#f3eed9" />
+                <text x="96" y="13" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#516858">
+                  System
+                </text>
+                <g transform="translate(105 44) scale(1.18)">
+                  <path
+                    d="M -14 6 Q -25 1 -21 -10 L -13 -8 L -9 -16 L -3 -10 Q 4 -10 7 -2 C 13 9 20 9 25 2 Q 27 -2 25 -5 Q 33 -1 29 6 Q 23 16 10 13 L 6 19 L 2 19 L 1 14 L -7 12 L -11 16 L -17 15 Z"
+                    fill="#9bcfbe"
+                  />
+                </g>
+                <text x="9" y="28" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="8" fill="#3c5246">
+                  Options
+                </text>
+                <rect x="9" y="34" width="31" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="43" width="27" height="2" rx="0" fill="#a0ac95" />
+                <rect x="9" y="52" width="23" height="2" rx="0" fill="#a0ac95" /></svg
+              ><b>6 · Options</b><small>层级深入，绘本主题与上级联系仍在。</small>
+            </li>
+          </ol>
+          <p class="source">
+            <a href="https://www.platinumgames.com/official-blog/article/13347">白金工作室 UI 主美开发日志与两幅原图</a>
+          </p>
+        </article>
+        <article class="board">
+          <h3>博客去程 · 文章列表 → 正文</h3>
+          <p>
+            蓝笺设计分镜。从列表一行转入文章时，共享的标题把视线送到正文。以下为 B 版。首页进入博客另试浅蓝遮挡，C、D
+            分别将字影和外围模糊加入对照。
+          </p>
+          <ol class="frames">
+            <li>
+              <svg role="img" aria-label="forward 分镜第 1 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <rect x="10" y="24" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="24" width="62" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="40" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="40" width="57" height="3" rx="0" fill="#446bdd" />
+                <rect x="10" y="56" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="56" width="52" height="3" rx="0" fill="#5a667c" /></svg
+              ><b>1 · 选中标题</b><small>文章行与箭头共同指向目标。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="forward 分镜第 2 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <rect x="10" y="24" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="24" width="62" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="40" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="40" width="57" height="3" rx="0" fill="#446bdd" />
+                <rect x="10" y="56" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="56" width="52" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="38" width="24" height="3" rx="0" fill="#446bdd" /></svg
+              ><b>2 · 按下</b><small>按压反馈立即出现在当前条目。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="forward 分镜第 3 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <rect x="10" y="24" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="24" width="62" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="40" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="40" width="57" height="3" rx="0" fill="#446bdd" />
+                <rect x="10" y="56" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="56" width="52" height="3" rx="0" fill="#5a667c" />
+                <rect x="28" y="25" width="65" height="12" fill="#ecf0f5" />
+                <text x="31" y="34" font-size="8" fill="#446bdd">手记标题</text></svg
+              ><b>3 · 过渡起点</b><small>导航稳定，所选标题从列表位置出发。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="forward 分镜第 4 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <text x="19" y="30" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="10" fill="#202738">
+                  手记标题
+                </text>
+                <rect x="19" y="38" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="45" width="77" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="52" width="64" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="59" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="17" y="19" width="68" height="14" fill="#fcfdff" />
+                <text x="19" y="30" font-size="10" fill="#446bdd">手记标题</text></svg
+              ><b>4 · 内容接替</b><small>标题朝阅读栏的位置移动，旧列表让出空间。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="forward 分镜第 5 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <text x="19" y="30" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="10" fill="#202738">
+                  手记标题
+                </text>
+                <rect x="19" y="38" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="45" width="77" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="52" width="64" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="59" width="90" height="2" rx="0" fill="#a5b2a8" /></svg
+              ><b>5 · 正文就位</b><small>标题先可读，正文呈现稳定对比。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="forward 分镜第 6 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <text x="19" y="30" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="10" fill="#202738">
+                  手记标题
+                </text>
+                <rect x="19" y="38" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="45" width="77" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="52" width="64" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="59" width="90" height="2" rx="0" fill="#a5b2a8" /></svg
+              ><b>6 · 可阅读</b><small>没有悬在正文上的装饰或残影。</small>
+            </li>
+          </ol>
+          <p class="source"><a href="motion.html">转场对照实验</a></p>
+        </article>
+        <article class="board">
+          <h3>博客返程 · 正文 → 原列表</h3>
+          <p>蓝笺设计分镜。同一页的浏览器后退与返回入口都要能定位阅读来处。原列表行及滚动位置是返程的参照物。</p>
+          <ol class="frames">
+            <li>
+              <svg role="img" aria-label="back 分镜第 1 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <text x="19" y="30" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="10" fill="#202738">
+                  手记标题
+                </text>
+                <rect x="19" y="38" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="45" width="77" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="52" width="64" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="59" width="90" height="2" rx="0" fill="#a5b2a8" /></svg
+              ><b>1 · 结束阅读</b><small>从文章页返回。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="back 分镜第 2 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <text x="19" y="30" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="10" fill="#202738">
+                  手记标题
+                </text>
+                <rect x="19" y="38" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="45" width="77" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="52" width="64" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="59" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="10" y="19" width="10" height="3" rx="0" fill="#446bdd" /></svg
+              ><b>2 · 接收命令</b><small>离开的反馈不吞下第二次操作。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="back 分镜第 3 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <text x="19" y="30" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="10" fill="#202738">
+                  手记标题
+                </text>
+                <rect x="19" y="38" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="45" width="77" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="52" width="64" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="19" y="59" width="90" height="2" rx="0" fill="#a5b2a8" />
+                <rect x="28" y="25" width="65" height="12" fill="#ecf0f5" />
+                <text x="31" y="34" font-size="8" fill="#446bdd">手记标题</text></svg
+              ><b>3 · 方向反转</b><small>导航仍在原处，标题朝原列表位置返回。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="back 分镜第 4 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <rect x="10" y="24" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="24" width="62" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="40" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="40" width="57" height="3" rx="0" fill="#446bdd" />
+                <rect x="10" y="56" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="56" width="52" height="3" rx="0" fill="#5a667c" />
+                <rect x="17" y="19" width="68" height="14" fill="#fcfdff" />
+                <text x="19" y="30" font-size="10" fill="#446bdd">手记标题</text></svg
+              ><b>4 · 恢复列表</b><small>列表结构就位，找回原滚动位置。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="back 分镜第 5 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <rect x="10" y="24" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="24" width="62" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="40" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="40" width="57" height="3" rx="0" fill="#446bdd" />
+                <rect x="10" y="56" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="56" width="52" height="3" rx="0" fill="#5a667c" />
+                <rect x="9" y="36" width="2" height="10" rx="0" fill="#446bdd" /></svg
+              ><b>5 · 原行可见</b><small>刚读的标题与相邻行能被辨认。</small>
+            </li>
+            <li>
+              <svg role="img" aria-label="back 分镜第 6 幅" viewBox="0 0 132 74" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="132" height="74" rx="0" fill="#fcfdff" />
+                <rect x="0" y="0" width="132" height="13" rx="0" fill="#edf1f8" />
+                <text x="6" y="10" font-family="system-ui,Microsoft YaHei,sans-serif" font-size="7" fill="#446bdd">
+                  蓝笺
+                </text>
+                <rect x="10" y="24" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="24" width="62" height="3" rx="0" fill="#5a667c" />
+                <rect x="10" y="40" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="40" width="57" height="3" rx="0" fill="#446bdd" />
+                <rect x="10" y="56" width="22" height="3" rx="0" fill="#b6c5ba" />
+                <rect x="37" y="56" width="52" height="3" rx="0" fill="#5a667c" />
+                <rect x="9" y="36" width="2" height="10" rx="0" fill="#446bdd" /></svg
+              ><b>6 · 继续浏览</b><small>键盘焦点回到合理位置，可以接着选文。</small>
+            </li>
+          </ol>
+          <p class="source"><a href="motion.html">转场对照实验</a><a href="qa.md">查看验收记录</a></p>
+        </article>
+        <article class="board">
+          <h3>同级栏目、返程与减少动态</h3>
+          <p>
+            这三种路径用来检验层级与动效是否说的是同一件事。下表是预期行为。实际浏览器、设备和检查结果分别记在验收页。
+          </p>
+          <div class="table-wrap" role="region" tabindex="0" aria-label="栏目切换与降级">
+            <table>
+              <thead>
+                <tr>
+                  <th>路径</th>
+                  <th>稳定的参照</th>
+                  <th>可见变化</th>
+                  <th>复核方法</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>博客 → 归档 → 友链</td>
+                  <td>站标、导航位置、蓝色网格与栏目标题的切口</td>
+                  <td>当前项转移；正文由单列文章、年份索引切换为人像目录。</td>
+                  <td>分别从导航和浏览器后退访问，核对选中态、可读标题与地址。</td>
+                </tr>
+                <tr>
+                  <td>文章 → 原列表</td>
+                  <td>文章标题与列表中的同一条目</td>
+                  <td>原题名恢复为列表行，读者可以就近选下一篇。</td>
+                  <td>下滚后打开文章再返回，检查滚动恢复、键盘焦点和快速连续返回。</td>
+                </tr>
+                <tr>
+                  <td>系统减少动态</td>
+                  <td>相同路由、内容和导航语义</td>
+                  <td>直接进入内容；蓝色选中态、标题和焦点独立传达切换结果。</td>
+                  <td>启用系统减少动态重走正向、同级、返程，检查可读文字和遗留遮层。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source"><a href="motion.html">动效原型与取样</a><a href="qa.md">浏览器验收记录</a></p>
+        </article>
+      </section>
+      <section class="section" id="decisions">
+        <p class="kicker">跨场景实验</p>
+        <h2>什么时候值得抽成通用能力</h2>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="可横向滚动的跨场景取舍表">
+          <table>
+            <thead>
+              <tr>
+                <th>拿来对照</th>
+                <th>可以共用</th>
+                <th>页面保留自己的部分</th>
+                <th>怎么判断</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>首页账号 / 关于账号</td>
+                <td>同一账号列表、可访问名称、反馈</td>
+                <td>主页紧凑；关于页可用更充分的说明。</td>
+                <td>改一处配置，两页去向同步。</td>
+              </tr>
+              <tr>
+                <td>博客 / 归档 / 文章</td>
+                <td>同个文章地址、题名、时间</td>
+                <td>列表留摘要，时间线突出年份和日期，正文只保留阅读所需元数据。</td>
+                <td>同一篇手记从两处都能抵达，文章只维护一份。</td>
+              </tr>
+              <tr>
+                <td>文章入口 / 朋友网站</td>
+                <td>一行一个链接、可见键盘焦点</td>
+                <td>本地文章用进入提示，出站链接用向外箭头。</td>
+                <td>标题和图标始终导向同一个目标。</td>
+              </tr>
+              <tr>
+                <td>正向阅读 / 返回列表</td>
+                <td>同一局部锚点、短反馈、减少动效路径</td>
+                <td>去程对准标题，返程对准来处和滚动位置。</td>
+                <td>返回后可以立即继续浏览，重复点击不会留下覆盖层。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="reading">
+          <div>
+            <h3>先验结构</h3>
+            <p>用同一组内容检查宽、窄两版，先问能否一下认出站主、找到指定年份、读完长文；记录第一次走错的入口。</p>
+          </div>
+          <div>
+            <h3>再比动效</h3>
+            <p>
+              交互原型用同一篇文章跑过四种切换。A 直接换页，B 移动一层标题，C 叠出两层标题。D
+              的模糊只作用在外围背景，标题保持清晰。这些结果描述绘制行为，阅读舒适度还可以用自己的内容判断。
+            </p>
+          </div>
+          <div>
+            <h3>最后固化</h3>
+            <p>
+              正式站选 B。标题的位置变化足以把视线从列表引到正文，还能保持一份清楚的字形。C 与 D
+              留在实验页供对照。栏目之间依靠当前项与稳定的导航交接，首页进入博客的局部遮挡单独比较。后退、连点和减少动效的实际检查见<a
+                href="qa.md"
+                >验收记录</a
+              >。
+            </p>
+          </div>
+        </div>
+        <p class="resources">
+          <a href="samples/navigation.webm">看实际切页录像</a><a href="motion.html">打开动效实验</a
+          ><a href="qa.md">查看实际验收记录</a>
+        </p>
+      </section>
+    </main>
+    <footer>
+      <div>
+        <p>蓝笺 · 视觉研究图册</p>
+        <a href="#top">返回顶部 ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>

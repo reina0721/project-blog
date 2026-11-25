@@ -1,0 +1,34 @@
+---
+import SiteMark from '../components/SiteMark.astro';
+import ActionLink from '../components/ActionLink.astro';
+import SiteNav from '../components/SiteNav.astro';
+import { site } from '../data/site';
+import motionScript from '../lib/motion-inline.js?raw';
+import '../styles/global.css';
+import '../styles/motion.css';
+interface Props { title?: string; description?: string; section?: 'home' | 'blog' | 'archive' | 'links' | 'about'; }
+const { title, description = site.motto, section } = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN" style={`--blue:${site.themeColor}`}>
+  <head>
+    <style is:inline>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content={site.themeColor} /><meta name="description" content={description} />
+    <title>{title ? `${title} · ${site.brand}` : `${site.name} · ${site.brand}`}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="expect" href="#motion-page-end" blocking="render" />
+    <script is:inline set:html={motionScript}></script>
+  </head>
+  <body data-section={section}>
+    <a class="skip" href="#main">跳到正文</a>
+    <header class="site-header"><ActionLink href="/" class="brand" direction="back" aria-label={`${site.brand}主页`}><SiteMark /><span data-action-label>{site.brand}</span><i aria-hidden="true"></i></ActionLink><SiteNav section={section}/></header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer"><span>© {new Date().getUTCFullYear()} {site.name} · {site.brand}</span>{site.sample && <span>示例资料</span>}</footer>
+    <span id="motion-page-end" hidden></span>
+    <script>
+      import '@material/web/ripple/ripple.js';
+      import '@material/web/focus/md-focus-ring.js';
+    </script>
+  </body>
+</html>

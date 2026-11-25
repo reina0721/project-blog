@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>三站交互逐帧对照 · 蓝笺</title>
+    <link rel="stylesheet" href="comparison.css">
+  </head>
+  <body>
+    <a href="#main" class="skip">跳到对照</a>
+    <header class="mast">
+      <div>
+        <b>蓝笺 / 交互研究</b>
+        <a href="../index.html">返回视觉研究图册</a>
+      </div>
+    </header>
+    <main id="main">
+      <header class="intro">
+        <h1>三站交互逐帧对照</h1>
+        <p>按住时，哪个控件先回应？松开后，旧内容何时离开，新标题落在哪里？三组画面记录个人博客、视频社区和本站各自的真实操作。点击图像可以放大。</p>
+      </header>
+      <fieldset class="modes">
+        <legend>采样设备</legend>
+        <label>
+          <input type="radio" id="desktop" name="device" checked>
+          <span>桌面 · 鼠标</span>
+        </label>
+        <label>
+          <input type="radio" id="phone" name="device">
+          <span>手机 · 触摸</span>
+        </label>
+      </fieldset>
+      <section class="board desktop" aria-label="桌面实测">
+        <div class="cards">
+          <article class="site">
+            <div class="site-head">
+              <h2>Aira Café</h2>
+              <p>个人博客，从文章卡进入阅读。</p>
+            </div>
+            <div class="site-controls">
+              <label>操作 <select aria-label="Aira Café取样路径">
+                <option value="aira-desktop-blog-article.webp" data-note="观察第一张白卡、右下角箭头、进入后的新标题。">文章卡 → 详情</option>
+                <option value="aira-desktop-press.webp" data-note="同一区域放大。对照悬停前后卡片阴影、整卡高度和右下箭头的颜色。">文章卡控件近景</option>
+                <option value="aira-desktop-home-blog.webp" data-note="顶栏先响应，身份区随后退场，博客标题与卡片分次出现。">首页 → 博客</option>
+                <option value="aira-desktop-article-back.webp" data-note="操作前正文已滚动。后退时栏目标题和整份列表重新进入。">正文 → 浏览器后退</option>
+                <option value="aira-desktop-blog-links.webp" data-note="观察右下角栏目图号、友链标题、白面板和头像的出现顺序。">博客 → 友链</option>
+              </select>
+            </label>
+          </div>
+          <a class="panel-link" href="aira-desktop-blog-article.webp" aria-label="Aira Café，文章卡 → 详情，查看原图">
+            <img src="aira-desktop-blog-article.webp" alt="Aira Café，文章卡 → 详情，按时间顺序排列的实采帧">
+            <span class="enlarge">放大 ↗</span>
+          </a>
+          <p class="fig-note">观察第一张白卡、右下角箭头、进入后的新标题。</p>
+        </article>
+        <article class="site">
+          <div class="site-head">
+            <h2>Kirakira</h2>
+            <p>社区网站，在导航或分类之间切换。</p>
+          </div>
+          <div class="site-controls">
+            <label>操作 <select aria-label="Kirakira取样路径">
+              <option value="kira-desktop-search.webp" data-note="每格均有控件局部放大。观察导航图标、旧视频、搜索框及后退后的首页。">首页 → 搜索 → 后退</option>
+              <option value="kira-desktop-tab.webp" data-note="两次选项切换都留在首页。观察文字后的圆形反馈和下方粉色短线。">首页分类 ↔ 动画分类</option>
+            </select>
+          </label>
+        </div>
+        <a class="panel-link" href="kira-desktop-search.webp" aria-label="Kirakira，首页 → 搜索 → 后退，查看原图">
+          <img src="kira-desktop-search.webp" alt="Kirakira，首页 → 搜索 → 后退，按时间顺序排列的实采帧">
+          <span class="enlarge">放大 ↗</span>
+        </a>
+        <p class="fig-note">每格均有控件局部放大。观察导航图标、旧视频、搜索框及后退后的首页。</p>
+      </article>
+      <article class="site">
+        <div class="site-head">
+          <h2>蓝笺</h2>
+          <p>本站个人博客，从入口到列表与阅读页。</p>
+        </div>
+        <div class="site-controls">
+          <label>操作 <select aria-label="蓝笺取样路径">
+            <option value="blog-desktop.webp" data-note="1120 × 720 的连帧展示点开第二篇《给阅读留一道页边》、阅读稳定及浏览器返回原行。">换页与返回</option>
+            <option value="press-desktop.webp" data-note="1280 × 800。五行依次为进入博客、主导航、博客文章、归档与最近文章，横向比较改前和改后。">控件按压</option>
+          </select>
+        </label>
+      </div>
+      <a class="panel-link" href="blog-desktop.webp" aria-label="蓝笺，换页与返回，查看原图">
+        <img src="blog-desktop.webp" alt="蓝笺，换页与返回，按时间顺序排列的实采帧">
+        <span class="enlarge">放大 ↗</span>
+      </a>
+      <p class="fig-note">1120 × 720 的连帧展示点开第二篇《给阅读留一道页边》、阅读稳定及浏览器返回原行。</p>
+    </article>
+  </div>
+  <details class="walkthrough">
+    <summary>查看本站原速操作录像</summary>
+    <video controls playsinline preload="none" aria-label="本站桌面原速操作录像" src="walk-desktop.webm">
+    </video>
+  </details>
+  <section class="matrix">
+    <h2>四个时刻</h2>
+    <div class="matrix-scroll" tabindex="0" aria-label="逐项对照，可横向滚动">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">时刻</th>
+            <th scope="col">Aira Café</th>
+            <th scope="col">Kirakira</th>
+            <th scope="col">蓝笺</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">按下</th>
+            <td>文章卡在悬停时已上移约 8px，右下箭头由灰转粉。按住时维持该状态。</td>
+            <td>按住左侧放大镜时有局部反馈，旁边出现“搜索”提示；首页保持可见。</td>
+            <td>按住文章行时整行出现蓝色状态层，标题和右侧方向图标随之回应；命中范围覆盖一整行。五种入口的近景按同一输入位置比较改前、改后。</td>
+          </tr>
+          <tr>
+            <th scope="row">旧页退出</th>
+            <td>打开文章时，原列表向上移并淡去。进入友链时，右下角的栏目图号也在更换。</td>
+            <td>释放后约 160ms 的样本中，搜索项已选中，中间仍能看见首页视频。</td>
+            <td>旧版文章转场在约 75ms 出现过两层同时透明。现在用 178ms 的移动分界逐步揭开正文左侧，尚未交接的一侧仍可看见旧列表。</td>
+          </tr>
+          <tr>
+            <th scope="row">新页落定</th>
+            <td>新的文章标题从屏幕底部进入，在距顶约 155px 处停住。友链页则先见标题和面板，再见一项项头像。</td>
+            <td>约 340ms 的样本中出现搜索标志和输入框，旧横幅一角仍可见。稳定后输入框获得焦点。</td>
+            <td>所选标题连续移向文章标题的位置。读至文末再返回时，列表反向揭开，原行左缘出现短蓝线。</td>
+          </tr>
+          <tr>
+            <th scope="row">浏览器后退</th>
+            <td>从已滚动 240px 的正文回到列表顶部。进入文章前列表本来就在顶部，无法据此判断非零位置恢复。</td>
+            <td>从首页内部滚动 222px 的位置出发，后退后首页稳定在 0px。</td>
+            <td>列表鼠标点击、归档键盘进入及深滚至中文路径三组检查中，后退恢复滚动值和原行上沿。鼠标和触摸以短蓝线定位，键盘使用者同时看见焦点轮廓。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+<section class="board mobile" aria-label="手机实测">
+  <div class="cards">
+    <article class="site">
+      <div class="site-head">
+        <h2>Aira Café</h2>
+        <p>手机触摸进入文章，随后用历史记录后退。</p>
+      </div>
+      <div class="site-controls">
+        <label>操作 <select aria-label="Aira Café取样路径">
+          <option value="aira-mobile-blog-article.webp" data-note="按住时文章卡仍在原位。留意新标题从屏幕底部进入。">文章卡 → 详情</option>
+          <option value="aira-mobile-press.webp" data-note="同一张文章卡在按住及刚松开的实际画面，目标没有出现桌面式悬浮抬升。">文章卡控件近景</option>
+          <option value="aira-mobile-home-blog.webp" data-note="窄屏保留顶部 Blog 和 Links。身份区退出后，文章按顺序进入。">首页 → 博客</option>
+          <option value="aira-mobile-article-back.webp" data-note="从已滚动的正文退出，重新出现 BLOG 栏目标题和文章卡。">正文 → 浏览器后退</option>
+          <option value="aira-mobile-short-back.webp" data-note="补测 390 × 620。列表滑到 140px，第二篇文章行位于 y=270px，浏览器后退后两者恢复。">短屏 · 滚动后原位返回</option>
+          <option value="aira-mobile-blog-links.webp" data-note="触摸顶栏 Links 后，观察旧白卡、友链面板和头像的先后。">博客 → 友链</option>
+        </select>
+      </label>
+    </div>
+    <a class="panel-link" href="aira-mobile-blog-article.webp" aria-label="Aira Café，文章卡 → 详情，查看原图">
+      <img src="aira-mobile-blog-article.webp" alt="Aira Café，文章卡 → 详情，按时间顺序排列的实采帧">
+      <span class="enlarge">放大 ↗</span>
+    </a>
+    <p class="fig-note">按住时文章卡仍在原位。留意新标题从屏幕底部进入。</p>
+  </article>
+  <article class="site">
+    <div class="site-head">
+      <h2>Kirakira</h2>
+      <p>社区网站，从底部导航进入分区。</p>
+    </div>
+    <div class="site-controls">
+      <span>首页 → 分区 → 后退</span>
+    </div>
+    <a class="panel-link" href="kira-mobile-category.webp" aria-label="Kirakira，首页 → 分区 → 后退，查看原图">
+      <img src="kira-mobile-category.webp" alt="Kirakira，首页 → 分区 → 后退，按时间顺序排列的实采帧">
+      <span class="enlarge">放大 ↗</span>
+    </a>
+    <p class="fig-note">按住时首页仍选中。释放后分区名称、旧缩略图和新目录依次出现。</p>
+  </article>
+  <article class="site">
+    <div class="site-head">
+      <h2>蓝笺</h2>
+      <p>本站个人博客，使用窄屏底栏和文章入口。</p>
+    </div>
+    <div class="site-controls">
+      <label>操作 <select aria-label="蓝笺取样路径">
+        <option value="blog-mobile.webp" data-note="390 × 650 的触摸连帧展示打开第二篇、正文进入和返回原行。">换页与返回</option>
+        <option value="press-mobile.webp" data-note="390 × 844。五种入口均用同一位置按住约 85ms，比对改前和改后。未选底栏项的文字仍收起。">控件按压</option>
+      </select>
+    </label>
+  </div>
+  <a class="panel-link" href="blog-mobile.webp" aria-label="蓝笺，换页与返回，查看原图">
+    <img src="blog-mobile.webp" alt="蓝笺，换页与返回，按时间顺序排列的实采帧">
+    <span class="enlarge">放大 ↗</span>
+  </a>
+  <p class="fig-note">390 × 650 的触摸连帧展示打开第二篇、正文进入和返回原行。</p>
+</article>
+</div>
+<details class="walkthrough">
+  <summary>查看本站原速操作录像</summary>
+  <video controls playsinline preload="none" aria-label="本站手机原速操作录像" src="walk-mobile.webm">
+  </video>
+</details>
+<section class="matrix">
+  <h2>四个时刻</h2>
+  <div class="matrix-scroll" tabindex="0" aria-label="逐项对照，可横向滚动">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">时刻</th>
+          <th scope="col">Aira Café</th>
+          <th scope="col">Kirakira</th>
+          <th scope="col">蓝笺</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">按下</th>
+          <td>手指按住第一张卡时，其位置未移动，箭头仍是灰色。</td>
+          <td>按住底栏分区时，目标图标后有灰色水纹；原选中的首页仍带粉色和文字。</td>
+          <td>手指按住约 85ms，新版可见文字右移约 2px、下移约 1px，箭头右移约 5px。旧版对应区域未超过像素差阈值。竖向拖动 67px 则取消这次按压。</td>
+        </tr>
+        <tr>
+          <th scope="row">旧页退出</th>
+          <td>释放后收起列表，旧内容整体向上并淡出。</td>
+          <td>释放后约 153ms 的样本中，底栏已选择分区，中间还可辨认旧视频缩略图。</td>
+          <td>从博客切到归档时，两枚底栏图标的中心切换前后都在 y=805px，文字与选中标记完成交接。</td>
+        </tr>
+        <tr>
+          <th scope="row">新页落定</th>
+          <td>844px 高的视口中，文章标题从约 y=999px 进入，在 y=155px 左右稳定。</td>
+          <td>约 332ms 的样本已出现分区条目。顶部站标与底栏仍可见，新目录从顶部开始。</td>
+          <td>所选标题移到文章标题的位置，新正文从左侧揭开。深读后返回，列表反向揭开，屏外标题留在屏外。</td>
+        </tr>
+        <tr>
+          <th scope="row">浏览器后退</th>
+          <td>844px 高的样本回到列表顶部。另用 620px 高度从非零位置打开第二篇再返回：列表恢复至 140px，原行上沿仍为 y=270px，DOM 焦点在 BODY。</td>
+          <td>从首页滚动 222px 处进入分区。浏览器后退后首页稳定在 0px，DOM 焦点仍指向分区链接。</td>
+          <td>390 × 650 的窄屏回归覆盖列表、归档及深滚中文路径。返回后原行高度、滚动值和链接焦点均恢复。详情的返回入口也会写明博客、归档或最近文章。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</section>
+<section class="limits">
+  <h2>证据与边界</h2>
+  <p>
+    <strong>实测。</strong> 2026 年 11 月 25 日以 Chromium 采样。Aira 的四段路径在两端各走一遍，共记录 361 帧。Aira 和 Kirakira 桌面主样本为 1280 × 800，手机主样本为 390 × 844；Aira 另以 390 × 620 检查非零滚动恢复。本站另有 1120 × 720、390 × 650 的生产回归。手机样本使用移动视口和触摸输入。每张图保留各自的时间标记。帧与帧之间的准确换页时刻无法由截图确定。本站按压近景中的“变化像素”按任一 RGB 通道变化至少 12 计数。</p>
+    <p>
+      <strong>源码对照。</strong> Aira 的文章卡定义了悬停上移与箭头变色，页面退出样式定义向上位移与透明度变化。样式给出设计终值，采样中的时长还受资源载入和设备影响。</p>
+      <p>
+        <strong>解读。</strong> 内容索引需要让读者重新找到原文，社区导航还要持续交代当前分区。适合本站的动效强度和阅读舒适度仍要由读者体验验证。这里没有取样实体手机、其他浏览器或读屏器。</p>
+        <div class="source-links">
+          <a href="aira-observations.json">Aira 采样记录</a>
+          <a href="https://aira.cafe/">Aira Café 原站</a>
+          <a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/Blog/BlogCard.vue">文章卡源码</a>
+          <a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/app.vue">页面退出样式</a>
+          <a href="https://kirakira.moe/">Kirakira 原站</a>
+          <a href="kira-observations.md">Kirakira 采样记录</a>
+          <a href="results.md">本轮修复与实测数据</a>
+          <a href="../qa.md">本站验收记录</a>
+        </div>
+      </section>
+    </main>
+    <dialog id="viewer" aria-labelledby="light-title">
+      <div class="light-head">
+        <b id="light-title">放大查看</b>
+        <a id="light-link" href="#" target="_blank" rel="noopener">打开原尺寸</a>
+        <button type="button" id="close">关闭</button>
+      </div>
+      <img class="light-img" alt="">
+    </dialog>
+    <script src="comparison.js">
+    </script>
+  </body>
+</html>

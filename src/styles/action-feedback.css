@@ -1,0 +1,31 @@
+/* The hit area stays still. The selected text and the cue move inside it. */
+.action-link[data-direction] {
+  --cue-x: 5px;
+  --cue-y: 0px;
+  --label-x: 2px;
+}
+.action-link[data-direction="back"] { --cue-x: -5px; --label-x: -2px; }
+.action-link[data-direction="external"] { --cue-x: 3px; --cue-y: -3px; --label-x: 1px; }
+.action-link [data-action-label], .action-link [data-action-cue] {
+  display: inline-block;
+  transition: translate 135ms cubic-bezier(.2,.76,.24,1), scale 135ms ease-out;
+}
+.action-link[data-direction]:is(:active,[data-pressed]) [data-action-label] {
+  translate: var(--label-x) 1px;
+}
+.action-link[data-direction]:is(:active,[data-pressed]) [data-action-cue] {
+  translate: var(--cue-x) var(--cue-y); scale: .87;
+}
+.action-link:is(:active,[data-pressed]) :is([data-action-label],[data-action-cue]) { transition-duration: 65ms; }
+.action-link:focus-visible[data-direction] [data-action-cue] { translate: var(--cue-x) var(--cue-y); }
+@media (hover: hover) {
+  .action-link[data-direction]:hover:not(:active):not([data-pressed]) [data-action-cue] {
+    translate: calc(var(--cue-x) * .55) calc(var(--cue-y) * .55);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .action-link [data-action-label], .action-link [data-action-cue] {
+    translate: none !important; scale: none !important; transition: none !important;
+  }
+  .action-link[data-pressed] { background-color: var(--pale); }
+}

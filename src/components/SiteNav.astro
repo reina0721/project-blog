@@ -1,0 +1,15 @@
+---
+import Icon from './Icon.astro';
+import ActionLink from './ActionLink.astro';
+import { site } from '../data/site';
+interface Props { section?: (typeof site.nav)[number]['key']; }
+const { section } = Astro.props;
+---
+<nav class="main-nav" aria-label="主导航">
+  {site.nav.map(item => <ActionLink class="nav-item" href={item.href} aria-label={item.label} aria-current={section === item.key ? 'page' : undefined}>
+    <span class="nav-hit"><Icon name={item.icon} size={20} /></span>
+    <span class="nav-label"><span>{item.label}</span></span>
+    <span class="nav-tip" aria-hidden="true">{item.label}</span>
+    {section === item.key && <i class="nav-marker" aria-hidden="true"></i>}
+  </ActionLink>)}
+</nav>

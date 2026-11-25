@@ -1,0 +1,798 @@
+{
+  "url": "https://kirakira.moe/",
+  "browser": "157.0.8103.52",
+  "spec": {
+    "key": "desktop-search",
+    "w": 1280,
+    "h": 800,
+    "title": "桌面 · 首页 → 搜索 → 浏览器后退",
+    "target": "/search",
+    "input": "鼠标",
+    "hasScroll": true
+  },
+  "point": [
+    28,
+    76
+  ],
+  "frames": [
+    {
+      "key": "source",
+      "name": "操作前",
+      "base": "首次加载",
+      "t": 0,
+      "start": 2,
+      "end": 39,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 222,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": []
+      }
+    },
+    {
+      "key": "down",
+      "name": "保持按下",
+      "base": "按下",
+      "t": 83,
+      "start": 91,
+      "end": 151,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 222,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "A",
+          "/search"
+        ],
+        "activePointer": true,
+        "animations": [
+          [
+            "kira-component",
+            "soft-button",
+            "height"
+          ],
+          [
+            "a",
+            "lite ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "i",
+            "icon",
+            "scale"
+          ],
+          [
+            "div",
+            "ripple-circle",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "up",
+      "name": "松开后首样",
+      "base": "松开",
+      "t": 10,
+      "start": 14,
+      "end": 73,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 222,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "A",
+          "/search"
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "kira-component",
+            "soft-button",
+            "height"
+          ],
+          [
+            "i",
+            "icon",
+            "scale"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "mid",
+      "name": "换入途中",
+      "base": "松开",
+      "t": 151,
+      "start": 159,
+      "end": 224,
+      "state": {
+        "url": "/search",
+        "title": "搜索 - KIRAKIRA☆DOUGA",
+        "scroll": 222,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/search",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "A",
+          "/search"
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "kira-component",
+            "soft-button",
+            "scale"
+          ],
+          [
+            "a",
+            "lite ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "i",
+            "icon",
+            "color"
+          ],
+          [
+            "svg",
+            "[object SVGAnimatedString]",
+            "color"
+          ],
+          [
+            "path",
+            "[object SVGAnimatedString]",
+            "color"
+          ],
+          [
+            "kira-component",
+            "soft-button",
+            "height"
+          ],
+          [
+            "kira-component",
+            "soft-button",
+            "scale"
+          ],
+          [
+            "a",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "color"
+          ],
+          [
+            "i",
+            "icon",
+            "scale"
+          ],
+          [
+            "i",
+            "icon",
+            "color"
+          ],
+          [
+            "svg",
+            "[object SVGAnimatedString]",
+            "color"
+          ],
+          [
+            "path",
+            "[object SVGAnimatedString]",
+            "color"
+          ],
+          [
+            "kira-component",
+            "banner opened v-leave-active v-leave-to",
+            "height"
+          ],
+          [
+            "div",
+            "shadow",
+            "opacity"
+          ],
+          [
+            "div",
+            "container page-jump-in-leave-active page-jump-in-leave-to",
+            "opacity"
+          ],
+          [
+            "div",
+            "container page-jump-in-leave-active page-jump-in-leave-to",
+            "translate"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "late",
+      "name": "稍后",
+      "base": "松开",
+      "t": 335,
+      "start": 339,
+      "end": 395,
+      "state": {
+        "url": "/search",
+        "title": "搜索 - KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/search",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ]
+        ],
+        "tabs": [],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME SEARCH 关键词 标签 用户 高级搜索 搜索 搜索",
+        "focus": [
+          "INPUT",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "kira-component",
+            "banner opened v-leave-active v-leave-to",
+            "height"
+          ],
+          [
+            "div",
+            "shadow",
+            "opacity"
+          ],
+          [
+            "kira-component",
+            "shading-icon right top",
+            "opacity"
+          ],
+          [
+            "kira-component",
+            "shading-icon right top",
+            "translate"
+          ],
+          [
+            "div",
+            "search-home-page",
+            "opacity"
+          ],
+          [
+            "div",
+            "search-home-page",
+            "translate"
+          ],
+          [
+            "label",
+            "",
+            "scale"
+          ],
+          [
+            "label",
+            "",
+            "translate"
+          ],
+          [
+            "div",
+            "stripe focus-stripe",
+            "scale"
+          ],
+          [
+            "div",
+            "bar vertical",
+            "opacity"
+          ],
+          [
+            "div",
+            "bar vertical",
+            "visibility"
+          ],
+          [
+            "div",
+            "inner",
+            "visibility"
+          ],
+          [
+            "div",
+            "tooltip-wrapper right v-leave-active v-leave-to",
+            "opacity"
+          ],
+          [
+            "input",
+            "",
+            "input-caret-blinking"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "arrival",
+      "name": "到达页",
+      "base": "松开",
+      "t": 1365,
+      "start": 1369,
+      "end": 1419,
+      "state": {
+        "url": "/search",
+        "title": "搜索 - KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/search",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ]
+        ],
+        "tabs": [],
+        "cats": [],
+        "bodyText": "SEARCH 关键词 标签 用户 高级搜索 搜索",
+        "focus": [
+          "INPUT",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "input",
+            "",
+            "input-caret-blinking"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "return-start",
+      "name": "浏览器后退首样",
+      "base": "浏览器后退",
+      "t": 4,
+      "start": 11,
+      "end": 47,
+      "state": {
+        "url": "/",
+        "title": "搜索 - KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/search",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ]
+        ],
+        "tabs": [],
+        "cats": [],
+        "bodyText": "SEARCH 关键词 标签 用户 高级搜索 搜索",
+        "focus": [
+          "INPUT",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "input",
+            "",
+            "input-caret-blinking"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "return-mid",
+      "name": "返回途中",
+      "base": "浏览器后退",
+      "t": 166,
+      "start": 172,
+      "end": 212,
+      "state": {
+        "url": "/",
+        "title": "搜索 - KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ]
+        ],
+        "tabs": [],
+        "cats": [],
+        "bodyText": "SEARCH 关键词 标签 用户 高级搜索 搜索",
+        "focus": [
+          "INPUT",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "kira-component",
+            "soft-button",
+            "scale"
+          ],
+          [
+            "a",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "kira-component",
+            "soft-button",
+            "scale"
+          ],
+          [
+            "a",
+            "lite ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "input",
+            "",
+            "input-caret-blinking"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "restore",
+      "name": "返回落定",
+      "base": "浏览器后退",
+      "t": 1603,
+      "start": 1605,
+      "end": 1629,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span data-v-a5a92357=\"\" data-v-5594815a=\"\" class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f6">
+  <title>页与页之间 · 转场试验</title>
+  <link rel="stylesheet" href="./motion-lab.css">
+  <script src="./motion-lab.js" defer></script>
+</head>
+<body>
+  <main class="notebook">
+    <header class="lab-header">
+      <p class="eyebrow">博客设计研究 / 交互样本</p>
+      <h1>页与页之间</h1>
+      <p>点一篇文章，记住标题在哪，再回列表。换一种转场，用同一篇重试。</p>
+    </header>
+    <fieldset class="modes">
+      <legend>对照方式</legend>
+      <label><input type="radio" name="mode" value="plain"> <span>A</span> 普通切换</label>
+      <label><input type="radio" name="mode" value="shared" checked> <span>B</span> 共享标题</label>
+      <label><input type="radio" name="mode" value="echo"> <span>C</span> 局部残影</label>
+      <label><input type="radio" name="mode" value="blur"> <span>D</span> 局部背景模糊</label>
+    </fieldset>
+    <div class="settings">
+      <label><input type="checkbox" id="reduce"> 减弱动态</label>
+      <label><input type="checkbox" id="slow"> 慢放两倍</label>
+      <p id="mode-note"></p>
+    </div>
+    <section class="stage" aria-label="交互预览">
+      <header class="stage-nav">
+        <button type="button" data-page="home">主页</button>
+        <button type="button" data-page="list">博客</button>
+        <span id="path"></span>
+      </header>
+      <div class="viewport" id="viewport">
+        <div id="scene"></div>
+        <div id="layer" aria-hidden="true"></div>
+      </div>
+    </section>
+    <div class="actions">
+      <button type="button" data-run="home">主页进入博客</button>
+      <button type="button" data-run="sequence">连续读三篇</button>
+      <button type="button" data-run="rapid">快速连续点击</button>
+      <button type="button" id="stop" disabled>停止演示</button>
+    </div>
+    <p role="status" id="status">可以从任意一行开始。</p>
+    <details class="notes">
+      <summary>观察方法与正式站取舍</summary>
+      <p>A 提供即时切换的基线。B 只移动选中的标题，观察目光能否从原行跟到正文。C 在 B 上短暂增加一层蓝色字影，留意细笔画是否因重叠难读。D 保持标题清楚，仅让右侧（窄屏下方）的「同卷文章」短暂失焦再恢复。</p>
+      <p>连续读三篇会从列表打开每一篇并返回，快速连续点击会在前一段动画结束前发出下一次操作。主页进入博客时，一条带斜切前沿的蓝色色块沿页首下缘从左向右扫过。减弱动态跟随系统，也可在此手动开启。</p>
+      <p>正式站采用 B 的单标题转场，背景内容依次退出和进入。栏目之间的正文按导航顺序移动，返回时反向，当前位置标记滑向新栏目。C 会短暂叠印笔画，D 引入了外围失焦这一额外变化。这里依据机制与对照样本给出取舍，读者偏好仍要通过实际试用判断。</p>
+      <p>浏览器记录：Chrome 157 在 1100 × 850 视口、两倍慢放下，打开和返回各约 150 毫秒时，A 没有动画，B 有一层标题，C 的第二层字影不透明度约 0.23，D 的侧栏模糊约 0.7–0.9 像素。四种方式落定后，均无残留图层或隐藏的标题。每隔 65 毫秒连发四次操作也回到了列表。以上数值记录画面当时的状态，舒适度与辨识度留给试用者判断。</p>
+    </details>
+  </main>
+</body>
+</html>

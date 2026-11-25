@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+import ActionLink from './ActionLink.astro';
+import { profileSocials, usingSampleSocials } from '../data/identity';
+---
+{profileSocials.length > 0 && <div class="profile-socials" aria-label={usingSampleSocials ? '示例社区入口' : '社区账号'}>
+  {profileSocials.map((account, index) => <ActionLink href={account.url} rel="external" aria-label={usingSampleSocials ? account.label + ' 平台首页（示例）' : account.label}
+    style={`--order:${index}`}><span class="social-hit"><Icon name={account.icon} size={24} /></span>
+    <span class="social-tip" aria-hidden="true">{usingSampleSocials ? account.label + '（示例）' : account.label}</span></ActionLink>)}
+</div>}

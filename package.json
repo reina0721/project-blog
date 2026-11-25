@@ -1,0 +1,22 @@
+{
+  "name": "blue-notes",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "preview": "astro preview",
+    "research": "vite research --host 127.0.0.1 --port 4322 --strictPort"
+  },
+  "dependencies": {
+    "@material/web": "2.5.0",
+    "astro": "7.4.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "5.9.3",
+    "vite": "8.3.8"
+  }
+}

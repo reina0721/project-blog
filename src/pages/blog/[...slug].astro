@@ -1,0 +1,42 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Shell from '../../layouts/Shell.astro';
+import ActionLink from '../../components/ActionLink.astro';
+import Icon from '../../components/Icon.astro';
+import { formatDate, getPosts, postHref, titleTransition } from '../../lib/content';
+import '../../styles/pages.css';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[index - 1], older: posts[index + 1] },
+  }));
+}
+interface Props {
+  post: CollectionEntry<'posts'>;
+  newer?: CollectionEntry<'posts'>;
+  older?: CollectionEntry<'posts'>;
+}
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Shell title={post.data.title} description={post.data.summary} section="blog">
+  <article class="inner-page reading-page notes-reading">
+    <ActionLink class="section-action article-index-link" href="/blog/" direction="back" data-reading-back><Icon name="arrow-left" size={16} cue /> <span data-action-label data-reading-back-label>博客列表</span></ActionLink>
+    <div class="surface-panel article-panel">
+      <header class="article-head">
+        <p class="section-label"><span class="section-marker"><Icon name="pen" size={15} /></span> {post.data.category}</p>
+        <h1 data-article-slug={post.id} style={{ viewTransitionName: titleTransition(post.id) }}>{post.data.title}</h1>
+        <div class="item-meta"><time datetime={post.data.date}>{formatDate(post.data.date)}</time>{post.data.sample && <span>示范文章</span>}</div>
+        {post.data.summary && <p class="article-deck">{post.data.summary}</p>}
+      </header>
+      <div class="article-prose"><Content /></div>
+      {(older || newer) && <nav class="article-adjacent notes-adjacent" aria-label="相邻文章">
+        {newer && <ActionLink href={postHref(newer.id)} rel="prev" direction="back"><small>较新一篇</small><Icon name="arrow-left" size={15} cue /><span data-action-label>{newer.data.title}</span></ActionLink>}
+        {older && <ActionLink href={postHref(older.id)} rel="next" direction="forward"><small>较早一篇</small><span data-action-label>{older.data.title}</span><Icon name="arrow-right" size={15} cue /></ActionLink>}
+      </nav>}
+    </div>
+  </article>
+</Shell>

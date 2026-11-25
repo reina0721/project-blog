@@ -1,0 +1,47 @@
+---
+import Shell from '../../layouts/Shell.astro';
+import ActionLink from '../../components/ActionLink.astro';
+import Icon from '../../components/Icon.astro';
+import { designReferences, friends } from '../../data/friends';
+import { site } from '../../data/site';
+import '../../styles/pages.css';
+
+const groups = [
+  { title: '好友站点', entries: friends },
+  ...(site.sample ? [{ title: '设计参考', entries: designReferences }] : []),
+];
+---
+
+<Shell title="友链" description="浏览好友的个人站点与本站的设计参考。" section="links">
+  <div class="inner-page directory-page">
+    <header class="view-head">
+      <div>
+        <p class="section-label"><span class="section-marker"><Icon name="arrow-up-right" size={15} /></span> 友链</p>
+        <h1>站点目录</h1>
+      </div>
+    </header>
+    <div class="surface-panel directory-panel">
+      {groups.map((group) => (
+        <section class="directory-group">
+          <div class="panel-heading"><h2>{group.title}</h2><span>{group.entries.length} 个站点</span></div>
+          {group.entries.length === 0 && <p class="panel-empty">好友站点还未收录。</p>}
+          <ul class="friend-grid" style={{ '--site-count': group.entries.length }}>
+            {group.entries.map((friend) => (
+              <li>
+                <ActionLink class="friend-hit" href={friend.url} rel="external" direction="external">
+                  <span class="friend-avatar" aria-hidden="true">
+                    {friend.avatar ? <img src={friend.avatar} alt="" loading="lazy" width="48" height="48" /> : Array.from(friend.name)[0]}
+                  </span>
+                  <span class="friend-copy">
+                    <span class="friend-name"><span data-action-label>{friend.name}</span> <span class="friend-direction"><Icon name="arrow-up-right" size={13} cue /></span></span>
+                    {friend.description && <span class="friend-description">{friend.description}</span>}
+                  </span>
+                </ActionLink>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </div>
+</Shell>

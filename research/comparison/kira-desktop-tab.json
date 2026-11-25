@@ -1,0 +1,1046 @@
+{
+  "url": "https://kirakira.moe/",
+  "browser": "157.0.8103.52",
+  "spec": {
+    "key": "desktop-tab",
+    "w": 1280,
+    "h": 800,
+    "title": "桌面 · 首页 ⇄ 动画标签",
+    "target": "动画",
+    "input": "鼠标",
+    "hasScroll": false
+  },
+  "point": [
+    216,
+    163.9921875
+  ],
+  "frames": [
+    {
+      "key": "source",
+      "name": "操作前",
+      "base": "首次加载",
+      "t": 0,
+      "start": 4,
+      "end": 39,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": []
+      }
+    },
+    {
+      "key": "down",
+      "name": "保持按下",
+      "base": "按下",
+      "t": 86,
+      "start": 90,
+      "end": 127,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": true,
+        "animations": [
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "height"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "width"
+          ],
+          [
+            "div",
+            "content",
+            "scale"
+          ],
+          [
+            "div",
+            "ripple-circle",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "up",
+      "name": "松开后首样",
+      "base": "松开",
+      "t": 15,
+      "start": 19,
+      "end": 70,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "动画",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "span",
+            "tab-item lite",
+            "color"
+          ],
+          [
+            "div",
+            "",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "content",
+            "color"
+          ],
+          [
+            "span",
+            "",
+            "color"
+          ],
+          [
+            "span",
+            "active tab-item lite",
+            "color"
+          ],
+          [
+            "div",
+            "",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "height"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "width"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "color"
+          ],
+          [
+            "div",
+            "content",
+            "scale"
+          ],
+          [
+            "div",
+            "content",
+            "color"
+          ],
+          [
+            "span",
+            "",
+            "color"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "mid",
+      "name": "换入途中",
+      "base": "松开",
+      "t": 155,
+      "start": 162,
+      "end": 226,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "动画",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "background-color"
+          ],
+          [
+            "div",
+            "content",
+            "scale"
+          ],
+          [
+            "div",
+            "indicator",
+            "left"
+          ],
+          [
+            "div",
+            "indicator",
+            "right"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "late",
+      "name": "稍后",
+      "base": "松开",
+      "t": 338,
+      "start": 345,
+      "end": 392,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "动画",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "div",
+            "indicator",
+            "left"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "arrival",
+      "name": "到达页",
+      "base": "松开",
+      "t": 1355,
+      "start": 1359,
+      "end": 1386,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "动画",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": []
+      }
+    },
+    {
+      "key": "return-start",
+      "name": "切回首页标签首样",
+      "base": "切回首页标签",
+      "t": 33,
+      "start": 36,
+      "end": 57,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "span",
+            "active tab-item lite",
+            "color"
+          ],
+          [
+            "div",
+            "",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "height"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "width"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "color"
+          ],
+          [
+            "div",
+            "content",
+            "color"
+          ],
+          [
+            "span",
+            "",
+            "color"
+          ],
+          [
+            "span",
+            "tab-item lite",
+            "color"
+          ],
+          [
+            "div",
+            "",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "height"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "width"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "color"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "return-mid",
+      "name": "返回途中",
+      "base": "切回首页标签",
+      "t": 171,
+      "start": 174,
+      "end": 219,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": [
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "height"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "width"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "background-color"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "height"
+          ],
+          [
+            "div",
+            "ripple-button ripple-button-cut",
+            "width"
+          ],
+          [
+            "div",
+            "indicator",
+            "left"
+          ],
+          [
+            "div",
+            "indicator",
+            "right"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ],
+          [
+            "div",
+            "ripple-circle is-fading",
+            "Animation"
+          ]
+        ]
+      }
+    },
+    {
+      "key": "restore",
+      "name": "返回落定",
+      "base": "切回首页标签",
+      "t": 1604,
+      "start": 1607,
+      "end": 1635,
+      "state": {
+        "url": "/",
+        "title": "KIRAKIRA☆DOUGA",
+        "scroll": 0,
+        "viewport": [
+          1280,
+          800
+        ],
+        "active": [
+          [
+            "/",
+            "",
+            "router-link-active router-link-exact-active lite ripple-button ripple-button-cut"
+          ],
+          [
+            null,
+            "首页",
+            "active tab-item lite"
+          ]
+        ],
+        "tabs": [
+          [
+            "首页",
+            "active tab-item lite",
+            "<span class=\"active tab-item lite\" role=\"tab\" aria-selected=\"true\" aria-current=\"true\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "动画",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音乐",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "音MAD",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "科技",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "设计",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "游戏",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ],
+          [
+            "综合",
+            "tab-item lite",
+            "<span class=\"tab-item lite\" role=\"tab\" aria-selected=\"false\" aria-current=\"false\" data-v-5594815a=\"\" data-v-a5a92357=\"\""
+          ]
+        ],
+        "cats": [],
+        "bodyText": "++++ ++++ ++++ ++++ WELCOME 首页 动画 音乐 音MAD 科技 设计 游戏 综合 公告 小站还在慢慢进化中～！加入我们的Discord服务器来一起围观开发进展、与开发者交流吧！(๑˃ᴗ˂)ﻭ 如果你有开发技能，也超级欢迎加入我们来一起打造它～！！(๑•̀ㅂ•́)و✧ 最新 0 【懂车帝实测】三辆尊界V800制动踏板支架断裂 半留心花 兰澈祈祈祈 0 05:00 2026/10/09 【ESL视频原声】",
+        "focus": [
+          "BODY",
+          null
+        ],
+        "activePointer": false,
+        "animations": []
+      }
+    }
+  ]
+}

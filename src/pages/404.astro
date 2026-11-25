@@ -1,0 +1,24 @@
+---
+import Shell from '../layouts/Shell.astro';
+import ActionLink from '../components/ActionLink.astro';
+import Icon from '../components/Icon.astro';
+import '../styles/pages.css';
+---
+
+<Shell title="页面未找到">
+  <div class="inner-page missing-page">
+    <header class="view-head">
+      <div>
+        <p class="section-label"><span class="section-marker"><Icon name="arrow-right" size={15} /></span> 404</p>
+        <h1>找不到这一页</h1>
+      </div>
+    </header>
+    <div class="surface-panel missing-panel">
+      <p>这个地址没有对应的页面。可以回到主页，或在归档里查找文章。</p>
+      <div class="missing-actions">
+        <ActionLink class="section-action" href="/" direction="back"><Icon name="arrow-left" size={17} cue /> <span data-action-label>返回主页</span></ActionLink>
+        <ActionLink class="section-action" href="/archive/" direction="forward"><span data-action-label>查看归档</span> <Icon name="arrow-right" size={17} cue /></ActionLink>
+      </div>
+    </div>
+  </div>
+</Shell>

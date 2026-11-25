@@ -1,0 +1,39 @@
+---
+import Shell from '../../layouts/Shell.astro';
+import ActionLink from '../../components/ActionLink.astro';
+import Icon from '../../components/Icon.astro';
+import { formatDate, getPosts, postHref, titleTransition } from '../../lib/content';
+import '../../styles/pages.css';
+
+const posts = await getPosts();
+---
+
+<Shell title="博客" description="按发表时间浏览文章、摘要与分类。" section="blog">
+  <div class="inner-page blog-page">
+    <header class="view-head">
+      <div>
+        <p class="section-label"><span class="section-marker"><Icon name="arrow-right" size={15} /></span> 博客</p>
+        <h1>浏览文章</h1>
+      </div>
+      <ActionLink class="section-action" direction="forward" href="/archive/"><Icon name="archive" size={17} /> <span data-action-label>按年份查找</span> <Icon name="arrow-right" size={15} cue /></ActionLink>
+    </header>
+    <section class="surface-panel blog-panel" aria-label="文章列表">
+      <div class="panel-heading"><h2>全部文章</h2><span>{posts.length} 篇</span></div>
+      {posts.length === 0 && <p class="panel-empty">这里还没有文章。</p>}
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <ActionLink class="post-hit" direction="forward" aria-labelledby={'title-' + post.id} href={postHref(post.id)}>
+              <div class="post-copy">
+                <h3 id={'title-' + post.id}><span data-action-label data-article-slug={post.id} style={{ viewTransitionName: titleTransition(post.id) }}>{post.data.title}</span></h3>
+                {post.data.summary && <p class="post-summary">{post.data.summary}</p>}
+                <div class="item-meta"><time datetime={post.data.date}>{formatDate(post.data.date)}</time><span>{post.data.category}</span>{post.data.sample && <span>样稿</span>}</div>
+              </div>
+              <span class="hit-arrow" aria-hidden="true"><Icon name="arrow-right" size={21} cue /></span>
+            </ActionLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</Shell>
