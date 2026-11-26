@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import '../styles/action-feedback.css';
+import '../styles/material-entry.css';
+
+type Props = HTMLAttributes<'a'> & {
+  href: string;
+  label: string;
+  elevated?: boolean;
+  direction?: 'forward' | 'back' | 'external';
+};
+const { class: className, label, elevated, direction, ...attributes } = Astro.props;
+const Surface = elevated ? 'md-elevated-card' : Fragment;
+---
+<Surface class={elevated ? 'entry-card' : undefined}>
+  <a {...attributes} class:list={['action-link', 'material-entry', className]} aria-label={label}
+    data-reading-entry data-direction={direction}>
+    <div class="entry-fallback">
+      {Astro.slots.has('start') && <div slot="start" class="entry-leading"><slot name="start" /></div>}
+      <div slot="headline" class="entry-heading"><slot name="headline" /></div>
+      {Astro.slots.has('supporting') && <div slot="supporting-text" class="entry-description"><slot name="supporting" /></div>}
+      {Astro.slots.has('end') && <div slot="end" class="entry-trailing"><slot name="end" /></div>}
+    </div>
+  </a>
+</Surface>
+<script>
+  import '../lib/press-feedback';
+  import '../lib/material-entry';
+</script>

@@ -1,3 +1,32 @@
+// Each navigation glyph has an anchored silhouette, a moving part and a detail.
+export const navigationGlyphs: Record<string, { anchor: string; moving: string; detail: string }> = {
+  home: {
+    anchor: 'M2.8 10.5 12 3l9.2 7.5 M5.3 9.1v11.1h13.4V9.1',
+    moving: 'M9.3 20v-7.2h5.4V20Z',
+    detail: 'M8 7.7 12 4.5l3.8 3.1',
+  },
+  book: {
+    anchor: 'M12 6.1c-2.3-1.7-5-2.1-8.8-1.5v14.1c3.8-.7 6.4-.2 8.8 1.7V6.1Z',
+    moving: 'M12 6.1c2.2-1.6 5.1-2.1 8.8-1.5v14.1c-3.6-.7-6.5-.1-8.8 1.7Z',
+    detail: 'm14.7 9.2 3.5-.8m-3.5 3.5 3.5-.8',
+  },
+  archive: {
+    anchor: 'M5.1 9h13.8v11H5.1Z',
+    moving: 'M3.5 4.5h17v3.8h-17Z',
+    detail: 'M9.4 12.8h5.2',
+  },
+  link: {
+    anchor: 'm10.4 15-2.1 2.1a3.5 3.5 0 0 1-5-5l3.3-3.3a3.5 3.5 0 0 1 5 0',
+    moving: 'm13.6 9 2.1-2.1a3.5 3.5 0 0 1 5 5l-3.3 3.3a3.5 3.5 0 0 1-5 0',
+    detail: 'm9.6 14.4 4.8-4.8',
+  },
+  user: {
+    anchor: 'M4.7 20v-1.5c0-3 3.3-5.1 7.3-5.1s7.3 2.1 7.3 5.1V20Z',
+    moving: 'M15.5 7.9a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z',
+    detail: 'M9.2 16.5c1.9-.8 3.6-.8 5.5 0',
+  },
+};
+
 // Material Design Icons 7.4.47 (Apache-2.0); Bilibili from Simple Icons 13.5.0 (CC0).
 export const glyphs: Record<string, string> = {
   "home": "M12,3L20,9V21H15V14H9V21H4V9L12,3Z",

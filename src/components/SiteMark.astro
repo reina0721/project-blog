@@ -2,7 +2,22 @@
 interface Props { size?: number; }
 const { size = 34 } = Astro.props;
 ---
-<svg width={size} height={size} viewBox="0 0 44 40" fill="currentColor" aria-hidden="true">
-  <path d="m15 7 4.5 7.8 8.8 2.3-7.1 6.1-1 9.5-6.8-6.3-9.1 1.7 3.8-8.5-4.3-8.2 9.2 1.2z" />
-  <path d="M25.4 8.3 41 2l-1.2 3.7-15.4 6.5zm4.3 5.2 10-4.2-.9 3-10 4.4z"/>
+<svg class="site-mark" width={size} height={size} viewBox="0 0 44 40" fill="currentColor" aria-hidden="true">
+  <path class="mark-star" d="m15 7 4.5 7.8 8.8 2.3-7.1 6.1-1 9.5-6.8-6.3-9.1 1.7 3.8-8.5-4.3-8.2 9.2 1.2z" />
+  <path class="mark-trail near" d="M25.4 8.3 41 2l-1.2 3.7-15.4 6.5z"/>
+  <path class="mark-trail far" d="m29.7 13.5 10-4.2-.9 3-10 4.4z"/>
 </svg>
+<style>
+  .site-mark {overflow:visible;}
+  @media (prefers-reduced-motion:no-preference) {
+    .mark-star,.mark-trail {transform-box:fill-box; transform-origin:center; transition:transform 210ms cubic-bezier(.2,.75,.2,1);}
+    :global(.brand:is(:focus-visible,[data-focus-visible])) .mark-star {transform:rotate(-9deg);}
+    :global(.brand[data-pressed]) .mark-star {transform:translate(-1px,1px) rotate(-13deg) scale(.92);}
+    :global(.brand[data-pressed]) .near {transform:translate(-4px,2px) scaleX(.8);}
+    :global(.brand[data-pressed]) .far {transform:translate(-6px,3px) scaleX(.65);}
+  }
+  @media (hover:hover) and (prefers-reduced-motion:no-preference) {
+    :global(.brand:hover:not([data-pressed])) .near {transform:translate(1.6px,-.8px);}
+    :global(.brand:hover:not([data-pressed])) .far {transform:translate(2.7px,-1.4px);}
+  }
+</style>

@@ -17,7 +17,7 @@
   translate: var(--cue-x) var(--cue-y); scale: .87;
 }
 .action-link:is(:active,[data-pressed]) :is([data-action-label],[data-action-cue]) { transition-duration: 65ms; }
-.action-link:focus-visible[data-direction] [data-action-cue] { translate: var(--cue-x) var(--cue-y); }
+.action-link:is(:focus-visible,[data-focus-visible])[data-direction] [data-action-cue] { translate: var(--cue-x) var(--cue-y); }
 @media (hover: hover) {
   .action-link[data-direction]:hover:not(:active):not([data-pressed]) [data-action-cue] {
     translate: calc(var(--cue-x) * .55) calc(var(--cue-y) * .55);
@@ -27,5 +27,127 @@
   .action-link [data-action-label], .action-link [data-action-cue] {
     translate: none !important; scale: none !important; transition: none !important;
   }
-  .action-link[data-pressed] { background-color: var(--pale); }
+}
+
+/* The upgraded controls own their geometry, 48px touch targets and state
+   layers. Only the static links need a pre-upgrade rendering of those boxes. */
+[data-md-preparing] { display: none !important; }
+a.action-link[data-md-control] {
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 64px;
+  min-height: 40px;
+  padding: 10px var(--fallback-end, 24px) 10px var(--fallback-start, 24px);
+  border: 0;
+  border-radius: var(--md-sys-shape-corner-full);
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  font: var(--md-sys-typescale-label-large-weight) var(--md-sys-typescale-label-large-size) /
+    var(--md-sys-typescale-label-large-line-height) var(--md-sys-typescale-label-large-font);
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.action-link[data-md-control]::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: max(48px, 100%);
+  transform: translateY(-50%);
+}
+a.action-link[data-md-control="tonal"] {
+  color: var(--md-sys-color-on-secondary-container);
+  background: var(--md-sys-color-secondary-container);
+}
+a[data-md-control="tonal"]:has(> :is(svg,[data-md-icon]):first-child) { --fallback-start: 16px; }
+a[data-md-control="tonal"]:has(> :is(svg,[data-md-icon]):last-child) { --fallback-end: 16px; }
+a.action-link[data-md-control="text"] { --fallback-start: 12px; --fallback-end: 12px; }
+a[data-md-control="text"]:has(> :is(svg,[data-md-icon]):first-child) { --fallback-end: 16px; }
+a[data-md-control="text"]:has(> :is(svg,[data-md-icon]):last-child) { --fallback-start: 16px; }
+a.action-link[data-md-control="text"]:active {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+}
+@media (hover: hover) {
+  a.action-link[data-md-control="text"]:hover:not(:active) {
+    background: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+  }
+}
+a.action-link[data-md-control="icon"] {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+a.action-link[data-md-control="icon"]::before {
+  inset-inline: auto;
+  left: 50%;
+  width: max(48px, 100%);
+  transform: translate(-50%, -50%);
+}
+a.action-link[data-md-control] > svg { width: 18px; height: 18px; }
+a.action-link[data-md-control="icon"] > svg { width: 24px; height: 24px; }
+.action-link[data-md-control] > svg[fill="none"] { fill: none; }
+.social-control:is(:focus-visible,[data-focus-visible],[data-pressed]) > svg { color: var(--blue); }
+a.social-control:is(:focus-visible,:active,[data-pressed]) { background: var(--pale); }
+@media (hover: hover) {
+  .social-control:hover > svg { color: var(--blue); }
+  a.social-control:hover { background: var(--pale); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .social-control:hover:not(:active):not([data-pressed]) > svg { transform: translateY(-2px) scale(1.12); }
+}
+.nav-item[data-variant="nav"] > md-ripple {
+  inset: 0 1px;
+  margin: auto;
+  block-size: 40px;
+  border-radius: var(--md-sys-shape-corner-full);
+  z-index: 1;
+}
+.navigation-glyph { overflow: visible; }
+.glyph-anchor, .glyph-part, .glyph-detail { stroke: currentColor; }
+.glyph-detail { opacity: .48; }
+.nav-item:is([aria-current="page"],[data-nav-pending],[data-pressed],:focus-visible) .glyph-detail { opacity: 1; }
+.nav-item:is([aria-current="page"],[data-nav-pending]) .glyph-part { fill: color-mix(in srgb, currentColor 15%, transparent); }
+
+@media (max-width: 720px) {
+  .nav-item[data-variant="nav"] > md-ripple {
+    /* The whole destination receives touch, including its label and edges.
+       Paint over the active indicator and under the SVG and its label. */
+    inset: 0;
+    block-size: auto;
+    border-radius: var(--md-sys-shape-corner-medium);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .navigation-glyph .glyph-part, .navigation-glyph .glyph-detail {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 210ms cubic-bezier(.2,.8,.25,1), opacity 140ms, fill 160ms;
+  }
+  [data-glyph="home"] { --glyph-selected: scaleX(.73); --glyph-down: scaleX(.42); }
+  [data-glyph="home"] .glyph-part { transform-origin: left center; }
+  [data-glyph="book"] { --glyph-selected: skewY(-7deg); --glyph-down: skewY(-13deg) scaleX(.84); }
+  [data-glyph="book"] .glyph-part { transform-origin: left center; }
+  [data-glyph="archive"] { --glyph-selected: translateY(-1.3px); --glyph-down: translateY(-3px) rotate(-7deg); }
+  [data-glyph="archive"] .glyph-part { transform-origin: left bottom; }
+  [data-glyph="link"] { --glyph-selected: translate(-.65px,.65px); --glyph-down: translate(-2px,2px); }
+  [data-glyph="user"] { --glyph-selected: translateY(-.8px); --glyph-down: translateY(-1.8px) rotate(9deg); }
+  .nav-item:is([aria-current="page"],[data-nav-pending],:focus-visible) .glyph-part { transform: var(--glyph-selected); }
+  .nav-item:is([data-pressed],:active) .glyph-part { transform: var(--glyph-down); transition-duration: 65ms; }
+  .nav-item:is([data-pressed],:active) [data-glyph="archive"] .glyph-detail { transform: translateY(1.7px); }
+  .nav-item:is([data-pressed],:active) [data-glyph="book"] .glyph-detail { transform: translateX(-1.2px); }
+  .social-control > svg, .nav-hit .navigation-glyph {
+    transform-origin: center;
+    transition: transform 180ms cubic-bezier(.2,.8,.3,1);
+  }
+  .social-control:is(:focus-visible,[data-focus-visible]) > svg { transform: translateY(-2px) scale(1.12); }
+  .social-control:is([data-pressed],:active) > svg,
+  .nav-item:is([data-pressed],:active) .nav-hit .navigation-glyph {
+    transform: scale(.83);
+    transition-duration: 65ms;
+  }
 }

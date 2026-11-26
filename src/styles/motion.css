@@ -6,8 +6,8 @@ html { view-transition-name: none; }
   view-transition-name: var(--selected-title-name) !important;
   view-transition-class: article-title;
 }
-a[data-reading-return] { position: relative; }
-a[data-reading-return]::after {
+[data-reading-return] { position: relative; }
+[data-reading-return]::after {
   content: "";
   pointer-events: none;
   position: absolute;
@@ -25,55 +25,68 @@ a[data-reading-return]::after {
   100% { opacity: 0; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  a[data-reading-return]::after { animation: source-line 850ms ease-out both; }
+  [data-reading-return]::after { animation: source-line 850ms ease-out both; }
 }
 :root[data-motion-marker] .main-nav [aria-current="page"] i.nav-marker {
   view-transition-name: active-nav-marker;
 }
+.main-nav .nav-item[data-nav-pending] { color: var(--strong-blue); }
+.main-nav .nav-item[data-nav-pending] .nav-hit::before { opacity: 1; }
 :root[data-motion-stage="leave"] #main { view-transition-name: page-leaving; }
 :root[data-motion-stage="enter"] #main { view-transition-name: page-arriving; }
 :root[data-motion-stage] #main { clip-path: inset(var(--motion-pane-clip, 0px) 0 var(--motion-pane-bottom, 0px)); }
 
 :root[data-page-motion] {
-  --pane-in: 27px;
   --pane-out: -15px;
+  --old-clip: inset(0 0 0 100%);
+  --new-clip: inset(0 100% 0 0);
   --motion-curve: cubic-bezier(.2, .73, .21, 1);
 }
-:root[data-motion-direction="back"] { --pane-in: -27px; --pane-out: 15px; }
+:root[data-motion-direction="back"] {
+  --pane-out: 15px;
+  --old-clip: inset(0 100% 0 0);
+  --new-clip: inset(0 0 0 100%);
+}
 :root[data-page-motion="article"] {
   --pane-in: 12px;
   --pane-out: -7px;
-  --old-clip: inset(0 0 0 100%);
-  --new-clip: inset(0 100% 0 0);
+  --plane-time: 178ms;
 }
 :root[data-page-motion="article"][data-motion-direction="back"] {
   --pane-in: -12px;
   --pane-out: 7px;
-  --old-clip: inset(0 100% 0 0);
-  --new-clip: inset(0 0 0 100%);
 }
-:root[data-page-motion="chapter"] { --pane-in: 16px; --pane-out: -8px; }
-:root[data-page-motion="chapter"][data-motion-direction="back"] { --pane-in: -16px; --pane-out: 8px; }
+:root[data-page-motion="chapter"] { --pane-out: -8px; }
+:root[data-page-motion="chapter"][data-motion-direction="back"] { --pane-out: 8px; }
 
 ::view-transition { pointer-events: none; }
-::view-transition-group(page-leaving), ::view-transition-group(page-arriving) { animation: none; }
-::view-transition-group(page-leaving) { z-index: 1; }
-::view-transition-group(page-arriving) { z-index: 2; }
+/* The complementary clips meet at a single moving edge, so old and new
+   paragraphs never print over one another. */
+::view-transition-group(page-leaving) {
+  z-index: 1;
+  animation: close-plane var(--plane-time, 150ms) cubic-bezier(.32,.60,.38,1) both;
+}
+::view-transition-group(page-arriving) {
+  z-index: 2;
+  animation: open-plane var(--plane-time, 150ms) cubic-bezier(.32,.60,.38,1) both;
+}
 ::view-transition-old(page-leaving) {
-  animation: pane-out 148ms ease-in both;
+  animation: section-retire 150ms cubic-bezier(.32, .05, .58, 1) both;
   mix-blend-mode: normal;
 }
+/* Content groups move within this live image. Leave their containing page
+   stationary, so short rows and tall article paragraphs travel equally far. */
 ::view-transition-new(page-arriving) {
-  animation: pane-in 238ms var(--motion-curve) 20ms both;
+  animation: section-surface 170ms ease-out both;
   mix-blend-mode: normal;
 }
-@keyframes pane-out {
+@keyframes section-retire {
   from { translate: 0; opacity: 1; }
-  to { translate: var(--pane-out) 0; opacity: 0; }
+  to { translate: var(--pane-out) -6px; opacity: 0; }
 }
-@keyframes pane-in {
-  from { translate: var(--pane-in) 0; opacity: 0; }
-  to { translate: 0; opacity: 1; }
+@keyframes section-surface {
+  from { opacity: .78; }
+  to { opacity: 1; }
 }
 
 ::view-transition-group(.article-title) {
@@ -84,16 +97,8 @@ a[data-reading-return]::after {
 /* The moving line retains its paper directly behind the glyphs as it crosses
    the old index. Nearby lines can never show through the title. */
 ::view-transition-image-pair(.article-title) { background: var(--surface); }
-/* Both content planes cover the viewport together. Their complementary clips
-   meet at a moving edge, so different paragraphs never print over one another. */
-:root[data-page-motion="article"]::view-transition-group(page-leaving) {
-  animation: article-close-plane 178ms cubic-bezier(.32,.60,.38,1) both;
-}
-:root[data-page-motion="article"]::view-transition-group(page-arriving) {
-  animation: article-open-plane 178ms cubic-bezier(.32,.60,.38,1) both;
-}
-@keyframes article-close-plane { from { clip-path: inset(0); } to { clip-path: var(--old-clip); } }
-@keyframes article-open-plane { from { clip-path: var(--new-clip); } to { clip-path: inset(0); } }
+@keyframes close-plane { from { clip-path: inset(0); } to { clip-path: var(--old-clip); } }
+@keyframes open-plane { from { clip-path: var(--new-clip); } to { clip-path: inset(0); } }
 :root[data-page-motion="article"]::view-transition-old(page-leaving) { animation: article-out 178ms ease-out both; }
 :root[data-page-motion="article"]::view-transition-new(page-arriving) { animation: article-in 178ms var(--motion-curve) both; }
 @keyframes article-out { from { translate: 0; opacity: 1; } to { translate: var(--pane-out) 0; opacity: .76; } }
@@ -118,11 +123,16 @@ a[data-reading-return]::after {
   to { grid-template-rows: 0fr; opacity: 0; }
 }
 @media (max-width: 720px) and (prefers-reduced-motion: no-preference) {
+  .main-nav:has(.nav-item[data-nav-pending]) .nav-item[aria-current] .nav-label {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  .main-nav .nav-item[data-nav-pending] .nav-label { grid-template-rows: 1fr; opacity: 1; }
   :root[data-motion-stage="enter"] [data-motion-label="leave"] .nav-label {
-    animation: nav-label-leave 180ms ease-in-out both;
+    animation: nav-label-leave 180ms ease-in-out calc(0ms - var(--nav-lead, 0ms)) both;
   }
   :root[data-motion-stage="enter"] [data-motion-label="enter"] .nav-label {
-    animation: nav-label-enter 235ms ease-out both;
+    animation: nav-label-enter 235ms ease-out calc(0ms - var(--nav-lead, 0ms)) both;
   }
 }
 
@@ -152,18 +162,23 @@ a[data-reading-return]::after {
   100% { translate: 100vw 0; opacity: 0; }
 }
 
-/* Older multi-page browsers keep normal anchors and animate only the arriving
-   document. With scripting off, direct article text is immediately stable. */
-@keyframes entry-fallback {
-  from { opacity: .78; transform: translateY(7px); }
-  to { opacity: 1; transform: none; }
+/* Only the first visible groups run. Their slots exist at full size from first
+   paint. A reader who arrives midway through an article keeps their position. */
+@keyframes group-arrive {
+  from { opacity: .2; translate: 0 29px; }
+  to { opacity: 1; translate: 0 0; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  :root[data-motion-fallback] #main { animation: entry-fallback 190ms ease-out backwards; }
+  [data-group-order] {
+    animation: group-arrive 410ms cubic-bezier(.2, .73, .21, 1) var(--entry-wait, 0ms) backwards;
+  }
 }
 @media (scripting: none) and (prefers-reduced-motion: no-preference) {
-  body[data-section]:not([data-section="home"]) #main:not(:has(.notes-reading)) {
-    animation: entry-fallback 190ms ease-out both;
+  [data-enter-group] { animation: group-arrive 360ms ease-out backwards; }
+  [data-enter-group]:nth-child(2) { animation-delay: 55ms; }
+  [data-enter-group]:nth-child(n + 3) { animation-delay: 100ms; }
+  @supports selector(:has(:target)) {
+    body:has(:target) [data-enter-group] { animation: none; }
   }
 }
 @media (prefers-reduced-motion: reduce) {

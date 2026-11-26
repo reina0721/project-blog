@@ -33,8 +33,8 @@
     else history.replaceState(updated, '');
   }
   function rowFor(slug) {
-    return Array.from(document.querySelectorAll('a[href] [data-article-slug]'))
-      .find((node) => node.dataset.articleSlug === slug)?.closest('a');
+    return Array.from(document.querySelectorAll('[data-reading-entry][href]'))
+      .find((row) => row.querySelector('[data-article-slug]')?.dataset.articleSlug === slug);
   }
   function safeSource(url) {
     if (!url) return;
@@ -65,37 +65,116 @@
     if (label) label.textContent = path === '/archive' ? '返回归档' : path === '/' ? '返回最近文章' : '返回博客';
   }
   document.addEventListener('DOMContentLoaded', setReadingBackLink, { once: true });
-  document.addEventListener('click', (event) => {
+  let pendingTab;
+  let pendingTimer;
+  let departureTimer;
+  function clearPending() {
+    clearTimeout(pendingTimer);
+    if (pendingTab) delete pendingTab.dataset.navPending;
+    pendingTab = undefined;
+  }
+  function cancelDeparture() {
+    clearTimeout(departureTimer);
+    departureTimer = undefined;
+  }
+  // A cached navigation can finish before a quick tap paints. Read the
+  // running renderer's clock; long holds have already shown the press.
+  function pressTimeRemaining(link) {
+    if (reduced.matches) return 0;
+    const root = (link.shadowRoot || link).querySelector('md-ripple')?.shadowRoot;
+    const solid = root?.querySelector('.mat-ripple-element:last-child');
+    const growth = solid
+      ? solid.getAnimations().find((animation) => animation.transitionProperty === 'transform')
+      : root?.getAnimations?.().find((animation) => animation.effect?.pseudoElement === '::after' &&
+          animation.effect.getKeyframes().some((frame) => frame.transform));
+    if (!growth || growth.playState === 'finished') return 0;
+    return Math.max(0, 105 - Number(growth.currentTime || 0));
+  }
+  function interruptDeparture() {
+    if (departureTimer !== undefined) {
+      cancelDeparture();
+      clearPending();
+    }
+  }
+  window.addEventListener('pointerdown', interruptDeparture, { capture: true, passive: true });
+  window.addEventListener('keydown', interruptDeparture, true);
+  window.addEventListener('pagehide', cancelDeparture);
+  navigationApi?.addEventListener('navigate', cancelDeparture);
+
+  window.addEventListener('click', (event) => {
+    interruptDeparture();
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey ||
         event.shiftKey || event.altKey || !(event.target instanceof Element)) return;
-    const link = event.target.closest('a[href]');
-    if (!link || (link.target && link.target !== '_self') || link.hasAttribute('download')) return;
+    const selector = 'a[href], [data-md-control][href], [data-reading-entry][href]';
+    // Prefer the public host over the anchor inside a Material button's shadow.
+    const link = event.target.closest(selector) || event.composedPath().find((item) => item instanceof Element && item.matches(selector));
+    if (!link || link.hasAttribute('download')) return;
+    const target = link.getAttribute('target');
+    if (target && target.toLowerCase() !== '_self') return;
+    const url = new URL(link.getAttribute('href'), document.baseURI);
+    clearPending();
+    if (url.origin === location.origin && pathOf(url) !== pathOf(location.href)) {
+      const tabs = document.querySelectorAll('.main-nav a[href]');
+      const tab = tabs[sectionOrder(pathOf(url))];
+      if (tab && !tab.hasAttribute('aria-current') && !reduced.matches) {
+        pendingTab = tab;
+        tab.dataset.navPending = '';
+        try { sessionStorage.setItem('blue-notes:nav-intent', JSON.stringify([pathOf(location.href), pathOf(url), Date.now()])); }
+        catch { /* Visual feedback on the current page works without storage. */ }
+        pendingTimer = setTimeout(clearPending, 1800);
+      }
+    }
     clearReturnCue();
-    if (link.hasAttribute('data-reading-back') && previousReadingEntry()) {
+    const returnsToSource = link.hasAttribute('data-reading-back') && previousReadingEntry();
+    if (isReadingSource(pathOf(location.href))) {
+      const title = link.querySelector('[data-article-slug]');
+      if (url.origin === location.origin && title && articlePath(title.dataset.articleSlug) === pathOf(url)) {
+        const row = link.closest('li') || link;
+        putEntryState('readingRow', { slug: title.dataset.articleSlug, offset: row.getBoundingClientRect().top,
+          scroll: scrollY, width: innerWidth, height: innerHeight, keyboard: event.detail === 0 });
+      } else if (entryState().readingRow && (url.origin !== location.origin || pathOf(url) !== pathOf(location.href))) {
+        putEntryState('readingRow', null);
+      }
+    }
+    // Keep browser handling for fragments, new tabs, downloads and links
+    // carrying their own referrer or tracking semantics.
+    const localRoute = url.origin === location.origin && pathOf(url) !== pathOf(location.href);
+    const nativeOnly = link.matches('[referrerpolicy],[ping],[attributionsrc],[rel~="noreferrer"]');
+    const wait = localRoute && event.isTrusted && !nativeOnly ? pressTimeRemaining(link) : 0;
+    if (wait > 0) {
+      event.preventDefault();
+      departureTimer = setTimeout(() => {
+        departureTimer = undefined;
+        if (returnsToSource) history.back();
+        else location.assign(url.href);
+      }, wait);
+    } else if (returnsToSource) {
       event.preventDefault();
       history.back();
-      return;
-    }
-    if (!isReadingSource(pathOf(location.href))) return;
-    const title = link.querySelector('[data-article-slug]');
-    if (link.origin === location.origin && title && articlePath(title.dataset.articleSlug) === pathOf(link.href)) {
-      const row = link.closest('li') || link;
-      putEntryState('readingRow', { slug: title.dataset.articleSlug, offset: row.getBoundingClientRect().top,
-        scroll: scrollY, width: innerWidth, height: innerHeight, keyboard: event.detail === 0 });
-    } else if (entryState().readingRow && (link.origin !== location.origin || pathOf(link.href) !== pathOf(location.href))) {
-      putEntryState('readingRow', null);
     }
   });
-  function restoreRow() {
+  function returningMark() {
     if (!isReadingSource(pathOf(location.href))) return;
     const mark = entryState().readingRow;
     if (!mark?.slug || !Number.isFinite(mark.offset)) return;
     const from = navigationApi?.activation?.from?.url;
     if (from && (new URL(from).origin !== location.origin || pathOf(from) !== articlePath(mark.slug))) return;
+    return mark;
+  }
+  function traversing() {
+    return navigationApi?.activation?.navigationType === 'traverse' ||
+      performance.getEntriesByType('navigation')[0]?.type === 'back_forward';
+  }
+  if (traversing() && returningMark()) root.dataset.restoringReading = '';
+  function restoreRow() {
+    const mark = returningMark();
+    if (!mark) return;
     const link = rowFor(mark.slug);
     if (!link) return;
+    root.dataset.restoringReading = '';
     const row = link.closest('li') || link;
-    if (document.activeElement !== link) link.focus({ preventScroll: true, focusVisible: mark.keyboard });
+    const focusTarget = link.shadowRoot?.querySelector('a[href]') || link;
+    if (document.activeElement !== link) focusTarget.focus({ preventScroll: true, focusVisible: mark.keyboard });
     const sameViewport = mark.width === innerWidth && mark.height === innerHeight;
     const target = sameViewport ? mark.scroll : scrollY + row.getBoundingClientRect().top - mark.offset;
     if (Math.abs(target - scrollY) > 1) window.scrollTo({ top: target, behavior: 'instant' });
@@ -107,31 +186,53 @@
     }
   }
   window.addEventListener('pageshow', (event) => {
-    if (event.persisted || navigationApi?.activation?.navigationType === 'traverse' ||
-        performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
+    if (event.persisted || traversing()) {
       restoreRow();
       // A browser may apply its saved scroll position after pageshow.
       requestAnimationFrame(restoreRow);
     }
   });
 
-  function useEntryFallback(fromUrl, type) {
-    if (!fromUrl || reduced.matches || type === 'reload') return;
-    const from = new URL(fromUrl);
-    if (from.origin === location.origin && pathOf(from) !== pathOf(location.href)) {
-      root.dataset.motionFallback = '';
+  let entered = [];
+  let entryTimer;
+  function clearEntry() {
+    clearTimeout(entryTimer);
+    for (const node of entered) {
+      delete node.dataset.groupOrder;
+      node.style.removeProperty('--entry-wait');
     }
+    entered = [];
+  }
+  function enterGroups(selectedTitle) {
+    clearEntry();
+    if (reduced.matches || location.hash || (traversing() && returningMark())) return;
+    const bar = document.querySelector('.main-nav');
+    const bottom = bar && getComputedStyle(bar).position === 'fixed' ? bar.getBoundingClientRect().top : innerHeight;
+    for (const node of document.querySelectorAll('#main [data-enter-group]')) {
+      if (selectedTitle && node.contains(selectedTitle)) continue;
+      const rect = node.getBoundingClientRect();
+      if (!rect.height || rect.bottom <= 0 || rect.top >= bottom) continue;
+      node.style.setProperty('--entry-wait', (entered.length * 68) + 'ms');
+      node.dataset.groupOrder = String(entered.length);
+      entered.push(node);
+      if (entered.length === 4) break;
+    }
+    if (entered.length) entryTimer = setTimeout(clearEntry, 680);
   }
   if (!nativeNavigation) {
-    useEntryFallback(document.referrer, performance.getEntriesByType('navigation')[0]?.type);
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted && !reduced.matches) root.dataset.motionFallback = '';
-    });
-    window.addEventListener('pagehide', () => { delete root.dataset.motionFallback; });
-    document.addEventListener('animationend', (event) => {
-      if (event.animationName === 'entry-fallback') delete root.dataset.motionFallback;
-    });
+    document.addEventListener('DOMContentLoaded', () => enterGroups(), { once: true });
+    window.addEventListener('pageshow', (event) => { if (event.persisted) enterGroups(); });
   }
+  window.addEventListener('pageshow', clearPending);
+  window.addEventListener('keydown', (event) => { if (event.key === 'Escape') clearPending(); });
+  window.addEventListener('pagehide', () => {
+    clearEntry();
+    clearPending();
+    delete root.dataset.restoringReading;
+  });
+  reduced.addEventListener('change', () => {
+    if (reduced.matches) { clearEntry(); clearPending(); }
+  });
 
   // The section order comes from the same anchors visitors use.
   function sectionOrder(path) {
@@ -141,10 +242,11 @@
   }
   function chapterDirection(source, destination, outgoing, activation) {
     const other = outgoing ? destination : source;
-    const link = Array.from(document.querySelectorAll('.notes-adjacent a[rel]'))
-      .find((item) => pathOf(item.href) === other);
-    if (link?.rel === 'prev' || link?.rel === 'next') {
-      const step = link.rel === 'next' ? 1 : -1;
+    const link = Array.from(document.querySelectorAll('.notes-adjacent [rel][href]'))
+      .find((item) => pathOf(item.getAttribute('href')) === other);
+    const relation = link?.getAttribute('rel');
+    if (relation === 'prev' || relation === 'next') {
+      const step = relation === 'next' ? 1 : -1;
       return outgoing ? step : -step;
     }
     return activation.entry.index < activation.from.index ? -1 : 1;
@@ -153,13 +255,17 @@
   function prepare(event, activation, outgoing) {
     clearActive?.();
     const transition = event.viewTransition;
-    if (!transition) return;
+    if (!transition) {
+      if (!outgoing && nativeNavigation) enterGroups();
+      return;
+    }
     // The outgoing document can be suspended in the back/forward cache before
     // native pseudo-elements exist. The ready rejection is expected in that case.
     transition.ready.catch(() => {});
     if (!nativeNavigation || reduced.matches || !activation?.from?.url ||
         !activation.entry?.url || activation.navigationType === 'reload') {
       transition.skipTransition();
+      if (!outgoing && nativeNavigation) enterGroups();
       return;
     }
     const from = new URL(activation.from.url);
@@ -168,6 +274,7 @@
     const destination = pathOf(to);
     if (from.origin !== location.origin || to.origin !== location.origin || source === destination) {
       transition.skipTransition();
+      if (!outgoing) enterGroups();
       return;
     }
 
@@ -234,6 +341,17 @@
         const tabs = navbar.querySelectorAll('a[href]');
         previousTab = tabs[sourceOrder];
         currentTab = tabs[destinationOrder];
+        // If the server was slow, the departing labels already had time to
+        // respond to the click. Continue from that point on the arriving page.
+        if (activation.navigationType === 'push') {
+          try {
+            const intent = JSON.parse(sessionStorage.getItem('blue-notes:nav-intent') || 'null');
+            sessionStorage.removeItem('blue-notes:nav-intent');
+            if (intent?.[0] === source && intent[1] === destination) {
+              root.style.setProperty('--nav-lead', Math.min(235, Math.max(0, Date.now() - intent[2])) + 'ms');
+            }
+          } catch { /* Use the complete label motion when storage is unavailable. */ }
+        }
         previousTab.dataset.motionLabel = 'leave';
         currentTab.dataset.motionLabel = 'enter';
       }
@@ -242,6 +360,9 @@
       title.style.setProperty('--selected-title-name', CSS.escape('a-title-' + title.dataset.articleSlug));
       title.dataset.motionSelected = '';
     }
+    // The arriving native snapshot is live. Choreograph its actual children so
+    // each glyph paints once, and its animation continues after the snapshot ends.
+    if (!outgoing) enterGroups(title);
     const cleanup = () => {
       if (clearActive !== cleanup) return;
       delete root.dataset.pageMotion;
@@ -251,6 +372,7 @@
       root.style.removeProperty('--motion-header-edge');
       root.style.removeProperty('--motion-pane-clip');
       root.style.removeProperty('--motion-pane-bottom');
+      root.style.removeProperty('--nav-lead');
       if (previousTab) delete previousTab.dataset.motionLabel;
       if (currentTab) delete currentTab.dataset.motionLabel;
       if (title) {

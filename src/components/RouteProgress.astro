@@ -1,0 +1,52 @@
+<div class="route-progress" id="route-progress" hidden role="status">
+  <span class="progress-label">正在打开页面</span>
+  <md-linear-progress indeterminate aria-hidden="true"></md-linear-progress>
+</div>
+<style>
+  .route-progress {
+    position:fixed; z-index:20; inset:0 0 auto; height:3px;
+    pointer-events:none; background:var(--pale);
+    --md-linear-progress-track-height:3px;
+    --md-linear-progress-track-color:var(--pale);
+    --md-linear-progress-active-indicator-color:var(--blue);
+  }
+  .route-progress[hidden] { display:none; }
+  .progress-label { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  md-linear-progress {display:block; width:100%;}
+  md-linear-progress:not(:defined) {height:100%;width:32%;background:var(--blue);}
+  @media (prefers-reduced-motion:reduce) {
+    md-linear-progress {display:none;}
+    .route-progress {background:var(--blue);}
+  }
+</style>
+<script>
+  import '@material/web/progress/linear-progress.js';
+
+  // The leaving document owns the indicator for the lifetime of its request.
+  // A fast local navigation finishes before the indicator ever appears.
+  const progress = document.getElementById('route-progress')!;
+  let pendingTimer: number | undefined;
+  function settle() {
+    window.clearTimeout(pendingTimer);
+    progress.hidden = true;
+  }
+  interface RouteNavigation extends Event {
+    destination: { url: string; sameDocument: boolean };
+    downloadRequest: string | null;
+    signal: AbortSignal;
+  }
+  const navigationEvents: EventTarget | undefined = Reflect.get(window, 'navigation');
+  navigationEvents?.addEventListener('navigate', (event) => {
+    settle();
+    const { destination, downloadRequest, signal } = event as RouteNavigation;
+    if (destination.sameDocument || downloadRequest != null || signal.aborted) return;
+    const target = new URL(destination.url);
+    if (target.origin !== location.origin || target.pathname === location.pathname) return;
+    pendingTimer = window.setTimeout(() => { progress.hidden = false; }, 240);
+    signal.addEventListener('abort', settle, { once:true });
+  });
+  navigationEvents?.addEventListener('navigateerror', settle);
+  window.addEventListener('pageswap', settle);
+  window.addEventListener('pagehide', settle);
+  window.addEventListener('pageshow', settle);
+</script>

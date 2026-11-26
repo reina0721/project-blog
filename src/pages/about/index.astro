@@ -14,26 +14,26 @@ const { Content } = await render(entry);
 
 <Shell title="关于" description={site.motto} section="about">
   <div class="inner-page about-page">
-    <header class="view-head">
+    <header class="view-head" data-enter-group>
       <div>
         <p class="section-label"><span class="section-marker"><Icon name="user" size={15} /></span> 关于</p>
         <h1>认识站主</h1>
       </div>
     </header>
-    <div class="surface-panel profile-panel">
-      <div class="profile-id">
-        {profileAvatar ? <img class="profile-avatar" src={profileAvatar} alt="" width="94" height="94" /> : <span class="profile-avatar avatar-letter" aria-hidden="true">{Array.from(site.name)[0]}</span>}
-        <div class="profile-copy">
-          <div class="profile-name"><h2>{site.name}</h2>{site.romanName && <span>{site.romanName}</span>}</div>
-          <p class="profile-motto">{site.motto}</p>
-          {site.sample && <small>示例身份</small>}
-        </div>
+    <div class="profile-id" data-enter-group>
+      {profileAvatar ? <img class="profile-avatar" src={profileAvatar} alt="" width="94" height="94" /> : <span class="profile-avatar avatar-letter" aria-hidden="true">{Array.from(site.name)[0]}</span>}
+      <div class="profile-copy">
+        <div class="profile-name"><h2>{site.name}</h2>{site.romanName && <span>{site.romanName}</span>}</div>
+        <p class="profile-motto">{site.motto}</p>
+        {site.sample && <small>示例身份</small>}
       </div>
-      {profileSocials.length > 0 && <section class="profile-block">
+    </div>
+    <div class="profile-details">
+      {profileSocials.length > 0 && <section class="profile-block" data-enter-group>
         <div class="panel-heading"><h2>{usingSampleSocials ? '示例社区入口' : '社区账号'}</h2></div>
         <ProfileSocials />
       </section>}
-      <section class="profile-block">
+      <section class="profile-block" data-enter-group>
         <div class="panel-heading"><h2>{entry.data.title}</h2></div>
         <div class="article-prose"><Content /></div>
       </section>

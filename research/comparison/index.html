@@ -78,21 +78,25 @@
         </div>
         <div class="site-controls">
           <label>操作 <select aria-label="蓝笺取样路径">
-            <option value="blog-desktop.webp" data-note="1120 × 720 的连帧展示点开第二篇《给阅读留一道页边》、阅读稳定及浏览器返回原行。">换页与返回</option>
-            <option value="press-desktop.webp" data-note="1280 × 800。五行依次为进入博客、主导航、博客文章、归档与最近文章，横向比较改前和改后。">控件按压</option>
+            <option value="current-desktop.webp" data-note="桌面首访的前三帧依次出现头像、姓名和入口。下方展示文章卡、开放阅读列及返回位置。">首页与阅读转场</option>
+            <option value="ripple-modes.webp" data-note="900 × 760 桌面鼠标。三行依次是博客文章卡、归档文章行和归档页首「浏览文章摘要」。同一相对触点按住 45ms 与 110ms，右侧放大四倍，便于看清归档文章行的渐变边缘和另外两处的清晰圆边。">当前水波 · 文章卡、归档行与按钮</option>
+            <option value="material-article.webp" data-note="历史样本。早期博客文章卡使用 Material Web 渐变水波，图中与同尺寸的官方链接条目比较悬停及按住 120 毫秒的画面。">历史 · 文章卡渐变水波</option>
+            <option value="social-states.webp" data-note="更换水波前的图标动效样本。移到哔哩哔哩后图标抬起，按住后收紧，拖出松开后复位。">历史 · 社交入口悬停与按压</option>
+            <option value="blog-desktop.webp" data-note="11 月 25 日的版本。1120 × 720，第二篇文章进入与返回。">上一版 · 换页与返回</option>
+            <option value="press-desktop.webp" data-note="历史采样，1280 × 800。五行依次为进入博客、主导航、博客文章、归档与最近文章，比较当时改动前后的字形和箭头。">历史 · 控件按压</option>
           </select>
         </label>
       </div>
-      <a class="panel-link" href="blog-desktop.webp" aria-label="蓝笺，换页与返回，查看原图">
-        <img src="blog-desktop.webp" alt="蓝笺，换页与返回，按时间顺序排列的实采帧">
+      <a class="panel-link" href="current-desktop.webp" aria-label="蓝笺，桌面首页与阅读转场样本，查看原图">
+        <img src="current-desktop.webp" alt="桌面首页的头像、姓名与社交入口先后出现，随后进入独立文章卡与正文">
         <span class="enlarge">放大 ↗</span>
       </a>
-      <p class="fig-note">1120 × 720 的连帧展示点开第二篇《给阅读留一道页边》、阅读稳定及浏览器返回原行。</p>
+      <p class="fig-note">1280 × 800。首访的前三帧依次出现头像、姓名和入口，随后从文章卡进入正文并返回。</p>
     </article>
   </div>
   <details class="walkthrough">
-    <summary>查看本站原速操作录像</summary>
-    <video controls playsinline preload="none" aria-label="本站桌面原速操作录像" src="walk-desktop.webm">
+    <summary>查看本站首页与阅读转场的原速录像</summary>
+    <video controls playsinline preload="none" aria-label="本站桌面原速操作录像" src="current-desktop.webm">
     </video>
   </details>
   <section class="matrix">
@@ -112,7 +116,7 @@
             <th scope="row">按下</th>
             <td>文章卡在悬停时已上移约 8px，右下箭头由灰转粉。按住时维持该状态。</td>
             <td>按住左侧放大镜时有局部反馈，旁边出现“搜索”提示；首页保持可见。</td>
-            <td>按住文章行时整行出现蓝色状态层，标题和右侧方向图标随之回应；命中范围覆盖一整行。五种入口的近景按同一输入位置比较改前、改后。</td>
+            <td>移入博客文章卡时，卡面保持原色。按住后，均匀填色的半透明圆从触点扩开，到卡边被裁切。归档里按年份排列的文章行保留边缘渐淡的水波。</td>
           </tr>
           <tr>
             <th scope="row">旧页退出</th>
@@ -182,21 +186,23 @@
     </div>
     <div class="site-controls">
       <label>操作 <select aria-label="蓝笺取样路径">
-        <option value="blog-mobile.webp" data-note="390 × 650 的触摸连帧展示打开第二篇、正文进入和返回原行。">换页与返回</option>
-        <option value="press-mobile.webp" data-note="390 × 844。五种入口均用同一位置按住约 85ms，比对改前和改后。未选底栏项的文字仍收起。">控件按压</option>
+        <option value="current-mobile.webp" data-note="触摸视口中的首页入场、分篇卡片、无外框正文与原位返回。">首页与阅读转场</option>
+        <option value="material-navigation.webp" data-note="历史样本。当时主导航使用 Material Web 渐变水波；在固定触点比较层叠修复前后与官方 Labs 导航，取扩散第 120 毫秒。">历史 · 导航渐变水波</option>
+        <option value="blog-mobile.webp" data-note="11 月 25 日的版本。390 × 650，第二篇文章进入与返回。">上一版 · 换页与返回</option>
+        <option value="press-mobile.webp" data-note="历史采样，390 × 844。五种入口均在同一位置按住约 85ms，比较当时改动前后图标与文字的位移。">历史 · 控件按压</option>
       </select>
     </label>
   </div>
-  <a class="panel-link" href="blog-mobile.webp" aria-label="蓝笺，换页与返回，查看原图">
-    <img src="blog-mobile.webp" alt="蓝笺，换页与返回，按时间顺序排列的实采帧">
+  <a class="panel-link" href="current-mobile.webp" aria-label="蓝笺，手机首页与阅读转场样本，查看原图">
+    <img src="current-mobile.webp" alt="手机首页的头像、姓名与社交入口先后出现，随后进入独立文章卡与正文">
     <span class="enlarge">放大 ↗</span>
   </a>
-  <p class="fig-note">390 × 650 的触摸连帧展示打开第二篇、正文进入和返回原行。</p>
+  <p class="fig-note">390 × 844。首访的前三帧依次出现头像、姓名和入口，随后从文章卡进入正文并返回。</p>
 </article>
 </div>
 <details class="walkthrough">
-  <summary>查看本站原速操作录像</summary>
-  <video controls playsinline preload="none" aria-label="本站手机原速操作录像" src="walk-mobile.webm">
+  <summary>查看本站首页与阅读转场的原速录像</summary>
+  <video controls playsinline preload="none" aria-label="本站手机原速操作录像" src="current-mobile.webm">
   </video>
 </details>
 <section class="matrix">
@@ -216,19 +222,19 @@
           <th scope="row">按下</th>
           <td>手指按住第一张卡时，其位置未移动，箭头仍是灰色。</td>
           <td>按住底栏分区时，目标图标后有灰色水纹；原选中的首页仍带粉色和文字。</td>
-          <td>手指按住约 85ms，新版可见文字右移约 2px、下移约 1px，箭头右移约 5px。旧版对应区域未超过像素差阈值。竖向拖动 67px 则取消这次按压。</td>
+          <td>按住主导航，实心水波在导航项内扩散，SVG 图标与栏目文字各自回应。进入归档后，按年份排列的文章行显示渐变水波，页首「浏览文章摘要」显示实心水波。</td>
         </tr>
         <tr>
           <th scope="row">旧页退出</th>
           <td>释放后收起列表，旧内容整体向上并淡出。</td>
           <td>释放后约 153ms 的样本中，底栏已选择分区，中间还可辨认旧视频缩略图。</td>
-          <td>从博客切到归档时，两枚底栏图标的中心切换前后都在 y=805px，文字与选中标记完成交接。</td>
+          <td>点归档后，当页仍承载内容，目标图标和文字先回应。离开层与到达层沿同一边界交接，避免两份栏目标题压在一起。</td>
         </tr>
         <tr>
           <th scope="row">新页落定</th>
           <td>844px 高的视口中，文章标题从约 y=999px 进入，在 y=155px 左右稳定。</td>
           <td>约 332ms 的样本已出现分区条目。顶部站标与底栏仍可见，新目录从顶部开始。</td>
-          <td>所选标题移到文章标题的位置，新正文从左侧揭开。深读后返回，列表反向揭开，屏外标题留在屏外。</td>
+          <td>栏目标题和各年份组按顺序呈现。进入文章时，原卡片的标题承接到开放的阅读列；深读后返回，屏外标题留在屏外。</td>
         </tr>
         <tr>
           <th scope="row">浏览器后退</th>
@@ -246,17 +252,22 @@
   <p>
     <strong>实测。</strong> 2026 年 11 月 25 日以 Chromium 采样。Aira 的四段路径在两端各走一遍，共记录 361 帧。Aira 和 Kirakira 桌面主样本为 1280 × 800，手机主样本为 390 × 844；Aira 另以 390 × 620 检查非零滚动恢复。本站另有 1120 × 720、390 × 650 的生产回归。手机样本使用移动视口和触摸输入。每张图保留各自的时间标记。帧与帧之间的准确换页时刻无法由截图确定。本站按压近景中的“变化像素”按任一 RGB 通道变化至少 12 计数。</p>
     <p>
+      本站另用 900 × 760 的桌面视口和鼠标，在三个入口宽度的 73%、高度的 55% 处按下。两种水波都从真实触点扩散，观察 45ms 的放大图可以分辨轮廓。<a href="ripple-modes.webp">打开三处按压实拍</a></p>
+    <p>
       <strong>源码对照。</strong> Aira 的文章卡定义了悬停上移与箭头变色，页面退出样式定义向上位移与透明度变化。样式给出设计终值，采样中的时长还受资源载入和设备影响。</p>
       <p>
         <strong>解读。</strong> 内容索引需要让读者重新找到原文，社区导航还要持续交代当前分区。适合本站的动效强度和阅读舒适度仍要由读者体验验证。这里没有取样实体手机、其他浏览器或读屏器。</p>
         <div class="source-links">
+          <a href="https://github.com/angular/components/blob/v21.2.14/src/material/core/ripple/_ripple.scss">Angular Material 21.2.14 实心圆的绘制</a>
+          <a href="https://github.com/material-components/material-web/blob/v2.5.0/ripple/internal/_ripple.scss">Material Web 2.5.0 渐变水波源码</a>
           <a href="aira-observations.json">Aira 采样记录</a>
           <a href="https://aira.cafe/">Aira Café 原站</a>
           <a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/components/Blog/BlogCard.vue">文章卡源码</a>
           <a href="https://github.com/Aira-Sakuranomiya/white-aria/blob/main/app/app.vue">页面退出样式</a>
           <a href="https://kirakira.moe/">Kirakira 原站</a>
           <a href="kira-observations.md">Kirakira 采样记录</a>
-          <a href="results.md">本轮修复与实测数据</a>
+          <a href="http://127.0.0.1:4321/">打开本机博客</a>
+          <a href="results.md">11 月 25 日按压与返回的基线数据</a>
           <a href="../qa.md">本站验收记录</a>
         </div>
       </section>

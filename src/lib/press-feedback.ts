@@ -1,6 +1,6 @@
 // Touch browsers can defer :active until release. Show contact on pointerdown,
 // while leaving scrolling, context menus and the anchor's navigation native.
-let pressed: HTMLAnchorElement | null = null;
+let pressed: HTMLElement | null = null;
 let pointerId: number | null = null;
 let startX = 0;
 let startY = 0;
@@ -11,15 +11,16 @@ function clearPress() {
   pointerId = null;
 }
 
-function press(target: EventTarget | null) {
+function press(event: Event) {
   clearPress();
-  pressed = target instanceof Element ? target.closest<HTMLAnchorElement>('a.action-link') : null;
+  pressed = event.composedPath().find((node): node is HTMLElement =>
+    node instanceof HTMLElement && node.matches('.action-link[href]')) ?? null;
   pressed?.setAttribute('data-pressed', '');
 }
 
 document.addEventListener('pointerdown', (event) => {
   if (!event.isPrimary || event.button !== 0) return clearPress();
-  press(event.target);
+  press(event);
   if (!pressed) return;
   pointerId = event.pointerId;
   startX = event.clientX;
@@ -36,7 +37,7 @@ document.addEventListener('pointermove', (event) => {
 }, { passive: true });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter' && !event.repeat) press(event.target);
+  if (event.key === 'Enter' && !event.repeat) press(event);
 });
 document.addEventListener('keyup', (event) => { if (event.key === 'Enter') clearPress(); });
 window.addEventListener('pointerup', clearPress, true);

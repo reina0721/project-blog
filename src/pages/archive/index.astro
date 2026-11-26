@@ -1,6 +1,7 @@
 ---
 import Shell from '../../layouts/Shell.astro';
 import ActionLink from '../../components/ActionLink.astro';
+import MaterialEntry from '../../components/MaterialEntry.astro';
 import Icon from '../../components/Icon.astro';
 import { getPosts, postHref, titleTransition } from '../../lib/content';
 import '../../styles/pages.css';
@@ -17,27 +18,26 @@ for (const post of posts) {
 
 <Shell title="归档" description="按年份和日期查找文章。" section="archive">
   <div class="inner-page archive-page">
-    <header class="view-head">
+    <header class="view-head" data-enter-group>
       <div>
         <p class="section-label"><span class="section-marker"><Icon name="archive" size={15} /></span> 归档</p>
-        <h1>按年份查找</h1>
+        <div class="heading-line"><h1>按年份查找</h1><span class="collection-count">{years.size} 个年份 · {posts.length} 篇</span></div>
       </div>
-      <ActionLink class="section-action" direction="back" href="/blog/"><Icon name="arrow-left" size={15} cue /> <span data-action-label>浏览文章摘要</span></ActionLink>
+      <ActionLink class="section-action" variant="text" direction="back" href="/blog/"><Icon name="arrow-left" size={16} cue /><span data-action-label>浏览文章摘要</span></ActionLink>
     </header>
-    <div class="surface-panel archive-panel">
-      <div class="panel-heading"><h2>时间索引</h2><span>{years.size} 个年份 · {posts.length} 篇</span></div>
-      {years.size === 0 && <p class="panel-empty">这里还没有文章。</p>}
+    <div class="year-index">
+      {years.size === 0 && <p class="panel-empty" data-enter-group>这里还没有文章。</p>}
       {Array.from(years, ([year, entries]) => (
-        <section class="year-group" aria-labelledby={'year-' + year}>
+        <section class="year-group" data-enter-group aria-labelledby={'year-' + year}>
           <h2 id={'year-' + year}>{year}</h2>
-          <ul class="timeline-list">
+          <ul class="timeline-list" data-material-list aria-labelledby={'year-' + year}>
             {entries.map((post) => (
               <li>
-                <ActionLink href={postHref(post.id)} class="archive-hit" direction="forward">
-                  <time datetime={post.data.date}>{post.data.date.slice(5).replace('-', '.')}</time>
-                  <span class="archive-title" data-action-label data-article-slug={post.id} style={{ viewTransitionName: titleTransition(post.id) }}>{post.data.title}</span>
-                  <span class="hit-arrow" aria-hidden="true"><Icon name="arrow-right" size={16} cue /></span>
-                </ActionLink>
+                <MaterialEntry href={postHref(post.id)} class="archive-hit" label={post.data.title} direction="forward" data-archive-ripple>
+                  <time slot="start" datetime={post.data.date}>{post.data.date.slice(5).replace('-', '.')}</time>
+                  <span slot="headline" class="archive-title" data-action-label data-article-slug={post.id} style={{ viewTransitionName: titleTransition(post.id) }}>{post.data.title}</span>
+                  <span slot="end" class="hit-arrow" aria-hidden="true"><Icon name="arrow-right" size={16} cue /></span>
+                </MaterialEntry>
               </li>
             ))}
           </ul>

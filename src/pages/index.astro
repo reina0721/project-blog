@@ -2,6 +2,7 @@
 import Shell from '../layouts/Shell.astro';
 import Icon from '../components/Icon.astro';
 import ActionLink from '../components/ActionLink.astro';
+import MaterialEntry from '../components/MaterialEntry.astro';
 import ProfileSocials from '../components/ProfileSocials.astro';
 import { site } from '../data/site';
 import { profileAvatar } from '../data/identity';
@@ -10,13 +11,32 @@ import '../styles/home.css';
 const [latest] = await getPosts();
 ---
 <Shell section="home">
+  <Fragment slot="head">{profileAvatar && <link rel="preload" as="image" href={profileAvatar} fetchpriority="high" />}</Fragment>
+  <script is:inline>
+    // An article can return directly to the recent entry below the hero.
+    if (location.hash || performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
+      document.documentElement.dataset.homeRestored = '';
+    }
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) document.documentElement.dataset.homeRestored = '';
+    });
+  </script>
   <section class="identity-stage" aria-labelledby="owner-name">
     <div class="stage-field" aria-hidden="true"></div>
     <div class="identity-lockup">
-      <ActionLink class="portrait-link" href="/about/" aria-label={`了解${site.name}`}>
-        <span class="portrait-orbit" aria-hidden="true"></span>
+      <ActionLink class="portrait-link" variant="plain" href="/about/" aria-label={`了解${site.name}`}>
+        <span class="portrait-pulse" aria-hidden="true"></span>
         <span class="portrait-crop">{profileAvatar ? <img src={profileAvatar} alt="" width="720" height="720" fetchpriority="high"/> : <span>{site.name.slice(0,1)}</span>}</span>
-        <span class="portrait-burst" aria-hidden="true"><i></i><i></i></span>
+        <svg class="portrait-orbit" viewBox="0 0 240 240" aria-hidden="true" fill="none">
+          <g class="orbit-trace" stroke="currentColor" stroke-linecap="round">
+            <path class="orbit-arc" pathLength="1" d="M35 49C9 77 2 116 13 150S46 209 84 222" />
+            <path class="orbit-tip" d="M38 45l6-6" />
+          </g>
+          <g class="orbit-spark" fill="currentColor"><path d="m201 30 2.9 6.2 6.6 2.2-6.3 2.8-2.5 6.5-2.5-6.4-6.5-2.4 6.3-2.8z"/></g>
+          <g class="orbit-streaks" fill="currentColor">
+            <path d="m194 194 35-18-3 6-35 18z"/><path d="m199 201 15-7-2.2 4.5-15 7z"/>
+          </g>
+        </svg>
       </ActionLink>
       <div class="identity-copy">
         <h1 class="identity-title" id="owner-name">
@@ -24,15 +44,26 @@ const [latest] = await getPosts();
           <span class="identity-name">{site.name}</span>
         </h1>
         <p class="motto">{site.motto}</p>
-        <div class="identity-actions"><ProfileSocials /><ActionLink class="blog-door" direction="forward" href="/blog/"><span data-action-label>进入博客</span><Icon name="arrow" size={17} cue /></ActionLink></div>
+        <div class="identity-actions">
+          <ProfileSocials />
+          <span class="door-entry"><ActionLink class="blog-door" variant="tonal" direction="forward" href="/blog/"><span data-action-label>进入博客</span><Icon name="arrow" size={17} cue /></ActionLink></span>
+        </div>
       </div>
     </div>
-    {latest && <a class="stage-scroll" href="#recent" aria-label="向下查看最近文章"><span lang="en">SCROLL</span><i aria-hidden="true"></i></a>}
+    {latest && <div class="stage-scroll">
+      <ActionLink variant="text" href="#recent" aria-label="向下查看最近文章">
+        <span class="scroll-label"><span lang="en">SCROLL</span><i aria-hidden="true"></i></span>
+      </ActionLink>
+    </div>}
   </section>
   {latest && <section class="recent-area" id="recent" aria-labelledby="recent-title">
     <div class="recent-content">
       <div class="recent-heading"><span class="heading-key" aria-hidden="true"><Icon name="book" size={21}/></span><h2 id="recent-title">最近文章</h2></div>
-      <ActionLink class="recent-story" direction="forward" href={postHref(latest.id)}><div><time datetime={latest.data.date}>{formatDate(latest.data.date)}</time><h3><span data-action-label data-article-slug={latest.id}>{latest.data.title}</span></h3>{latest.data.summary && <p>{latest.data.summary}</p>}</div><span class="story-go"><Icon name="arrow" size={22} cue /></span></ActionLink>
+      <MaterialEntry class="recent-story" elevated label={latest.data.title} direction="forward" href={postHref(latest.id)}>
+        <div slot="headline"><time datetime={latest.data.date}>{formatDate(latest.data.date)}</time><h3><span data-action-label data-article-slug={latest.id}>{latest.data.title}</span></h3></div>
+        {latest.data.summary && <p slot="supporting">{latest.data.summary}</p>}
+        <span class="story-go" slot="end"><Icon name="arrow" size={22} cue /></span>
+      </MaterialEntry>
     </div>
   </section>}
 </Shell>

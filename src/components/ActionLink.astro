@@ -4,10 +4,20 @@ import '../styles/action-feedback.css';
 type Props = HTMLAttributes<'a'> & {
   href: string;
   direction?: 'forward' | 'back' | 'external';
+  variant?: 'plain' | 'tonal' | 'text' | 'icon' | 'nav';
 };
-const { class: className, direction, ...attributes } = Astro.props;
+const { class: className, direction, variant = 'plain', ...attributes } = Astro.props;
+const materialButton = variant === 'tonal' || variant === 'text' || variant === 'icon';
 ---
-<a {...attributes} class:list={['action-link', className]} data-direction={direction}><md-ripple aria-hidden="true"></md-ripple><md-focus-ring aria-hidden="true"></md-focus-ring><slot /></a>
+<a {...attributes} class:list={['action-link', className]} data-variant={variant} data-direction={direction}
+  data-md-control={materialButton ? variant : undefined}>
+  {!materialButton && <>
+    <md-ripple for="" aria-hidden="true"></md-ripple>
+    <md-focus-ring aria-hidden="true" inward={variant === 'nav'}></md-focus-ring>
+  </>}
+  <slot />
+</a>
 <script>
   import '../lib/press-feedback';
+  import '../lib/material-controls';
 </script>

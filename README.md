@@ -39,11 +39,23 @@ summary: 这篇文章写了什么。
 
 ## 主题和交互
 
-从 `site.themeColor` 修改种子蓝。[全站样式](src/styles/global.css) 负责强调色、表面、轮廓、文字和 Material 状态层的语义映射。[ActionLink](src/components/ActionLink.astro) 给原生链接提供 Material Web 的按压和键盘焦点反馈。[SiteNav](src/components/SiteNav.astro) 根据当前页面输出菜单状态，手机底栏随选中项展开文字。[转场实现](src/lib/motion-inline.js) 在浏览器交换文档时匹配方向、来源标题和当前栏目。动画视觉由 [motion.css](src/styles/motion.css) 控制。
+从 `site.themeColor` 修改种子蓝。[全站样式](src/styles/global.css) 提供文字、表面和 Material 的颜色角色。按下控件时，水波样式取决于入口。
+
+| 按下的位置 | 水波 |
+| --- | --- |
+| 归档页各年份下的文章行 | Material Web 2.5.0 绘制渐变水波，圆的外缘逐渐变淡。 |
+| 首页最近文章、博客文章卡、友链、主导航和各页按钮 | 从触点扩出均匀填色的半透明圆，由 Angular Material 21.2.14 的 `RippleRenderer` 绘制。归档页首的「浏览文章摘要」也使用这种实心水波，宽屏时它位于右上角。 |
+
+- [按钮封装](src/components/ActionLink.astro) 在静态 HTML 中提供链接，加载后交给 `md-filled-tonal-button`、`md-text-button` 或 `md-icon-button` 的链接模式。图标单独响应悬停和按住。
+- [文章与友链封装](src/components/MaterialEntry.astro) 使用 `md-list-item type="link"`。博客和首页的每篇文章各有独立的 `md-elevated-card`，归档按年使用 `md-list`。文章入口的悬停层透明，友链保留组件自带的悬停反馈。
+- [主导航](src/components/SiteNav.astro) 提供五个可在新标签页打开的原生链接，使用 `md-icon` 和 `md-focus-ring`。手机上胶囊标记当前栏目，按下时水波在所点导航项内扩散。
+
+[首页样式](src/styles/home.css) 控制头像、网名和社区入口的出场间隔。内页用 `data-enter-group` 标出应先后出现的标题、文章卡或年份组；[转场实现](src/lib/motion-inline.js) 负责路由、所选标题及来源位置，[动效样式](src/styles/motion.css) 控制交接。正文行宽和卡片间距在[页面样式](src/styles/pages.css)调整。
 
 ## 研究与验收
 
-- [三站按下、换页与返回的双端现场对照](research/comparison/index.html) · [本轮组件修改和生产复测](research/comparison/results.md)
+- [博客文章卡、归档文章行与归档页首按钮的水波实拍](research/comparison/ripple-modes.webp)
+- [三站按下、换页与返回的双端对照](research/comparison/index.html) · [桌面首页与阅读转场录像](research/comparison/current-desktop.webm) · [手机首页与阅读转场录像](research/comparison/current-mobile.webm)
 - [参考站截图、双端线框、游戏分镜、灰度和原色对照](research/index.html)
 - [四种转场的可操作对照实验](research/motion.html)
 - [正式站原速导航录屏](research/samples/navigation.webm)

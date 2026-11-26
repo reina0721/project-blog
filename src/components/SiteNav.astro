@@ -6,10 +6,15 @@ interface Props { section?: (typeof site.nav)[number]['key']; }
 const { section } = Astro.props;
 ---
 <nav class="main-nav" aria-label="主导航">
-  {site.nav.map(item => <ActionLink class="nav-item" href={item.href} aria-label={item.label} aria-current={section === item.key ? 'page' : undefined}>
-    <span class="nav-hit"><Icon name={item.icon} size={20} /></span>
+  <md-elevation class="nav-elevation" aria-hidden="true"></md-elevation>
+  {site.nav.map(item => <ActionLink variant="nav" class="nav-item" href={item.href} aria-label={item.label} aria-current={section === item.key ? 'page' : undefined}>
+    <span class="nav-hit"><md-icon class="nav-icon" aria-hidden="true"><Icon name={item.icon} size={24} animated /></md-icon></span>
     <span class="nav-label"><span>{item.label}</span></span>
     <span class="nav-tip" aria-hidden="true">{item.label}</span>
     {section === item.key && <i class="nav-marker" aria-hidden="true"></i>}
   </ActionLink>)}
 </nav>
+<script>
+  import '@material/web/elevation/elevation.js';
+  import '@material/web/icon/icon.js';
+</script>

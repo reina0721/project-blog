@@ -1,0 +1,75 @@
+/* Material owns the surface, focus ring, and state layer. Its inner anchor
+   covers the entire padded area, including the whitespace around the text. */
+.entry-card {
+  display: block;
+  --md-elevated-card-container-color: var(--surface);
+  --md-elevated-card-container-shadow-color: #233355;
+  --md-elevated-card-container-shape: 16px;
+  border-radius: var(--md-elevated-card-container-shape);
+}
+.entry-card:not(:defined) { background: var(--surface); box-shadow: 0 2px 6px #23335522; }
+@media (hover:hover) { .entry-card:hover { --md-elevated-card-container-elevation: 2; } }
+.material-entry {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  gap: var(--entry-gap, 12px);
+  --md-list-item-label-text-color: var(--ink);
+  --md-list-item-label-text-font: var(--sans);
+  --md-list-item-supporting-text-font: var(--sans);
+  --md-list-item-supporting-text-color: var(--muted);
+  --md-list-item-one-line-container-height: 48px;
+  --md-list-item-two-line-container-height: 48px;
+  --md-list-item-leading-space: var(--entry-x);
+  --md-list-item-trailing-space: var(--entry-x);
+  --md-list-item-top-space: var(--entry-y);
+  --md-list-item-bottom-space: var(--entry-y);
+}
+md-list-item.material-entry:focus-visible { outline: none; }
+:is(.post-hit,.archive-hit,.recent-story,.adjacent-entry) {
+  --md-list-item-hover-state-layer-opacity: 0;
+}
+[data-entry-preparing] { display: none !important; }
+.material-entry .entry-leading { min-width: var(--entry-leading, 0); }
+.entry-leading, .entry-trailing { display: grid; align-items: center; }
+.entry-heading, .entry-description { min-width: 0; }
+a.material-entry {
+  padding: var(--entry-y) var(--entry-x);
+  min-height: 48px;
+  align-items: center;
+  color: var(--ink);
+  text-decoration: none;
+}
+a.material-entry:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+a.material-entry.friend-hit:active { background: var(--md-sys-color-surface-container); }
+/* Preserve the reading surface through hover, focus, and fallback presses.
+   Enhanced entries still render the component's own pressed ripple. */
+a.material-entry:is(.post-hit,.archive-hit,.recent-story,.adjacent-entry):is(:hover,:focus-visible,:active,[data-pressed]) { background: transparent; }
+.entry-fallback {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  grid-template-columns: minmax(0,1fr);
+  grid-template-areas: "heading" "description";
+}
+.entry-fallback:has(.entry-leading) {
+  grid-template-columns: auto minmax(0,1fr);
+  grid-template-areas: "leading heading" "leading description";
+  column-gap: var(--entry-gap);
+}
+.entry-fallback:has(.entry-trailing) {
+  grid-template-columns: minmax(0,1fr) auto;
+  grid-template-areas: "heading trailing" "description trailing";
+  column-gap: var(--entry-gap);
+}
+.entry-fallback:has(.entry-leading):has(.entry-trailing) {
+  grid-template-columns: auto minmax(0,1fr) auto;
+  grid-template-areas: "leading heading trailing" "leading description trailing";
+}
+.entry-leading { grid-area: leading; }
+.entry-heading { grid-area: heading; }
+.entry-description { grid-area: description; }
+.entry-trailing { grid-area: trailing; }
