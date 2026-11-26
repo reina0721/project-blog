@@ -24,7 +24,7 @@ const groups = [
       {groups.map((group) => (
         <section class="directory-group" data-enter-group>
           <div class="panel-heading"><h2>{group.title}</h2><span>{group.entries.length} 个站点</span></div>
-          {group.entries.length === 0 && <p class="panel-empty">好友站点还未收录。</p>}
+          {group.entries.length === 0 && <p class="panel-empty">没有一个朋友，好可怜。</p>}
           <ul class="friend-grid" style={{ '--site-count': group.entries.length }}>
             {group.entries.map((friend) => (
               <li>
