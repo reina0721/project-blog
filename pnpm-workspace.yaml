@@ -1,3 +1,2 @@
 allowBuilds:
   '@parcel/watcher@2.6.0': true
-  'playwright-chromium@1.65.1': true

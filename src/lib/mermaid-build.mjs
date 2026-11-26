@@ -1,21 +1,22 @@
 import { createHash } from 'node:crypto';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { mermaidTheme } from './mermaid-theme.mjs';
 
 const require = createRequire(import.meta.url);
-const mermaidScript = require.resolve('mermaid/dist/mermaid.min.js');
 const contentRoot = new URL('../content/', import.meta.url);
+const assetRoot = new URL('../generated/mermaid/', import.meta.url);
 const hash = value => createHash('sha256').update(value).digest('hex').slice(0, 24);
 
 // Astro caches rendered content between builds. Include rendering settings in
 // its processor configuration so changing the theme also recompiles the images.
 const rendererKey = hash(JSON.stringify([1, require('mermaid/package.json').version, mermaidTheme]));
-const pending = new Map();
 let browserReady;
 let activeRenders = 0;
 
 async function renderSvg(source, id) {
-  const ready = browserReady ??= import('playwright-chromium').then(({ chromium }) => chromium.launch());
+  const mermaidScript = require.resolve('mermaid/dist/mermaid.min.js');
+  const ready = browserReady ??= import('playwright-core').then(({ chromium }) => chromium.launch());
   activeRenders++;
   let page;
   try {
@@ -55,38 +56,77 @@ async function renderSvg(source, id) {
   }
 }
 
+async function readDiagrams() {
+  const names = await readdir(assetRoot).catch(error => {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  });
+  const diagramNames = names.filter(name => /^[a-f0-9]{24}\.(svg|json)$/.test(name)).sort();
+  const entries = await Promise.all(diagramNames.map(async name => [
+    name, await readFile(new URL(name, assetRoot), 'utf8'),
+  ]));
+  return new Map(entries);
+}
+
+async function writeDiagram(id, { svg, ...metadata }) {
+  await mkdir(assetRoot, { recursive: true });
+  await writeFile(new URL(`${id}.svg`, assetRoot), svg);
+  await writeFile(new URL(`${id}.json`, assetRoot), `${JSON.stringify(metadata, null, 2)}\n`);
+}
+
 // The SVG travels with the compiled Markdown metadata. A clean output
 // directory can therefore be rebuilt even when every post is an Astro cache hit.
-export const mermaidFigures = {
-  name: `mermaid-figures-${rendererKey}`,
-  element: {
-    filter: ['pre'],
-    async visit(node, ctx) {
-      if (!ctx.fileURL?.href.startsWith(contentRoot.href)) return;
-      const code = node.children.find(child => child.type === 'element' && child.tagName === 'code');
-      if (!code?.properties?.className?.includes('language-mermaid')) return;
-      const source = ctx.textContent(code).trimEnd();
-      const id = hash(`${rendererKey}\0${source}`);
-      if (!pending.has(id)) pending.set(id, renderSvg(source, id).finally(() => pending.delete(id)));
-      let asset;
-      try {
-        asset = await pending.get(id);
-      } catch (cause) {
-        throw new Error(`Failed to render a Mermaid diagram in ${ctx.fileURL.pathname}: ${cause.message}`, { cause });
-      }
-      const frontmatter = ctx.data.astro.frontmatter;
-      (frontmatter.articleDiagramAssets ??= {})[id] = asset.svg;
-      const url = `/diagrams/${id}.svg`;
-      const properties = {
-        className: ['mermaid-diagram'], src: url, alt: asset.title,
-        width: asset.width, height: asset.height, decoding: 'async',
-      };
-      if (asset.description) properties.ariaDescription = asset.description;
-      return {
-        type: 'element', tagName: 'a',
-        properties: { className: ['mermaid-preview'], href: url, ariaLabel: `放大查看，${asset.title}` },
-        children: [{ type: 'element', tagName: 'img', properties, children: [] }],
-      };
+export async function createMermaidFigures(mode) {
+  const files = await readDiagrams();
+  const revision = hash(JSON.stringify([...files]));
+  const pending = new Map();
+
+  async function loadDiagram(source, id) {
+    const svg = files.get(`${id}.svg`);
+    const metadata = files.get(`${id}.json`);
+    if (svg && metadata) return { ...JSON.parse(metadata), svg };
+    if (mode !== 'dev' && mode !== 'generate') {
+      throw new Error(`Missing pre-generated SVG ${id}. Run pnpm diagrams:generate and include src/generated/mermaid in the commit.`);
+    }
+    const asset = await renderSvg(source, id);
+    if (mode === 'generate') await writeDiagram(id, asset);
+    return asset;
+  }
+
+  return {
+    name: `mermaid-figures-${rendererKey}-${revision}-${mode}`,
+    element: {
+      filter: ['pre'],
+      async visit(node, ctx) {
+        if (!ctx.fileURL?.href.startsWith(contentRoot.href)) return;
+        const code = node.children.find(child => child.type === 'element' && child.tagName === 'code');
+        if (!code?.properties?.className?.includes('language-mermaid')) return;
+        // Sätteri preserves the checkout's line endings in code blocks.
+        const source = ctx.textContent(code).replace(/\r\n?/g, '\n').trimEnd();
+        const id = hash(`${rendererKey}\0${source}`);
+        if (!pending.has(id)) pending.set(id, loadDiagram(source, id));
+        let asset;
+        try {
+          asset = await pending.get(id);
+        } catch (cause) {
+          throw new Error(`Failed to render a Mermaid diagram in ${ctx.fileURL.pathname}: ${cause.message}`, { cause });
+        } finally {
+          if (mode !== 'generate') pending.delete(id);
+        }
+        const frontmatter = ctx.data.astro.frontmatter;
+        (frontmatter.articleDiagramAssets ??= {})[id] = asset.svg;
+        const url = `/diagrams/${id}.svg`;
+        const properties = {
+          className: ['mermaid-diagram'], src: url, alt: asset.title,
+          width: asset.width, height: asset.height, decoding: 'async',
+        };
+        if (asset.description) properties.ariaDescription = asset.description;
+        return {
+          type: 'element', tagName: 'a',
+          properties: { className: ['mermaid-preview'], href: url, ariaLabel: `放大查看，${asset.title}` },
+          children: [{ type: 'element', tagName: 'img', properties, children: [] }],
+        };
+      },
     },
-  },
-};
+  };
+}

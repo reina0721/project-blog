@@ -215,7 +215,7 @@ importers:
       mermaid:
         specifier: 12.3.0
         version: 12.3.0
-      playwright-chromium:
+      playwright-core:
         specifier: 1.65.1
         version: 1.65.1
       rolldown:
@@ -2143,11 +2143,6 @@ packages:
   picomatch@4.0.7:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
-
-  playwright-chromium@1.65.1:
-    resolution: {integrity: sha512-XsGj9GBKk20UQVlwjbiSmArmTfNTrqbEw5SzTnV3J1uQCztQRsiPScSdiC2KoYuN3ItTN8/+IciM9/t/e9GctA==}
-    engines: {node: '>=20'}
-    hasBin: true
 
   playwright-core@1.65.1:
     resolution: {integrity: sha512-hqPpz7blSMPxWVdoeE1yiBSzXsKiVOd2k+kjCvmUywD2GPO2Dd9HfcWnq9NN0GHbNZDFgZ9JfBFr+X5/BLo0qw==}
@@ -4565,10 +4560,6 @@ snapshots:
   picomatch@2.3.2: {}
 
   picomatch@4.0.7: {}
-
-  playwright-chromium@1.65.1:
-    dependencies:
-      playwright-core: 1.65.1
 
   playwright-core@1.65.1: {}
 

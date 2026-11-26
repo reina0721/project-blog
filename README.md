@@ -4,7 +4,7 @@
 
 ## 本地运行
 
-环境为 Node.js 24.19 与 pnpm 12.9.1。首次进入项目后运行 `pnpm install --frozen-lockfile`，Playwright 会安装生成图表所用的 Chromium。精简 Linux 构建环境可用 `pnpm exec playwright install --with-deps chromium` 补齐浏览器的系统依赖。
+环境为 Node.js 24.19 与 pnpm 12.9.1。首次进入项目后运行 `pnpm install --frozen-lockfile`。
 
 | 命令 | 用途 |
 | --- | --- |
@@ -37,7 +37,9 @@ summary: 这篇文章写了什么。
 正文从这里开始。
 ```
 
-文章里的图表用 `mermaid` 代码围栏编写。构建时会生成 SVG，正文显示缩略图，点击可进入图廊。可以用 `accTitle` 给图命名，作为缩略图的替代文本和图廊标题。
+文章里的图表用 `mermaid` 代码围栏编写。正文显示 SVG 缩略图，点击可进入图廊。可以用 `accTitle` 给图命名，作为缩略图的替代文本和图廊标题。
+
+首次编写或修改图表时，在本地运行 `pnpm exec playwright-core install chromium`。编辑图表时，`pnpm dev` 可以即时预览。发布前运行 `pnpm diagrams:generate`，将 `src/generated/mermaid/` 新增的 SVG 和元数据与 Markdown 一起提交。在支持 Playwright 的精简 Linux 环境，可通过 `pnpm exec playwright-core install --with-deps chromium` 同时安装系统依赖。
 
 编辑 [好友数据](src/data/friends.ts) 的 `friends` 数组即可增加友链。每项填写 `name`、`url`，可选 `avatar`、`description`。缺头像时使用站名首字。
 
@@ -69,6 +71,8 @@ summary: 这篇文章写了什么。
 - [生产验收记录](research/qa.md)
 
 `research/` 随项目源码交付；`dist/` 是面向访客的博客。把构建目录部署到域名根路径即可。托管服务可把未匹配路径指向 `404.html` 并返回 HTTP 404。
+
+在阿里云 ESA Pages 中使用 Node.js `24.x`，安装命令 `pnpm install`，构建命令 `pnpm build`，静态资源目录 `dist`。构建直接读取仓库中的 Mermaid SVG。
 
 ## 素材
 
