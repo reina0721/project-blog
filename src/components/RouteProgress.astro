@@ -22,37 +22,42 @@
 <script>
   import '@material/web/progress/linear-progress.js';
 
-  // The leaving document owns the indicator for the lifetime of its request.
-  // A fast local navigation finishes before the indicator ever appears.
-  const progress = document.getElementById('route-progress')!;
+  // Resolve the indicator on the current page after a slow request starts.
+  let requestSignal: AbortSignal | undefined;
+  let visibleIndicator: HTMLElement | null = null;
   let pendingTimer: number | undefined;
   function settle() {
+    requestSignal?.removeEventListener('abort', settle);
+    requestSignal = undefined;
     window.clearTimeout(pendingTimer);
     pendingTimer = undefined;
-    progress.hidden = true;
+    if (visibleIndicator) visibleIndicator.hidden = true;
+    visibleIndicator = null;
   }
-  function begin() {
-    if (pendingTimer !== undefined) return;
-    pendingTimer = window.setTimeout(() => { progress.hidden = false; }, 240);
-  }
-  interface RouteNavigation extends Event {
-    destination: { url: string; sameDocument: boolean };
-    downloadRequest: string | null;
-    signal: AbortSignal;
-  }
-  const navigationEvents: EventTarget | undefined = Reflect.get(window, 'navigation');
-  navigationEvents?.addEventListener('navigate', (event) => {
-    const { destination, downloadRequest, signal } = event as RouteNavigation;
-    if (destination.sameDocument || downloadRequest != null || signal.aborted) { settle(); return; }
-    const target = new URL(destination.url);
-    if (target.origin !== location.origin || target.pathname === location.pathname) { settle(); return; }
-    begin();
-    signal.addEventListener('abort', settle, { once:true });
+
+  document.addEventListener('astro:before-preparation', event => {
+    settle();
+    requestSignal = event.signal;
+    requestSignal.addEventListener('abort', settle, { once: true });
+    pendingTimer = window.setTimeout(() => {
+      if (event.defaultPrevented) return settle();
+      visibleIndicator = document.getElementById('route-progress');
+      if (visibleIndicator) visibleIndicator.hidden = false;
+    }, 240);
+
+    const load = event.loader;
+    event.loader = async () => {
+      try {
+        await load();
+      } catch (error) {
+        if (requestSignal === event.signal) settle();
+        throw error;
+      }
+      if (event.defaultPrevented && requestSignal === event.signal) settle();
+    };
   });
-  navigationEvents?.addEventListener('navigateerror', settle);
-  document.addEventListener('blue:route-request', begin);
-  document.addEventListener('blue:route-cancel', settle);
-  window.addEventListener('pageswap', settle);
+  document.addEventListener('astro:before-swap', event => {
+    if (requestSignal === event.signal) settle();
+  });
   window.addEventListener('pagehide', settle);
-  window.addEventListener('pageshow', settle);
 </script>

@@ -2,4 +2,19 @@
 title: 关于这里
 ---
 
-这里收着一些关于颜色、排版和书写的短文。喜欢从小处读起的话，可以先翻一篇[博客](/blog/)。想找某个时间写下的东西，[归档](/archive/)里按年份排好了。
+# 你好，世界
+
+这里是我吐槽的个人空间。
+
+# 关于我
+
+- 位置：ChongQing
+- 生日：2002/02/23
+- 专业：无
+- 爱好：Coder
+- 音乐：Sky
+- 游戏：Roblox
+- 邮箱：xiaolin@iqwq.com
+- GitHub：[`github.com/reina0721`](https://github.com/reina0721)
+
+> 参考：[aira cafe](https://aira.cafe/)

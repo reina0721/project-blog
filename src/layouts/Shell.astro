@@ -1,12 +1,11 @@
 ---
-import SiteMark from '../components/SiteMark.astro';
+import { ClientRouter } from 'astro:transitions';
+import BrandLockup from '../components/BrandLockup.astro';
 import Icon from '../components/Icon.astro';
 import ActionLink from '../components/ActionLink.astro';
 import RouteProgress from '../components/RouteProgress.astro';
 import SiteNav from '../components/SiteNav.astro';
 import { site } from '../data/site';
-import readingScript from '../lib/reading-origin-inline.js?raw';
-import motionScript from '../lib/motion-inline.js?raw';
 import '../styles/global.css';
 import '../styles/motion.css';
 interface Props { title?: string; description?: string; section?: 'home' | 'blog' | 'archive' | 'links' | 'about'; reading?: boolean; }
@@ -15,15 +14,18 @@ const { title, description = site.motto, section, reading = false } = Astro.prop
 <!doctype html>
 <html lang="zh-CN" style={`--blue:${site.themeColor}`}>
   <head>
-    <style is:inline>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content={site.themeColor} /><meta name="description" content={description} />
     <title>{title ? `${title} · ${site.brand}` : `${site.name} · ${site.brand}`}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <slot name="head" />
-    <link rel="expect" href="#motion-page-end" blocking="render" />
-    <script is:inline set:html={readingScript}></script>
-    <script is:inline set:html={motionScript}></script>
+    <script is:inline>
+      // Reading history from older builds predates Astro's navigation index.
+      if (history.state?.blueNotesReading && !Number.isInteger(history.state.index)) {
+        history.replaceState({ ...history.state, index: 0, scrollX, scrollY }, '');
+      }
+    </script>
+    <ClientRouter fallback="swap" />
   </head>
   <body data-section={section}>
     <RouteProgress />
@@ -31,15 +33,24 @@ const { title, description = site.motto, section, reading = false } = Astro.prop
     <div class="site-viewport">
       <header class="site-header">
         <div class="site-leading" data-leading={reading ? 'back' : 'brand'}>
-          {reading ? (
-            <ActionLink href="/blog/" variant="icon" class="reading-back" direction="back" data-reading-back aria-label="返回博客">
-              <Icon name="arrow-left" size={24} cue />
-            </ActionLink>
-          ) : (
-            <ActionLink href="/" variant="text" class="brand" direction="back" aria-label={`${site.brand}主页`}>
-              <span class="brand-lockup"><SiteMark /><span data-action-label>{site.brand}</span><i aria-hidden="true"></i></span>
-            </ActionLink>
-          )}
+          <span class="leading-current">
+            {reading ? (
+              <ActionLink href="/blog/" variant="icon" class="reading-back" direction="back" data-reading-back aria-label="返回博客">
+                <Icon name="arrow-left" size={24} cue />
+              </ActionLink>
+            ) : (
+              <ActionLink href="/" variant="text" class="brand" direction="back" aria-label={`${site.brand}主页`}>
+                <BrandLockup />
+              </ActionLink>
+            )}
+          </span>
+          <template data-leading-previous>
+            {reading ? (
+              <span class="leading-art brand" aria-hidden="true" inert><BrandLockup /></span>
+            ) : (
+              <span class="leading-art reading-back" aria-hidden="true" inert><Icon name="arrow-left" size={24} /></span>
+            )}
+          </template>
         </div>
         <SiteNav section={section}/>
       </header>
@@ -49,6 +60,7 @@ const { title, description = site.motto, section, reading = false } = Astro.prop
     <script>
       import '@material/web/ripple/ripple.js';
       import '@material/web/focus/md-focus-ring.js';
+      import '../lib/motion';
     </script>
   </body>
 </html>

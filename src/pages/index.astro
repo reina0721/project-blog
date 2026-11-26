@@ -12,15 +12,6 @@ const [latest] = await getPosts();
 ---
 <Shell section="home">
   <Fragment slot="head">{profileAvatar && <link rel="preload" as="image" href={profileAvatar} fetchpriority="high" />}</Fragment>
-  <script is:inline>
-    // An article can return directly to the recent entry below the hero.
-    if (location.hash || performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
-      document.documentElement.dataset.homeRestored = '';
-    }
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted) document.documentElement.dataset.homeRestored = '';
-    });
-  </script>
   <section class="identity-stage" aria-labelledby="owner-name">
     <div class="stage-field" aria-hidden="true"></div>
     <div class="identity-lockup">

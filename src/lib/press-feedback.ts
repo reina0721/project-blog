@@ -44,5 +44,6 @@ window.addEventListener('pointerup', clearPress, true);
 window.addEventListener('pointercancel', clearPress, true);
 window.addEventListener('blur', clearPress);
 window.addEventListener('pagehide', clearPress);
+document.addEventListener('astro:before-swap', clearPress);
 document.addEventListener('focusout', (event) => { if (event.target === pressed) clearPress(); });
 document.addEventListener('contextmenu', clearPress);

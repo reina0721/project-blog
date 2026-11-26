@@ -3,11 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "packageManager": "pnpm@12.9.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 127.0.0.1 --port 4320",
     "build": "astro build",
     "check": "astro check",
-    "preview": "astro preview",
+    "preview": "astro preview --host 127.0.0.1 --port 4323",
     "research": "vite research --host 127.0.0.1 --port 4322 --strictPort"
   },
   "dependencies": {

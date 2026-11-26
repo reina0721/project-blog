@@ -3,6 +3,8 @@ import '@material/web/list/list.js';
 import '@material/web/list/list-item.js';
 import { connectControlRipple } from './control-ripple';
 
+const preparedEntries = new WeakSet<HTMLAnchorElement>();
+
 // Only the compact chronological lists use Material's roving focus. Independent
 // article cards and destinations in a wrapping directory keep ordinary Tab order.
 function upgradeArchive(list: HTMLUListElement) {
@@ -38,10 +40,14 @@ async function enhance(link: HTMLAnchorElement) {
   }
   item.toggleAttribute('data-archive-ripple', link.hasAttribute('data-archive-ripple'));
   await connectControlRipple(item, native);
+  if (!link.isConnected) {
+    item.remove();
+    return;
+  }
   // The 2.5 component applies role=listitem to its internal anchor. Our outer
   // list already owns that structure; expose the native link as a link.
   native.removeAttribute('role');
-  for (const name of ['aria-label', 'target', 'rel', 'download', 'referrerpolicy', 'hreflang', 'ping']) {
+  for (const name of ['aria-label', 'target', 'rel', 'download', 'referrerpolicy', 'hreflang', 'ping', 'attributionsrc', 'type', 'data-astro-reload', 'data-astro-history']) {
     if (link.hasAttribute(name)) native.setAttribute(name, link.getAttribute(name)!);
   }
   const ring = item.shadowRoot?.querySelector('md-focus-ring');
@@ -49,7 +55,8 @@ async function enhance(link: HTMLAnchorElement) {
 
   function commit() {
     if (!link.isConnected) return;
-    if (link === document.activeElement) {
+    const focused = link === document.activeElement;
+    if (focused && !link.hasAttribute('data-reading-return')) {
       link.addEventListener('blur', () => queueMicrotask(commit), { once: true });
       return;
     }
@@ -59,12 +66,14 @@ async function enhance(link: HTMLAnchorElement) {
         controller.abort();
         requestAnimationFrame(commit);
       };
+      document.addEventListener('astro:before-swap', () => controller.abort(), { once: true, signal: controller.signal });
       for (const event of ['pointerup', 'pointercancel', 'blur', 'pageshow']) {
         window.addEventListener(event, resume, { capture: true, signal: controller.signal });
       }
       return;
     }
     const list = link.closest<HTMLUListElement>('ul[data-material-list]');
+    const focusOptions = { preventScroll: true, focusVisible: link.matches(':focus-visible') };
     for (const attr of link.attributes) {
       if (attr.name !== 'aria-label') item.setAttribute(attr.name, attr.value);
     }
@@ -72,6 +81,7 @@ async function enhance(link: HTMLAnchorElement) {
     link.remove();
     item.inert = false;
     item.removeAttribute('data-entry-preparing');
+    if (focused) native!.focus(focusOptions);
     if (list) {
       if (list.matches(':focus-within')) list.addEventListener('focusout', () => queueMicrotask(() => upgradeArchive(list)));
       else upgradeArchive(list);
@@ -79,4 +89,14 @@ async function enhance(link: HTMLAnchorElement) {
   }
   commit();
 }
-for (const anchor of document.querySelectorAll<HTMLAnchorElement>('a[data-reading-entry]')) void enhance(anchor);
+
+function enhanceEntries() {
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a[data-reading-entry]')) {
+    if (preparedEntries.has(link)) continue;
+    preparedEntries.add(link);
+    void enhance(link);
+  }
+}
+
+document.addEventListener('astro:page-load', enhanceEntries);
+enhanceEntries();

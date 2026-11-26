@@ -8,6 +8,7 @@ const tagNames = {
   text: 'md-text-button',
   icon: 'md-icon-button',
 } as const;
+const preparedLinks = new WeakSet<HTMLAnchorElement>();
 
 function resumeAfterInteraction(link: HTMLAnchorElement) {
   if (document.activeElement === link) {
@@ -19,6 +20,7 @@ function resumeAfterInteraction(link: HTMLAnchorElement) {
     controller.abort();
     requestAnimationFrame(() => void upgradeLink(link));
   };
+  document.addEventListener('astro:before-swap', () => controller.abort(), { once: true, signal: controller.signal });
   for (const event of ['pointerup', 'pointercancel', 'blur', 'pagehide']) {
     window.addEventListener(event, resume, { capture: true, signal: controller.signal });
   }
@@ -45,6 +47,10 @@ async function upgradeLink(link: HTMLAnchorElement) {
     return;
   }
   await connectControlRipple(control, native);
+  if (!link.isConnected) {
+    control.remove();
+    return;
+  }
 
   // A visitor may already be using the fallback while the bundle loads.
   if (link === document.activeElement || link.matches(':active') || link.hasAttribute('data-pressed')) {
@@ -67,7 +73,7 @@ async function upgradeLink(link: HTMLAnchorElement) {
   }
   for (const attribute of link.attributes) control.setAttribute(attribute.name, attribute.value);
   // These native anchor attributes are not all forwarded by Material Web.
-  for (const name of ['download', 'target', 'rel', 'hreflang', 'referrerpolicy', 'ping', 'type', 'aria-current']) {
+  for (const name of ['download', 'target', 'rel', 'hreflang', 'referrerpolicy', 'ping', 'attributionsrc', 'type', 'aria-current', 'data-astro-reload', 'data-astro-history']) {
     if (link.hasAttribute(name)) native.setAttribute(name, link.getAttribute(name)!);
   }
   control.append(...Array.from(link.childNodes));
@@ -76,10 +82,17 @@ async function upgradeLink(link: HTMLAnchorElement) {
   control.removeAttribute('data-md-preparing');
 }
 
-for (const link of document.querySelectorAll<HTMLAnchorElement>('a[data-md-control]')) {
-  void upgradeLink(link);
+function enhanceControls() {
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a[data-md-control]')) {
+    if (preparedLinks.has(link)) continue;
+    preparedLinks.add(link);
+    void upgradeLink(link);
+  }
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a.action-link:has(> md-ripple)')) {
+    void connectControlRipple(link, link);
+  }
 }
 
-for (const link of document.querySelectorAll<HTMLAnchorElement>('a.action-link:has(> md-ripple)')) {
-  void connectControlRipple(link, link);
-}
+document.addEventListener('astro:page-load', enhanceControls);
+enhanceControls();

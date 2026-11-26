@@ -4,15 +4,17 @@
 
 ## 本地运行
 
-环境为 Node.js 24.19 与 npm。首次进入项目后运行 `npm ci`。
+环境为 Node.js 24.19 与 pnpm 12.9.1。首次进入项目后运行 `pnpm install --frozen-lockfile`。
 
 | 命令 | 用途 |
 | --- | --- |
-| `npm run dev` | 编辑网站并即时预览 |
-| `npm run check` | 检查 Astro 和 TypeScript |
-| `npm run build` | 在 `dist/` 生成可以部署的静态文件 |
-| `npm run preview -- --host 127.0.0.1 --port 4321` | 在本机预览上述生产构建 |
-| `npm run research` | 在本机 4322 端口打开研究图册、录屏与转场实验 |
+| `pnpm dev` | 访问 `http://127.0.0.1:4320/`，保存源码后自动更新 |
+| `pnpm check` | 检查 Astro 和 TypeScript |
+| `pnpm build` | 在 `dist/` 生成可以部署的静态文件 |
+| `pnpm preview` | 访问 `http://127.0.0.1:4323/`，预览最近一次生产构建 |
+| `pnpm research` | 在本机 4322 端口打开研究图册、录屏与转场实验 |
+
+开发时打开 `pnpm dev` 终端打印的地址。Astro 和 Vite 会在保存样式、组件或 Markdown 后自动更新预览。`pnpm preview` 读取 `dist/`，改动源码后需要重新运行 `pnpm build` 才能看到变化。Astro 客户端路由在开发预览和部署后的站点都可用，点击站内链接会切换页面内容并更新地址栏，保留当前浏览器文档。文章地址也可直接打开或手动刷新。
 
 ## 更换身份资料
 
@@ -50,12 +52,13 @@ summary: 这篇文章写了什么。
 - [文章与友链封装](src/components/MaterialEntry.astro) 使用 `md-list-item type="link"`。博客和首页的每篇文章各有独立的 `md-elevated-card`，归档按年使用 `md-list`。文章入口的悬停层透明，友链保留组件自带的悬停反馈。
 - [主导航](src/components/SiteNav.astro) 从同一份配置生成五个栏目。桌面显示顶部导航。手机从左侧向右拖动，或点右上角菜单按钮，正文会向右让位，露出抽屉。点露出的页面、向左拖或按 Escape 都能收回。
 
-[首页样式](src/styles/home.css) 控制头像、网名和社区入口的出场间隔。内页用 `data-enter-group` 标出依次进入的标题、文章卡或年份组。[转场实现](src/lib/motion-inline.js) 和[动效样式](src/styles/motion.css) 负责旧页退场、标题交接与内容载入。正文行宽和卡片间距在[页面样式](src/styles/pages.css)调整。
+[首页样式](src/styles/home.css) 控制头像、网名和社区入口的出场间隔。内页用 `data-enter-group` 标出依次进入的标题、文章卡或年份组。[转场实现](src/lib/motion.ts) 和[动效样式](src/styles/motion.css) 负责旧页退场、标题交接与内容载入。正文行宽和卡片间距在[页面样式](src/styles/pages.css)调整。
 
-进入文章后，左上站标换成返回箭头。从归档进入一篇文章，连续读到另一篇再点箭头，仍回到归档中最初选的那一行。浏览器的后退键可以逐篇回看。直接打开分享链接时，左上箭头通往博客列表。[阅读来源与位置恢复](src/lib/reading-origin-inline.js)
+首页首次打开和刷新时，左上角的站名与 Logo 从第一帧起就固定显示。从首页、博客或归档点开文章时，站标向上退出，返回箭头从下方进入。连读下一篇时箭头留在原位。退出文章回到普通页面时，箭头向下退出，站标从上方归位。从归档连续阅读多篇后，点箭头仍会回到最初选择的那一行。浏览器的后退键可以逐篇回看。直接打开分享链接时，箭头通往博客列表。[阅读来源与位置恢复](src/lib/reading-origin.ts)
 
 ## 研究与验收
 
+- [首页冷加载、刷新与进出文章的页头实拍对照](research/comparison/brand-back.webp)
 - [博客文章卡、归档文章行与归档页首按钮的水波实拍](research/comparison/ripple-modes.webp)
 - [三站按下、换页与返回的双端对照](research/comparison/index.html) · [桌面选文与左上返回录像](research/comparison/current-desktop.webm) · [手机抽屉、归档与连续读文返回录像](research/comparison/current-mobile.webm)
 - [参考站截图、双端线框、游戏分镜、灰度和原色对照](research/index.html)

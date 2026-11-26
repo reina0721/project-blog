@@ -11,11 +11,11 @@ export const designReferences: Friend[] = [
   {
     name: 'Aira Café',
     url: 'https://aira.cafe/',
-    description: '关于一个人，首页可以说得很少。去看看文字、空白与个人入口如何相处。',
+    description: '很喜欢的设计站长',
   },
-  {
-    name: 'Kirakira',
-    url: 'https://kirakira.moe/',
-    description: '留意它的菜单和按钮。图标、文字与按下时的反馈，共同解释了每次点击。',
-  },
+  // {
+  //   name: 'Kirakira',
+  //   url: 'https://kirakira.moe/',
+  //   description: '留意它的菜单和按钮。图标、文字与按下时的反馈，共同解释了每次点击。',
+  // },
 ];

@@ -17,7 +17,7 @@ const { Content } = await render(entry);
     <header class="view-head" data-enter-group>
       <div>
         <p class="section-label"><span class="section-marker"><Icon name="user" size={15} /></span> 关于</p>
-        <h1>认识站主</h1>
+        <h1>认识我</h1>
       </div>
     </header>
     <div class="profile-id" data-enter-group>
@@ -25,12 +25,12 @@ const { Content } = await render(entry);
       <div class="profile-copy">
         <div class="profile-name"><h2>{site.name}</h2>{site.romanName && <span>{site.romanName}</span>}</div>
         <p class="profile-motto">{site.motto}</p>
-        {site.sample && <small>示例身份</small>}
+        {site.sample && <small>身份</small>}
       </div>
     </div>
     <div class="profile-details">
       {profileSocials.length > 0 && <section class="profile-block" data-enter-group>
-        <div class="panel-heading"><h2>{usingSampleSocials ? '示例社区入口' : '社区账号'}</h2></div>
+        <div class="panel-heading"><h2>{usingSampleSocials ? '社区账号' : '社区账号'}</h2></div>
         <ProfileSocials />
       </section>}
       <section class="profile-block" data-enter-group>

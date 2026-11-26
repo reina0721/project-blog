@@ -41,6 +41,7 @@ function listen(trigger: HTMLElement, layer: HTMLElement, start: StartWave) {
     window.addEventListener('pointercancel', next => { if (next.pointerId === pointerId) cancel(); }, options);
     window.addEventListener('blur', cancel, { signal: events.signal });
     window.addEventListener('pagehide', cancel, options);
+    document.addEventListener('astro:before-swap', cancel, options);
     if (touch) {
       // Let a touch turn into scrolling without painting a tap or cancelling
       // the browser's gesture. A short tap is painted on release.

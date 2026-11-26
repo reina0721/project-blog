@@ -4,13 +4,19 @@ import { connectControlRipple } from './control-ripple';
 const root = document.documentElement;
 const narrow = matchMedia('(max-width: 720px)');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-const dialog = document.querySelector<HTMLDialogElement>('#site-drawer')!;
-const fallback = document.querySelector<HTMLDetailsElement>('.drawer-fallback')!;
-const panel = dialog.querySelector<HTMLElement>('.drawer-panel')!;
-const toggle = document.querySelector<HTMLElement>('[data-drawer-toggle]')!;
-const closeButton = dialog.querySelector<HTMLElement>('[data-drawer-close]')!;
+let disposeDrawer: (() => void) | undefined;
 
-if (typeof dialog.showModal === 'function') {
+function installDrawer() {
+  if (disposeDrawer) return;
+  const dialog = document.querySelector<HTMLDialogElement>('#site-drawer')!;
+  if (typeof dialog?.showModal !== 'function') return;
+  const fallback = document.querySelector<HTMLDetailsElement>('.drawer-fallback')!;
+  const panel = dialog.querySelector<HTMLElement>('.drawer-panel')!;
+  const toggle = document.querySelector<HTMLElement>('[data-drawer-toggle]')!;
+  const closeButton = dialog.querySelector<HTMLElement>('[data-drawer-close]')!;
+  const controller = new AbortController();
+  const listeners = { signal: controller.signal };
+  const passiveListeners = { ...listeners, passive: true };
   const nav = fallback.querySelector('nav')!;
   fallback.open = false;
   panel.append(nav);
@@ -22,7 +28,7 @@ if (typeof dialog.showModal === 'function') {
       const button = host as HTMLElement & { updateComplete: Promise<unknown> };
       await button.updateComplete;
       const trigger = host.shadowRoot?.querySelector('button');
-      if (trigger) await connectControlRipple(host, trigger);
+      if (trigger && !controller.signal.aborted) await connectControlRipple(host, trigger);
     });
   }
 
@@ -95,15 +101,15 @@ if (typeof dialog.showModal === 'function') {
       else closingTimer = window.setTimeout(() => reset(focusButton), 275);
     }
   }
-  toggle.addEventListener('click', event => { keyboardOpen = event.detail === 0; returnFocus = true; settle(true); });
-  closeButton.addEventListener('click', () => settle(false, true));
+  toggle.addEventListener('click', event => { keyboardOpen = event.detail === 0; returnFocus = true; settle(true); }, listeners);
+  closeButton.addEventListener('click', () => settle(false, true), listeners);
   dialog.addEventListener('click', event => {
     if (event.target === dialog) settle(false, returnFocus);
-  });
+  }, listeners);
   dialog.addEventListener('cancel', event => {
     event.preventDefault();
     settle(false, true);
-  });
+  }, listeners);
   dialog.addEventListener('keydown', event => {
     if (event.key !== 'Tab') return;
     const last = nav.querySelector<HTMLAnchorElement>('a:last-child');
@@ -115,10 +121,10 @@ if (typeof dialog.showModal === 'function') {
       event.preventDefault();
       (closeButton.shadowRoot?.querySelector('button') || closeButton).focus();
     }
-  });
+  }, listeners);
   panel.addEventListener('transitionend', event => {
     if (event.target === panel && event.propertyName === 'transform' && progress === 0 && !gesture && dialog.open) reset(closingFocus);
-  });
+  }, listeners);
 
   // Leave the outer 24px to the browser/OS. Register a non-passive move
   // listener only while a potential horizontal pull is in progress.
@@ -129,8 +135,8 @@ if (typeof dialog.showModal === 'function') {
     if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable="true"], pre')) return;
     gesture = { id:touch.identifier, x:touch.clientX, y:touch.clientY, width:dialog.open ? panel.offsetWidth : Math.min(innerWidth * .78, 332),
       open:dialog.open, dragging:false };
-    document.addEventListener('touchmove', move, { passive:false });
-  }, { passive:true });
+    document.addEventListener('touchmove', move, { ...listeners, passive: false });
+  }, passiveListeners);
   function move(event: TouchEvent) {
     if (!gesture || event.touches.length !== 1) { end(true); return; }
     const touch = event.touches[0];
@@ -157,24 +163,37 @@ if (typeof dialog.showModal === 'function') {
     if (!previous?.dragging) return;
     settle(cancelled ? previous.open : previous.open ? progress > .7 : progress >= .3);
   }
-  document.addEventListener('touchend', () => end(false), { passive:true });
-  document.addEventListener('touchcancel', () => end(true), { passive:true });
+  document.addEventListener('touchend', () => end(false), passiveListeners);
+  document.addEventListener('touchcancel', () => end(true), passiveListeners);
   document.addEventListener('blue:route-leave', event => {
     const detail = (event as CustomEvent<{ link?: HTMLElement; waitUntil?: (done: Promise<void>) => void }>).detail;
     if (!dialog.open || !detail?.link || !nav.contains(detail.link)) return;
+    if (!detail.waitUntil) {
+      settle(false, true);
+      return;
+    }
     departing = true;
     pendingLink = detail.link;
     pendingLink.dataset.navPending = '';
     const done = new Promise<void>(resolve => { finishDeparture = resolve; });
-    detail.waitUntil?.(done);
+    detail.waitUntil(done);
     settle(false);
-  });
+  }, listeners);
   document.addEventListener('blue:route-cancel', () => {
     if (departing && narrow.matches) { departing = false; settle(true); }
-  });
+  }, listeners);
   const clearRoute = () => { departing = false; reset(); };
-  document.addEventListener('blue:route-snapshot', clearRoute);
-  window.addEventListener('pageswap', clearRoute);
-  window.addEventListener('pagehide', clearRoute);
-  narrow.addEventListener('change', clearRoute);
+  document.addEventListener('blue:route-snapshot', clearRoute, listeners);
+  window.addEventListener('pagehide', clearRoute, listeners);
+  narrow.addEventListener('change', clearRoute, listeners);
+  disposeDrawer = () => {
+    controller.abort();
+    clearRoute();
+    delete root.dataset.drawerReady;
+    disposeDrawer = undefined;
+  };
 }
+
+document.addEventListener('astro:before-swap', () => disposeDrawer?.());
+document.addEventListener('astro:after-swap', installDrawer);
+installDrawer();
