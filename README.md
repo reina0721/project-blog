@@ -4,7 +4,7 @@
 
 ## 本地运行
 
-环境为 Node.js 24.19 与 pnpm 12.9.1。首次进入项目后运行 `pnpm install --frozen-lockfile`。
+环境为 Node.js 24.19 与 pnpm 12.9.1。首次进入项目后运行 `pnpm install --frozen-lockfile`，Playwright 会安装生成图表所用的 Chromium。精简 Linux 构建环境可用 `pnpm exec playwright install --with-deps chromium` 补齐浏览器的系统依赖。
 
 | 命令 | 用途 |
 | --- | --- |
@@ -36,6 +36,8 @@ summary: 这篇文章写了什么。
 
 正文从这里开始。
 ```
+
+文章里的图表用 `mermaid` 代码围栏编写。构建时会生成 SVG，正文显示缩略图，点击可进入图廊。可以用 `accTitle` 给图命名，作为缩略图的替代文本和图廊标题。
 
 编辑 [好友数据](src/data/friends.ts) 的 `friends` 数组即可增加友链。每项填写 `name`、`url`，可选 `avatar`、`description`。缺头像时使用站名首字。
 

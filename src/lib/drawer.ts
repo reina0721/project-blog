@@ -129,7 +129,7 @@ function installDrawer() {
   // Leave the outer 24px to the browser/OS. Register a non-passive move
   // listener only while a potential horizontal pull is in progress.
   document.addEventListener('touchstart', event => {
-    if (!narrow.matches || event.touches.length !== 1 || departing) { end(true); return; }
+    if (!narrow.matches || event.touches.length !== 1 || departing || root.hasAttribute('data-gallery-open')) { end(true); return; }
     const touch = event.touches[0];
     if (!dialog.open && (touch.clientX < 24 || touch.clientX > 54)) return;
     if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable="true"], pre')) return;

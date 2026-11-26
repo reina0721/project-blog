@@ -227,9 +227,45 @@ body:has(.reading-page) {background-image:none;}
 .article-prose blockquote { margin: 1.6em 0; padding: .2em 0 .2em 1.1em; border-inline-start: 3px solid var(--blue); color: var(--muted); }
 .article-prose :where(ol,ul) { padding-inline-start: 1.55em; }
 .article-prose li + li { margin-block-start: .3em; }
-.article-prose img { display: block; max-width: 100%; max-height: min(65vh,480px); margin: 1.6em auto; object-fit: contain; border-radius: 6px; }
+.article-prose img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(65vh,480px); margin: 1.6em auto; object-fit: contain; border-radius: 6px; }
+.article-prose img[role="button"] { cursor: zoom-in; }
 .article-prose pre, .article-prose table { max-width: 100%; overflow-x: auto; }
 .article-prose pre { padding: .85em 1em; border-radius: 7px; font-size: .86em; line-height: 1.6; }
+.article-prose .mermaid-preview {
+  display: block;
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.2em auto;
+  border-radius: 8px;
+  cursor: zoom-in;
+}
+.article-prose .mermaid-preview > .mermaid-diagram {
+  margin: 0;
+  max-height: 220px;
+  border: 1px solid var(--card-line);
+  border-radius: inherit;
+  background: #fff;
+}
+.article-prose .mermaid-preview::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--card-line);
+  border-radius: 6px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23435c80' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='6.25'/%3E%3Cpath d='m15 15 5 5M7.25 10h5.5M10 7.25v5.5'/%3E%3C/svg%3E") center / 15px no-repeat;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .article-prose .mermaid-preview::after { opacity: 0; }
+  .article-prose .mermaid-preview:is(:hover, :focus-visible)::after { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .article-prose .mermaid-preview::after { transition: opacity 140ms ease; }
+}
 .article-prose :not(pre) > code { padding: .12em .28em; border-radius: 4px; background: var(--quiet-blue); font-size: .89em; }
 .article-prose table { display: block; border-collapse: collapse; }
 .article-prose :where(td,th) { padding: .4em .75em; border-bottom: 1px solid var(--card-line); text-align: start; }

@@ -5,6 +5,7 @@ import MaterialEntry from '../../components/MaterialEntry.astro';
 import Icon from '../../components/Icon.astro';
 import { formatDate, getPosts, postHref, titleTransition } from '../../lib/content';
 import '../../styles/pages.css';
+import '../../styles/article-gallery.css';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -46,3 +47,7 @@ const { Content } = await render(post);
     </nav>}
   </article>
 </Shell>
+
+<script>
+  import '../../lib/article-gallery';
+</script>
