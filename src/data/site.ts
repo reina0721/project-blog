@@ -6,7 +6,7 @@ export const site = {
   romanName: 'Reina',
   brand: "Reina' Blog",
   englishBrand: 'Blue Notes',
-  motto: '在这里，不知道要记录什么。',
+  motto: '愿你长寿，我的朋友。',
   sample: true,
   socials: [] as SocialLink[],
   avatar: '',
