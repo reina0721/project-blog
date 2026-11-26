@@ -1,20 +1,44 @@
 ---
 import Icon from './Icon.astro';
 import ActionLink from './ActionLink.astro';
+import SiteMark from './SiteMark.astro';
 import { site } from '../data/site';
+import '../styles/drawer.css';
 interface Props { section?: (typeof site.nav)[number]['key']; }
 const { section } = Astro.props;
 ---
 <nav class="main-nav" aria-label="主导航">
-  <md-elevation class="nav-elevation" aria-hidden="true"></md-elevation>
   {site.nav.map(item => <ActionLink variant="nav" class="nav-item" href={item.href} aria-label={item.label} aria-current={section === item.key ? 'page' : undefined}>
     <span class="nav-hit"><md-icon class="nav-icon" aria-hidden="true"><Icon name={item.icon} size={24} animated /></md-icon></span>
     <span class="nav-label"><span>{item.label}</span></span>
-    <span class="nav-tip" aria-hidden="true">{item.label}</span>
     {section === item.key && <i class="nav-marker" aria-hidden="true"></i>}
   </ActionLink>)}
 </nav>
+<details class="drawer-fallback">
+  <summary aria-label="站点导航">
+    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h12" /></svg>
+  </summary>
+  <nav class="drawer-nav" aria-label="主导航">
+    {site.nav.map(item => <ActionLink variant="nav" class="nav-item drawer-item" href={item.href} aria-current={section === item.key ? 'page' : undefined}>
+      <span class="nav-hit"><md-icon class="nav-icon" aria-hidden="true"><Icon name={item.icon} size={24} animated /></md-icon></span>
+      <span class="nav-label"><span>{item.label}</span></span>
+    </ActionLink>)}
+  </nav>
+</details>
+<md-icon-button class="drawer-button" data-drawer-toggle aria-label="打开导航" aria-controls="site-drawer" aria-expanded="false">
+  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h12" /></svg>
+</md-icon-button>
+<dialog id="site-drawer" aria-label="站点导航">
+  <div class="drawer-panel" tabindex="-1">
+    <div class="drawer-heading">
+      <span class="drawer-brand"><SiteMark size={30}/>{site.brand}</span>
+      <md-icon-button class="drawer-button" data-drawer-close aria-label="关闭导航">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M6 18 18 6" /></svg>
+      </md-icon-button>
+    </div>
+  </div>
+</dialog>
 <script>
-  import '@material/web/elevation/elevation.js';
   import '@material/web/icon/icon.js';
+  import '../lib/drawer';
 </script>

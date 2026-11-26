@@ -94,6 +94,9 @@ body:has(.blog-page) { background-color:var(--md-sys-color-surface-container); }
 .post-summary { max-width: 66ch; margin-top: 8px; color: var(--copy); font-size: .96rem; line-height: 1.75; overflow-wrap: anywhere; }
 .item-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 9px; margin-top: 13px; }
 .item-meta > span::before { content: "·"; padding-inline-end: 9px; }
+.article-meta .article-category { display:inline-flex; align-items:center; gap:5px; }
+.article-meta .article-category::before { content:none; }
+.article-meta time::before { content:"·"; padding-inline-end:9px; }
 .hit-arrow { display: inline-grid; place-items: center; flex: none; color: var(--action-ink); }
 .post-hit .hit-arrow { width: 35px; height: 35px; border-radius: 50%; background: var(--quiet-blue); }
 a.friend-hit:is(:focus-visible,[data-pressed]) { background: var(--state-blue); }
@@ -205,7 +208,6 @@ a.friend-hit:is(:focus-visible,[data-pressed]) { background: var(--state-blue); 
 body:has(.reading-page) {background-image:none;}
 .reading-page { max-width: 704px; padding-top: clamp(32px,4vw,54px); }
 .article-head { margin-bottom: clamp(27px,3.6vw,44px); }
-.article-index-link { margin: 0 0 clamp(18px,2.5vw,30px); }
 .article-head h1 { width: fit-content; margin-top: 12px; font-size: clamp(2.06rem,4.4vw,3.2rem); line-height: 1.25; }
 .article-deck { margin-top: 16px; color: var(--muted); font-size: clamp(1rem,1.65vw,1.14rem); line-height: 1.8; }
 .article-prose {

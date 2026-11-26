@@ -1,393 +1,320 @@
-// Classic head script: native snapshot participants must be chosen before first paint.
+// Classical head script so both documents can choose their snapshots before paint.
 (() => {
   const root = document.documentElement;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  /** @typedef {{url: string, index: number, key: string, getState: () => any}} PageEntry */
-  /** @type {{ activation?: { from: PageEntry | null, entry: PageEntry, navigationType: string },
-   *   currentEntry: PageEntry, entries: () => PageEntry[],
-   *   updateCurrentEntry: (options: {state: any}) => void } | undefined} */
-  const navigationApi = Reflect.get(window, 'navigation');
-  const nativeNavigation = 'onpageswap' in window && 'onpagereveal' in window &&
-    'CSSViewTransitionRule' in window && Boolean(navigationApi);
-  const pathOf = (url) => new URL(url, location.href).pathname.replace(/\/+$/, '') || '/';
-  const isIndex = (path) => path === '/blog' || path === '/archive';
-  const isArticle = (path) => path.startsWith('/blog/');
-  const isReadingSource = (path) => path === '/' || isIndex(path);
-  const articlePath = (slug) => '/blog/' + slug.split('/').map(encodeURIComponent).join('/');
-  let clearActive;
-  let returnLink;
-  let returnTimer;
-  function clearReturnCue() {
-    clearTimeout(returnTimer);
-    if (returnLink) delete returnLink.dataset.readingReturn;
-    returnLink = undefined;
+  const nav = Reflect.get(window, 'navigation');
+  const reading = Reflect.get(window, 'blueReading');
+  // Navigation API enriches history but is independent of cross-document VT.
+  const canSnapshot = 'onpageswap' in window && 'onpagereveal' in window && 'CSSViewTransitionRule' in window;
+  const intentKey = 'blue-notes:route';
+  const lastKey = 'blue-notes:left';
+  const path = (url) => new URL(url, location.href).pathname.replace(/\/+$/, '') || '/';
+  const article = (url) => path(url).startsWith('/blog/');
+  const index = (url) => ['/', '/blog', '/archive'].includes(path(url));
+  const slugPath = slug => '/blog/' + slug.split('/').map(encodeURIComponent).join('/');
+  const visit = () => performance.getEntriesByType('navigation')[0]?.type;
+  const listen = (event, listener) => window.addEventListener(event, listener);
+  function read(key) {
+    try { return JSON.parse(sessionStorage.getItem(key) || 'null'); } catch { return null; }
   }
-  window.addEventListener('pagehide', clearReturnCue);
+  function store(key, value) {
+    try {
+      if (value) sessionStorage.setItem(key, JSON.stringify(value));
+      else sessionStorage.removeItem(key);
+    } catch { /* Native anchors also work with storage disabled. */ }
+  }
+  function signal(name, detail) { document.dispatchEvent(new CustomEvent('blue:route-' + name, { detail })); }
+  function samePage(a, b) {
+    const left = new URL(a, location.href), right = new URL(b, location.href);
+    return left.origin === right.origin && path(left) === path(right) && left.search === right.search;
+  }
+  function localURL(value) {
+    if (!value) return;
+    const url = new URL(value, location.href);
+    return url.origin === location.origin ? url.href : undefined;
+  }
+  function tabs() { return Array.from(document.querySelectorAll('.main-nav a[href]')); }
+  function sectionIndex(url) {
+    const target = article(url) ? '/blog' : path(url);
+    return tabs().findIndex(tab => path(tab.href) === target);
+  }
+  function route(from, to, hint) {
+    if (!from || !to || !localURL(from) || !localURL(to) || samePage(from, to)) return;
+    const opening = index(from) && article(to), closing = article(from) && index(to);
+    let kind = 'section';
+    let direction = hint || (sectionIndex(to) < sectionIndex(from) ? 'back' : 'forward');
+    if (opening || closing) {
+      kind = 'article';
+      direction = opening ? 'forward' : 'back';
+    } else if (path(from) === '/' && path(to) === '/blog') {
+      kind = 'home-blog';
+    } else if (article(from) && article(to)) {
+      kind = 'chapter';
+      const outgoing = samePage(location.href, from);
+      const adjacent = Array.from(document.querySelectorAll('.notes-adjacent [rel][href]'))
+        .find(link => samePage(link.getAttribute('href'), outgoing ? to : from));
+      const rel = adjacent?.getAttribute('rel');
+      if (rel === 'prev' || rel === 'next') direction = (rel === 'next') === outgoing ? 'forward' : 'back';
+    }
+    return { from, to, kind, direction, swapLeading: article(from) !== article(to) };
+  }
+  function selected(info) {
+    if (info.kind !== 'article') return;
+    const articleURL = article(info.to) ? info.to : info.from;
+    const node = Array.from(document.querySelectorAll('[data-article-slug]'))
+      .find(el => slugPath(el.dataset.articleSlug) === path(articleURL));
+    if (!node) return;
+    const restored = document.querySelector('[data-reading-return] [data-article-slug]');
+    if (restored && restored.dataset.articleSlug !== node.dataset.articleSlug) return;
+    const originSlug = reading?.originSlug?.();
+    if (article(info.from) && article(location.href) && originSlug && originSlug !== node.dataset.articleSlug) return;
+    return measureTitle(node) ? node : undefined;
+  }
+  function measureTitle(node) {
+    if (!node) return null;
+    const r = node.getBoundingClientRect();
+    if (!r.width || !r.height || r.bottom <= 0 || r.top >= innerHeight) return null;
+    return {slug: node.dataset.articleSlug, x: r.left, y: r.top, font: parseFloat(getComputedStyle(node).fontSize)};
+  }
+  function titleRecord(info) { return measureTitle(selected(info)); }
 
-  // Keep the selected row on its own history entry. Two visits to the same
-  // archive can then return to different rows without sharing a global bookmark.
-  function entryState() { return navigationApi?.currentEntry?.getState() ?? history.state ?? {}; }
-  function putEntryState(field, value) {
-    const updated = { ...entryState(), [field]: value };
-    if (navigationApi?.currentEntry) navigationApi.updateCurrentEntry({ state: updated });
-    else history.replaceState(updated, '');
-  }
-  function rowFor(slug) {
-    return Array.from(document.querySelectorAll('[data-reading-entry][href]'))
-      .find((row) => row.querySelector('[data-article-slug]')?.dataset.articleSlug === slug);
-  }
-  function safeSource(url) {
-    if (!url) return;
-    const source = new URL(url, location.href);
-    return source.origin === location.origin && isReadingSource(pathOf(source)) ? source : undefined;
-  }
-  function previousReadingEntry() {
-    if (!navigationApi?.currentEntry || !isArticle(pathOf(location.href))) return;
-    const previous = navigationApi.entries().find((entry) => entry.index === navigationApi.currentEntry.index - 1);
-    const row = previous?.getState()?.readingRow;
-    if (!row?.slug || !safeSource(previous.url) || articlePath(row.slug) !== pathOf(location.href)) return;
-    const activation = navigationApi.activation;
-    if (entryState().readingFrom !== previous.key) {
-      if (activation?.navigationType !== 'push' || activation.from?.key !== previous.key) return;
-      putEntryState('readingFrom', previous.key);
-    }
-    return previous;
-  }
-  function setReadingBackLink() {
-    const back = document.querySelector('[data-reading-back]');
-    if (!back) return;
-    const source = safeSource(previousReadingEntry()?.url || document.referrer);
-    if (!source) return;
-    const path = pathOf(source);
-    if (path === '/') source.hash = 'recent';
-    back.setAttribute('href', source.pathname + source.search + source.hash);
-    const label = back.querySelector('[data-reading-back-label]');
-    if (label) label.textContent = path === '/archive' ? '返回归档' : path === '/' ? '返回最近文章' : '返回博客';
-  }
-  document.addEventListener('DOMContentLoaded', setReadingBackLink, { once: true });
-  let pendingTab;
-  let pendingTimer;
-  let departureTimer;
-  function clearPending() {
-    clearTimeout(pendingTimer);
-    if (pendingTab) delete pendingTab.dataset.navPending;
-    pendingTab = undefined;
-  }
-  function cancelDeparture() {
-    clearTimeout(departureTimer);
-    departureTimer = undefined;
-  }
-  // A cached navigation can finish before a quick tap paints. Read the
-  // running renderer's clock; long holds have already shown the press.
-  function pressTimeRemaining(link) {
-    if (reduced.matches) return 0;
-    const root = (link.shadowRoot || link).querySelector('md-ripple')?.shadowRoot;
-    const solid = root?.querySelector('.mat-ripple-element:last-child');
-    const growth = solid
-      ? solid.getAnimations().find((animation) => animation.transitionProperty === 'transform')
-      : root?.getAnimations?.().find((animation) => animation.effect?.pseudoElement === '::after' &&
-          animation.effect.getKeyframes().some((frame) => frame.transform));
-    if (!growth || growth.playState === 'finished') return 0;
-    return Math.max(0, 105 - Number(growth.currentTime || 0));
-  }
-  function interruptDeparture() {
-    if (departureTimer !== undefined) {
-      cancelDeparture();
-      clearPending();
-    }
-  }
-  window.addEventListener('pointerdown', interruptDeparture, { capture: true, passive: true });
-  window.addEventListener('keydown', interruptDeparture, true);
-  window.addEventListener('pagehide', cancelDeparture);
-  navigationApi?.addEventListener('navigate', cancelDeparture);
-
-  window.addEventListener('click', (event) => {
-    interruptDeparture();
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey ||
-        event.shiftKey || event.altKey || !(event.target instanceof Element)) return;
-    const selector = 'a[href], [data-md-control][href], [data-reading-entry][href]';
-    // Prefer the public host over the anchor inside a Material button's shadow.
-    const link = event.target.closest(selector) || event.composedPath().find((item) => item instanceof Element && item.matches(selector));
-    if (!link || link.hasAttribute('download')) return;
-    const target = link.getAttribute('target');
-    if (target && target.toLowerCase() !== '_self') return;
-    const url = new URL(link.getAttribute('href'), document.baseURI);
-    clearPending();
-    if (url.origin === location.origin && pathOf(url) !== pathOf(location.href)) {
-      const tabs = document.querySelectorAll('.main-nav a[href]');
-      const tab = tabs[sectionOrder(pathOf(url))];
-      if (tab && !tab.hasAttribute('aria-current') && !reduced.matches) {
-        pendingTab = tab;
-        tab.dataset.navPending = '';
-        try { sessionStorage.setItem('blue-notes:nav-intent', JSON.stringify([pathOf(location.href), pathOf(url), Date.now()])); }
-        catch { /* Visual feedback on the current page works without storage. */ }
-        pendingTimer = setTimeout(clearPending, 1800);
-      }
-    }
-    clearReturnCue();
-    const returnsToSource = link.hasAttribute('data-reading-back') && previousReadingEntry();
-    if (isReadingSource(pathOf(location.href))) {
-      const title = link.querySelector('[data-article-slug]');
-      if (url.origin === location.origin && title && articlePath(title.dataset.articleSlug) === pathOf(url)) {
-        const row = link.closest('li') || link;
-        putEntryState('readingRow', { slug: title.dataset.articleSlug, offset: row.getBoundingClientRect().top,
-          scroll: scrollY, width: innerWidth, height: innerHeight, keyboard: event.detail === 0 });
-      } else if (entryState().readingRow && (url.origin !== location.origin || pathOf(url) !== pathOf(location.href))) {
-        putEntryState('readingRow', null);
-      }
-    }
-    // Keep browser handling for fragments, new tabs, downloads and links
-    // carrying their own referrer or tracking semantics.
-    const localRoute = url.origin === location.origin && pathOf(url) !== pathOf(location.href);
-    const nativeOnly = link.matches('[referrerpolicy],[ping],[attributionsrc],[rel~="noreferrer"]');
-    const wait = localRoute && event.isTrusted && !nativeOnly ? pressTimeRemaining(link) : 0;
-    if (wait > 0) {
-      event.preventDefault();
-      departureTimer = setTimeout(() => {
-        departureTimer = undefined;
-        if (returnsToSource) history.back();
-        else location.assign(url.href);
-      }, wait);
-    } else if (returnsToSource) {
-      event.preventDefault();
-      history.back();
-    }
-  });
-  function returningMark() {
-    if (!isReadingSource(pathOf(location.href))) return;
-    const mark = entryState().readingRow;
-    if (!mark?.slug || !Number.isFinite(mark.offset)) return;
-    const from = navigationApi?.activation?.from?.url;
-    if (from && (new URL(from).origin !== location.origin || pathOf(from) !== articlePath(mark.slug))) return;
-    return mark;
-  }
-  function traversing() {
-    return navigationApi?.activation?.navigationType === 'traverse' ||
-      performance.getEntriesByType('navigation')[0]?.type === 'back_forward';
-  }
-  if (traversing() && returningMark()) root.dataset.restoringReading = '';
-  function restoreRow() {
-    const mark = returningMark();
-    if (!mark) return;
-    const link = rowFor(mark.slug);
-    if (!link) return;
-    root.dataset.restoringReading = '';
-    const row = link.closest('li') || link;
-    const focusTarget = link.shadowRoot?.querySelector('a[href]') || link;
-    if (document.activeElement !== link) focusTarget.focus({ preventScroll: true, focusVisible: mark.keyboard });
-    const sameViewport = mark.width === innerWidth && mark.height === innerHeight;
-    const target = sameViewport ? mark.scroll : scrollY + row.getBoundingClientRect().top - mark.offset;
-    if (Math.abs(target - scrollY) > 1) window.scrollTo({ top: target, behavior: 'instant' });
-    if (returnLink !== link) {
-      clearReturnCue();
-      returnLink = link;
-      link.dataset.readingReturn = '';
-      returnTimer = setTimeout(clearReturnCue, 850);
-    }
-  }
-  window.addEventListener('pageshow', (event) => {
-    if (event.persisted || traversing()) {
-      restoreRow();
-      // A browser may apply its saved scroll position after pageshow.
-      requestAnimationFrame(restoreRow);
-    }
-  });
-
-  let entered = [];
-  let entryTimer;
-  function clearEntry() {
-    clearTimeout(entryTimer);
-    for (const node of entered) {
+  let groups = [], groupTimer, finishTimer, currentTitle, driver, currentInfo, arrived = false;
+  let pending, lastOutgoing, pendingTab;
+  function clearGroups() {
+    clearTimeout(groupTimer);
+    for (const node of groups) {
       delete node.dataset.groupOrder;
       node.style.removeProperty('--entry-wait');
+      node.style.removeProperty('--entry-lead');
     }
-    entered = [];
+    groups = [];
   }
-  function enterGroups(selectedTitle) {
-    clearEntry();
-    if (reduced.matches || location.hash || (traversing() && returningMark())) return;
-    const bar = document.querySelector('.main-nav');
-    const bottom = bar && getComputedStyle(bar).position === 'fixed' ? bar.getBoundingClientRect().top : innerHeight;
+  function enterGroups(title, lead = 0) {
+    clearGroups();
+    if (reduced.matches || location.hash || reading?.isReturning?.()) return;
     for (const node of document.querySelectorAll('#main [data-enter-group]')) {
-      if (selectedTitle && node.contains(selectedTitle)) continue;
-      const rect = node.getBoundingClientRect();
-      if (!rect.height || rect.bottom <= 0 || rect.top >= bottom) continue;
-      node.style.setProperty('--entry-wait', (entered.length * 68) + 'ms');
-      node.dataset.groupOrder = String(entered.length);
-      entered.push(node);
-      if (entered.length === 4) break;
+      const r = node.getBoundingClientRect();
+      if (node.contains(title || null) || !r.height || r.bottom <= 0 || r.top >= innerHeight) continue;
+      node.style.setProperty('--entry-wait', groups.length * 60 + 'ms');
+      node.style.setProperty('--entry-lead', lead + 'ms');
+      node.dataset.groupOrder = String(groups.length);
+      groups.push(node);
+      if (groups.length === 4) break;
     }
-    if (entered.length) entryTimer = setTimeout(clearEntry, 680);
+    if (groups.length) groupTimer = setTimeout(clearGroups, 740);
   }
-  if (!nativeNavigation) {
-    document.addEventListener('DOMContentLoaded', () => enterGroups(), { once: true });
-    window.addEventListener('pageshow', (event) => { if (event.persisted) enterGroups(); });
+  function clearScene() {
+    clearTimeout(finishTimer);
+    for (const key of ['pageMotion','motionStage','motionDirection','motionDriver','motionMarker','motionLeading']) delete root.dataset[key];
+    for (const key of ['--motion-header-edge','--motion-pane-clip']) root.style.removeProperty(key);
+    if (currentTitle) {
+      delete currentTitle.dataset.motionSelected;
+      for (const key of ['--selected-title-name','--title-x','--title-y','--title-scale']) currentTitle.style.removeProperty(key);
+    }
+    currentTitle = driver = currentInfo = undefined;
   }
-  window.addEventListener('pageshow', clearPending);
-  window.addEventListener('keydown', (event) => { if (event.key === 'Escape') clearPending(); });
-  window.addEventListener('pagehide', () => {
-    clearEntry();
-    clearPending();
-    delete root.dataset.restoringReading;
-  });
-  reduced.addEventListener('change', () => {
-    if (reduced.matches) { clearEntry(); clearPending(); }
-  });
-
-  // The section order comes from the same anchors visitors use.
-  function sectionOrder(path) {
-    const section = isArticle(path) ? '/blog' : path;
-    return Array.from(document.querySelectorAll('.main-nav a[href]'))
-      .findIndex((link) => pathOf(link.href) === section);
-  }
-  function chapterDirection(source, destination, outgoing, activation) {
-    const other = outgoing ? destination : source;
-    const link = Array.from(document.querySelectorAll('.notes-adjacent [rel][href]'))
-      .find((item) => pathOf(item.getAttribute('href')) === other);
-    const relation = link?.getAttribute('rel');
-    if (relation === 'prev' || relation === 'next') {
-      const step = relation === 'next' ? 1 : -1;
-      return outgoing ? step : -step;
-    }
-    return activation.entry.index < activation.from.index ? -1 : 1;
-  }
-
-  function prepare(event, activation, outgoing) {
-    clearActive?.();
-    const transition = event.viewTransition;
-    if (!transition) {
-      if (!outgoing && nativeNavigation) enterGroups();
-      return;
-    }
-    // The outgoing document can be suspended in the back/forward cache before
-    // native pseudo-elements exist. The ready rejection is expected in that case.
-    transition.ready.catch(() => {});
-    if (!nativeNavigation || reduced.matches || !activation?.from?.url ||
-        !activation.entry?.url || activation.navigationType === 'reload') {
-      transition.skipTransition();
-      if (!outgoing && nativeNavigation) enterGroups();
-      return;
-    }
-    const from = new URL(activation.from.url);
-    const to = new URL(activation.entry.url);
-    const source = pathOf(from);
-    const destination = pathOf(to);
-    if (from.origin !== location.origin || to.origin !== location.origin || source === destination) {
-      transition.skipTransition();
-      if (!outgoing) enterGroups();
-      return;
-    }
-
-    const opening = isReadingSource(source) && isArticle(destination);
-    const closing = isArticle(source) && isReadingSource(destination);
-    let title;
-    let previousTab;
-    let currentTab;
-    let kind = 'section';
-    const sourceOrder = sectionOrder(source);
-    const destinationOrder = sectionOrder(destination);
-    let direction = destinationOrder - sourceOrder;
-    if (source === '/' && destination === '/blog') {
-      kind = 'home-blog';
-    } else if (opening || closing) {
-      kind = 'article';
-      direction = opening ? 1 : -1;
-      const path = opening ? destination : source;
-      // Slugs may contain non-Latin text or a subdirectory.
-      title = Array.from(document.querySelectorAll('[data-article-slug]')).find((node) =>
-        articlePath(node.dataset.articleSlug) === path);
-      if (title) {
-        const rect = title.getBoundingClientRect();
-        const bar = document.querySelector('.main-nav');
-        const bottom = bar && getComputedStyle(bar).position === 'fixed' ? bar.getBoundingClientRect().top : innerHeight;
-        if (!rect.height || rect.bottom <= 0 || rect.top >= bottom) title = undefined;
-      }
-      // A deeply scrolled article has no visible source title. In that case
-      // include the list title in the arriving content, without an orphan snapshot.
-      const pair = 'blue-notes:pending-title';
-      try {
-        // A push can receive a different destination entry key after commit.
-        // The already committed source key and destination URL survive both events.
-        const tag = JSON.stringify([activation.from.key, destination, title?.dataset.articleSlug || '']);
-        if (outgoing) sessionStorage.setItem(pair, tag);
-        else {
-          if (sessionStorage.getItem(pair) !== tag) title = undefined;
-          sessionStorage.removeItem(pair);
-        }
-      } catch {
-        title = undefined;
-      }
-    } else if (isArticle(source) && isArticle(destination)) {
-      kind = 'chapter';
-      direction = chapterDirection(source, destination, outgoing, activation);
-    }
-    root.dataset.pageMotion = kind;
-    root.dataset.motionStage = outgoing ? 'leave' : 'enter';
-    root.dataset.motionDirection = direction < 0 ? 'back' : 'forward';
-    const header = document.querySelector('.site-header');
-    const headerEdge = Math.max(0, header?.getBoundingClientRect().bottom || 0);
+  function setScene(info, stage, mode, oldTitle) {
+    clearScene();
+    currentInfo = info;
+    driver = mode;
+    root.dataset.pageMotion = info.kind;
+    root.dataset.motionStage = stage;
+    root.dataset.motionDriver = mode;
+    root.dataset.motionDirection = info.direction;
+    if (info.swapLeading) root.dataset.motionLeading = article(info.to) ? 'open' : 'close';
+    const navBar = document.querySelector('.main-nav');
+    if (navBar?.getClientRects().length && sectionIndex(info.from) !== sectionIndex(info.to) &&
+      navBar.querySelector('[aria-current="page"] .nav-marker')) root.dataset.motionMarker = '';
+    const headerEdge = Math.max(0, document.querySelector('.site-header')?.getBoundingClientRect().bottom || 0);
+    const mainTop = document.getElementById('main')?.getBoundingClientRect().top || 0;
     root.style.setProperty('--motion-header-edge', headerEdge + 'px');
-    const main = document.querySelector('#main')?.getBoundingClientRect();
-    root.style.setProperty('--motion-pane-clip', Math.max(0, headerEdge - (main?.top || 0)) + 'px');
-    const navbar = document.querySelector('.main-nav');
-    if (navbar && getComputedStyle(navbar).position === 'fixed') {
-      const overhang = Math.max(0, (main?.bottom || 0) - navbar.getBoundingClientRect().top);
-      root.style.setProperty('--motion-pane-bottom', overhang + 'px');
-    }
-    if (sourceOrder >= 0 && destinationOrder >= 0 && sourceOrder !== destinationOrder &&
-        document.querySelector('.main-nav [aria-current="page"] i.nav-marker')) {
-      root.dataset.motionMarker = '';
-      if (!outgoing && matchMedia('(max-width: 720px)').matches) {
-        const tabs = navbar.querySelectorAll('a[href]');
-        previousTab = tabs[sourceOrder];
-        currentTab = tabs[destinationOrder];
-        // If the server was slow, the departing labels already had time to
-        // respond to the click. Continue from that point on the arriving page.
-        if (activation.navigationType === 'push') {
-          try {
-            const intent = JSON.parse(sessionStorage.getItem('blue-notes:nav-intent') || 'null');
-            sessionStorage.removeItem('blue-notes:nav-intent');
-            if (intent?.[0] === source && intent[1] === destination) {
-              root.style.setProperty('--nav-lead', Math.min(235, Math.max(0, Date.now() - intent[2])) + 'ms');
-            }
-          } catch { /* Use the complete label motion when storage is unavailable. */ }
-        }
-        previousTab.dataset.motionLabel = 'leave';
-        currentTab.dataset.motionLabel = 'enter';
+    root.style.setProperty('--motion-pane-clip', Math.max(0, headerEdge - mainTop) + 'px');
+    const node = selected(info);
+    if (node && (stage === 'leave' || node.dataset.articleSlug === oldTitle?.slug)) {
+      currentTitle = node;
+      node.style.setProperty('--selected-title-name', CSS.escape('a-title-' + node.dataset.articleSlug));
+      if (mode === 'css' && stage === 'enter') {
+        const rect = node.getBoundingClientRect();
+        node.style.setProperty('--title-x', (oldTitle.x - rect.left) + 'px');
+        node.style.setProperty('--title-y', (oldTitle.y - rect.top) + 'px');
+        node.style.setProperty('--title-scale', String(oldTitle.font / parseFloat(getComputedStyle(node).fontSize)));
       }
+      node.dataset.motionSelected = '';
     }
-    if (title) {
-      title.style.setProperty('--selected-title-name', CSS.escape('a-title-' + title.dataset.articleSlug));
-      title.dataset.motionSelected = '';
+    if (stage === 'enter') enterGroups(currentTitle, mode === 'native' ? 90 : 0);
+  }
+  function markTab(info) {
+    pendingTab = tabs()[sectionIndex(info.to)];
+    if (pendingTab && !pendingTab.hasAttribute('aria-current')) pendingTab.dataset.navPending = '';
+  }
+  function cancelPressTimer() {
+    if (pending) clearTimeout(pending.timer);
+  }
+  function clearPending(cancel) {
+    cancelPressTimer();
+    if (pendingTab) delete pendingTab.dataset.navPending;
+    pendingTab = undefined;
+    if (cancel && pending) {
+      store(intentKey, null);
+      signal('cancel', pending.info);
+      if (root.dataset.motionStage === 'leave') clearScene();
     }
-    // The arriving native snapshot is live. Choreograph its actual children so
-    // each glyph paints once, and its animation continues after the snapshot ends.
-    if (!outgoing) enterGroups(title);
-    const cleanup = () => {
-      if (clearActive !== cleanup) return;
-      delete root.dataset.pageMotion;
-      delete root.dataset.motionStage;
-      delete root.dataset.motionDirection;
-      delete root.dataset.motionMarker;
-      root.style.removeProperty('--motion-header-edge');
-      root.style.removeProperty('--motion-pane-clip');
-      root.style.removeProperty('--motion-pane-bottom');
-      root.style.removeProperty('--nav-lead');
-      if (previousTab) delete previousTab.dataset.motionLabel;
-      if (currentTab) delete currentTab.dataset.motionLabel;
-      if (title) {
-        title.style.removeProperty('--selected-title-name');
-        delete title.dataset.motionSelected;
-      }
-      clearActive = undefined;
-    };
-    clearActive = cleanup;
-    transition.finished.then(cleanup, cleanup);
+    pending = undefined;
+  }
+  // On a warm navigation the original press can otherwise disappear before its
+  // first painted frame. Long holds have already shown this feedback.
+  function rippleWait(link) {
+    const tree = (link.shadowRoot || link).querySelector('md-ripple')?.shadowRoot;
+    const solid = tree?.querySelector('.mat-ripple-element:last-child');
+    const animation = solid
+      ? solid.getAnimations().find(a => a.transitionProperty === 'transform')
+      : tree?.getAnimations().find(a => a.effect?.pseudoElement === '::after' && a.effect.getKeyframes().some(f => f.transform));
+    return animation && animation.playState !== 'finished' ? Math.max(0,105 - Number(animation.currentTime || 0)) : 0;
+  }
+  function matchIntent(from, to) {
+    const intent = read(intentKey);
+    return intent && samePage(intent.from, from) && samePage(intent.to, to) ? intent : undefined;
   }
 
-  window.addEventListener('pageswap', (event) => prepare(event, event.activation, true));
-  window.addEventListener('pagereveal', (event) => {
-    if (navigationApi?.activation?.navigationType === 'traverse') restoreRow();
-    prepare(event, navigationApi?.activation, false);
+  listen('click', event => {
+    if (!event.isTrusted || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const pathNodes = event.composedPath().filter(n => n instanceof Element);
+    // Slotted titles/icons live outside the inner <a>. Prefer their public host;
+    // use the actual link path for unenhanced and arbitrary Markdown anchors.
+    const link = pathNodes.find(n => n.matches('.action-link[href]')) || pathNodes.find(n => n.matches('a[href]'));
+    if (!link) return;
+    const url = new URL(link.getAttribute('href'), document.baseURI);
+    const target = link.getAttribute('target') || document.querySelector('base[target]')?.getAttribute('target');
+    if (target && target.trim().toLowerCase() !== '_self' || link.matches('[download],[ping],[referrerpolicy],[attributionsrc],[rel~="noreferrer"]')) return;
+    const info = route(location.href, url.href);
+    if (!info) return;
+    clearPending(true);
+    clearGroups();
+    const back = link.hasAttribute('data-reading-back');
+    const record = () => reading?.record?.(link, url, event.detail === 0);
+    const note = { ...info, title: titleRecord(info) };
+    const journey = {info, timer: undefined, dispatched:false};
+    pending = journey;
+    store(intentKey, note);
+    if (!reduced.matches) markTab(info);
+    const closing = [];
+    signal('leave', { ...info, link, waitUntil: promise => closing.push(Promise.resolve(promise)) });
+    const css = !canSnapshot && !reduced.matches;
+    if (!back && !closing.length && !css && (reduced.matches || !rippleWait(link))) {
+      journey.dispatched = true;
+      record();
+      signal('request', info);
+      // Preserve the link's native action, history, and referrer semantics.
+      return;
+    }
+    event.preventDefault();
+    const depart = () => {
+      if (journey !== pending) return;
+      if (css) setScene(info, 'leave', 'css', note.title);
+      const wait = reduced.matches ? 0 : css ? 200 : rippleWait(link);
+      const go = () => {
+        if (journey !== pending) return;
+        journey.dispatched = true;
+        record();
+        signal('request', info);
+        if (!(back && reading?.back?.(link, event.detail === 0))) location.assign(url.href);
+      };
+      if (wait) journey.timer = setTimeout(go, wait);
+      else go();
+    };
+    if (closing.length) Promise.allSettled(closing).then(depart);
+    else depart();
+  });
+  function cancelBeforeCommit() {
+    if (pending && !pending.dispatched) clearPending(true);
+  }
+  window.addEventListener('pointerdown', cancelBeforeCommit, {capture:true, passive:true});
+  window.addEventListener('keydown', cancelBeforeCommit, true);
+  nav?.addEventListener('navigate', cancelBeforeCommit);
+  nav?.addEventListener('navigateerror', () => clearPending(true));
+
+  function inferredArrival(persisted) {
+    if (visit() === 'reload' && !persisted) return;
+    const intent = read(intentKey);
+    if (intent && samePage(intent.to, location.href)) return intent;
+    if (persisted || visit() === 'back_forward') {
+      const last = read(lastKey);
+      if (last && samePage(last.to || location.href, location.href)) {
+        const info = route(last.from, location.href, last.direction);
+        if (info) return {...info, title:last.title};
+      }
+    }
+  }
+  function arrive(event, persisted = false) {
+    if (arrived) return;
+    arrived = true;
+    clearPending(false);
+    const activation = nav?.activation;
+    if (persisted || visit() === 'back_forward' || activation?.navigationType === 'traverse') reading?.restore?.();
+    const remembered = inferredArrival(persisted);
+    const from = localURL(activation?.from?.url) || remembered?.from;
+    const info = route(from, location.href, remembered?.direction);
+    const memory = info ? matchIntent(info.from, info.to) || remembered : undefined;
+    store(intentKey, null);
+    const vt = event?.viewTransition;
+    if (!info || reduced.matches || (!persisted && visit() === 'reload')) {
+      vt?.skipTransition();
+      if (!reduced.matches) enterGroups();
+      return;
+    }
+    if (vt && canSnapshot) {
+      setScene(info, 'enter', 'native', memory?.title);
+      vt.ready.catch(() => {
+        if (currentInfo === info && document.visibilityState === 'visible') cssArrival(info, memory?.title);
+      });
+      vt.finished.then(() => { if (currentInfo === info && driver === 'native') clearScene(); }, () => {});
+    } else {
+      vt?.skipTransition();
+      cssArrival(info, memory?.title);
+    }
+  }
+  function cssArrival(info, title) {
+    setScene(info, 'enter', 'css', title);
+    finishTimer = setTimeout(clearScene, 620);
+  }
+  listen('pageswap', event => {
+    signal('snapshot', pending?.info);
+    const act = event.activation;
+    const info = route(localURL(act?.from?.url) || location.href, localURL(act?.entry?.url) || pending?.info.to,
+      pending?.info.direction || (act?.navigationType === 'traverse' && act.entry.index < act.from?.index ? 'back' : undefined));
+    if (!info || reduced.matches) { event.viewTransition?.skipTransition(); return; }
+    const note = { ...info, title: titleRecord(info) };
+    lastOutgoing = note;
+    store(intentKey, note);
+    if (event.viewTransition && canSnapshot) {
+      setScene(info, 'leave', 'native', note.title);
+      event.viewTransition.ready.catch(() => {});
+    } else event.viewTransition?.skipTransition();
+  });
+  listen('pagereveal', e => arrive(e));
+  listen('pageshow', e => {
+    if (!arrived) {
+      if (!canSnapshot) arrive(undefined, e.persisted);
+      else requestAnimationFrame(() => { if (!arrived) arrive(undefined, e.persisted); });
+    }
+  });
+  // Browsers without page-reveal events can prepare CSS on DOMContentLoaded,
+  // before pageshow waits for images and other subresources.
+  if (!canSnapshot) document.addEventListener('DOMContentLoaded', () => {
+    if (!arrived) arrive(undefined);
+  }, {once:true});
+  listen('pagehide', () => {
+    const outgoing = lastOutgoing || pending?.info;
+    const activeRow = document.activeElement?.closest('[data-reading-entry]');
+    const visible = document.querySelector('h1[data-article-slug]') || activeRow?.querySelector('[data-article-slug]');
+    store(lastKey, {from:location.href, to:outgoing?.to, direction:outgoing?.direction, title:lastOutgoing?.title || measureTitle(visible)});
+    arrived = false;
+    lastOutgoing = undefined;
+    clearPending(false);
+    clearGroups();
+    clearScene();
+  });
+  reduced.addEventListener('change', e => {
+    if (e.matches) { clearPending(true); clearGroups(); clearScene(); }
   });
 })();

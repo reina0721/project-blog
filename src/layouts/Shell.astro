@@ -1,14 +1,16 @@
 ---
 import SiteMark from '../components/SiteMark.astro';
+import Icon from '../components/Icon.astro';
 import ActionLink from '../components/ActionLink.astro';
 import RouteProgress from '../components/RouteProgress.astro';
 import SiteNav from '../components/SiteNav.astro';
 import { site } from '../data/site';
+import readingScript from '../lib/reading-origin-inline.js?raw';
 import motionScript from '../lib/motion-inline.js?raw';
 import '../styles/global.css';
 import '../styles/motion.css';
-interface Props { title?: string; description?: string; section?: 'home' | 'blog' | 'archive' | 'links' | 'about'; }
-const { title, description = site.motto, section } = Astro.props;
+interface Props { title?: string; description?: string; section?: 'home' | 'blog' | 'archive' | 'links' | 'about'; reading?: boolean; }
+const { title, description = site.motto, section, reading = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="zh-CN" style={`--blue:${site.themeColor}`}>
@@ -20,19 +22,29 @@ const { title, description = site.motto, section } = Astro.props;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <slot name="head" />
     <link rel="expect" href="#motion-page-end" blocking="render" />
+    <script is:inline set:html={readingScript}></script>
     <script is:inline set:html={motionScript}></script>
   </head>
   <body data-section={section}>
     <RouteProgress />
     <a class="skip" href="#main">跳到正文</a>
-    <header class="site-header">
-      <ActionLink href="/" variant="text" class="brand" direction="back" aria-label={`${site.brand}主页`}>
-        <span class="brand-lockup"><SiteMark /><span data-action-label>{site.brand}</span><i aria-hidden="true"></i></span>
-      </ActionLink>
-      <SiteNav section={section}/>
-    </header>
-    <main id="main" tabindex="-1"><slot /></main>
-    <footer class="site-footer"><span>© {new Date().getUTCFullYear()} {site.name} · {site.brand}</span>{site.sample && <span>示例资料</span>}</footer>
+    <div class="site-viewport">
+      <header class="site-header">
+        <div class="site-leading" data-leading={reading ? 'back' : 'brand'}>
+          {reading ? (
+            <ActionLink href="/blog/" variant="icon" class="reading-back" direction="back" data-reading-back aria-label="返回博客">
+              <Icon name="arrow-left" size={24} cue />
+            </ActionLink>
+          ) : (
+            <ActionLink href="/" variant="text" class="brand" direction="back" aria-label={`${site.brand}主页`}>
+              <span class="brand-lockup"><SiteMark /><span data-action-label>{site.brand}</span><i aria-hidden="true"></i></span>
+            </ActionLink>
+          )}
+        </div>
+        <SiteNav section={section}/>
+      </header>
+      <main id="main" tabindex="-1"><slot /></main>
+    </div>
     <span id="motion-page-end" hidden></span>
     <script>
       import '@material/web/ripple/ripple.js';

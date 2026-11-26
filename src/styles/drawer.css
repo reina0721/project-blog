@@ -1,0 +1,73 @@
+.drawer-fallback, [data-drawer-toggle], #site-drawer:not([open]) { display:none; }
+
+@media(max-width:720px) {
+  :root {
+    --drawer-width:min(78vw, 332px);
+    --drawer-progress:0;
+    --drawer-duration:260ms;
+    --drawer-ease:cubic-bezier(.22,.72,.2,1);
+  }
+  .drawer-fallback { display:block; position:relative; }
+  .drawer-fallback summary, .drawer-button {
+    --md-icon-button-icon-color:var(--strong-blue);
+    --md-icon-button-state-layer-width:48px;
+    --md-icon-button-state-layer-height:48px;
+    --md-focus-ring-color:var(--strong-blue); --md-focus-ring-width:2px; --md-focus-ring-active-width:3px;
+    width:48px; height:48px; color:var(--strong-blue); border-radius:50%;
+  }
+  .drawer-button > svg { fill:none; }
+  .drawer-fallback summary { display:grid; place-items:center; cursor:pointer; list-style:none; }
+  .drawer-fallback summary::-webkit-details-marker { display:none; }
+  .drawer-fallback[open] > .drawer-nav {
+    position:absolute; right:0; top:100%; width:min(76vw,280px);
+    padding:8px; border-radius:16px; background:var(--surface);
+    box-shadow:0 4px 20px #1a2d4829;
+  }
+  :root[data-drawer-ready] .drawer-fallback { display:none; }
+  :root[data-drawer-ready] [data-drawer-toggle] { display:inline-flex; }
+  :root[data-drawer-active] { overflow:hidden; }
+  :root[data-drawer-active] body { overflow-x:clip; }
+  :root[data-drawer-active] .site-viewport {
+    transform-origin:left var(--drawer-origin,50vh);
+    transform:translateX(calc(var(--drawer-width) * var(--drawer-progress))) scale(calc(1 - var(--drawer-progress) * .055));
+    border-radius:calc(22px * var(--drawer-progress));
+    overflow:clip;
+    transition:transform var(--drawer-duration) var(--drawer-ease), border-radius var(--drawer-duration) var(--drawer-ease);
+  }
+  #site-drawer {
+    position:fixed; inset:0; margin:0; width:100%; height:100%; max-width:none; max-height:none;
+    width:100dvw; height:100dvh;
+    padding:0; border:0; overflow:hidden; color:var(--ink);
+    background:rgb(19 30 56 / calc(var(--drawer-progress) * .22));
+    transition:background-color var(--drawer-duration) var(--drawer-ease);
+  }
+  #site-drawer::backdrop { background:transparent; }
+  .drawer-panel {
+    position:absolute; inset:0 auto 0 0; width:var(--drawer-width);
+    padding:max(16px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
+    overflow-y:auto; overscroll-behavior:contain; border-radius:0 24px 24px 0;
+    background:var(--md-sys-color-surface-container); box-shadow:3px 0 20px #12234816;
+    transform:translateX(calc((var(--drawer-progress) - 1) * 100%));
+    transition:transform var(--drawer-duration) var(--drawer-ease);
+  }
+  .drawer-panel:focus { outline:none; }
+  :root[data-drawer-dragging] :is(.site-viewport,#site-drawer,.drawer-panel) { transition:none; }
+  .drawer-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 2px 12px 10px; }
+  .drawer-brand { display:inline-flex; align-items:center; gap:8px; color:var(--strong-blue); font-size:22px; font-weight:760; }
+  .drawer-nav { display:grid; gap:4px; --md-navigation-bar-icon-size:24px; --md-navigation-bar-inactive-icon-color:var(--md-sys-color-on-surface-variant); }
+  .drawer-nav .drawer-item {
+    justify-content:flex-start; min-height:52px; padding:0 18px; gap:15px; border-radius:28px;
+    font:600 15px/1.35 var(--sans); color:var(--md-sys-color-on-surface-variant);
+    --md-focus-ring-shape:28px;
+  }
+  .drawer-nav .drawer-item[aria-current="page"] { color:var(--md-sys-color-on-secondary-container); background:var(--md-sys-color-secondary-container); }
+  .drawer-nav:has([data-nav-pending]) .drawer-item[aria-current]:not([data-nav-pending]) {
+    color:var(--md-sys-color-on-surface-variant); background:transparent;
+  }
+  .drawer-nav .drawer-item[data-nav-pending] { color:var(--md-sys-color-on-secondary-container); background:var(--md-sys-color-secondary-container); }
+  .drawer-nav .drawer-item > md-ripple { inset:0; block-size:auto; border-radius:inherit; }
+  @media(prefers-reduced-motion:reduce) {
+    :root { --drawer-duration:0ms; }
+    :root[data-drawer-active] .site-viewport { transform:none; }
+  }
+}

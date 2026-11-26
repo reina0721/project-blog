@@ -78,7 +78,7 @@
         </div>
         <div class="site-controls">
           <label>操作 <select aria-label="蓝笺取样路径">
-            <option value="current-desktop.webp" data-note="桌面首访的前三帧依次出现头像、姓名和入口。下方展示文章卡、开放阅读列及返回位置。">首页与阅读转场</option>
+            <option value="current-desktop.webp" data-note="从首页进入博客，选择第二篇文章。进入正文后，左上角的品牌换成返回箭头。点箭头回到原卡。">首页、文章与左上返回</option>
             <option value="ripple-modes.webp" data-note="900 × 760 桌面鼠标。三行依次是博客文章卡、归档文章行和归档页首「浏览文章摘要」。同一相对触点按住 45ms 与 110ms，右侧放大四倍，便于看清归档文章行的渐变边缘和另外两处的清晰圆边。">当前水波 · 文章卡、归档行与按钮</option>
             <option value="material-article.webp" data-note="历史样本。早期博客文章卡使用 Material Web 渐变水波，图中与同尺寸的官方链接条目比较悬停及按住 120 毫秒的画面。">历史 · 文章卡渐变水波</option>
             <option value="social-states.webp" data-note="更换水波前的图标动效样本。移到哔哩哔哩后图标抬起，按住后收紧，拖出松开后复位。">历史 · 社交入口悬停与按压</option>
@@ -88,10 +88,10 @@
         </label>
       </div>
       <a class="panel-link" href="current-desktop.webp" aria-label="蓝笺，桌面首页与阅读转场样本，查看原图">
-        <img src="current-desktop.webp" alt="桌面首页的头像、姓名与社交入口先后出现，随后进入独立文章卡与正文">
+        <img src="current-desktop.webp" alt="桌面首页进入博客、按下文章卡、页头出现返回箭头、回到原卡的操作分镜">
         <span class="enlarge">放大 ↗</span>
       </a>
-      <p class="fig-note">1280 × 800。首访的前三帧依次出现头像、姓名和入口，随后从文章卡进入正文并返回。</p>
+      <p class="fig-note">1280 × 800。点入第二篇文章后，左上角换成返回箭头；再点箭头回到原来的卡片。</p>
     </article>
   </div>
   <details class="walkthrough">
@@ -122,7 +122,7 @@
             <th scope="row">旧页退出</th>
             <td>打开文章时，原列表向上移并淡去。进入友链时，右下角的栏目图号也在更换。</td>
             <td>释放后约 160ms 的样本中，搜索项已选中，中间仍能看见首页视频。</td>
-            <td>旧版文章转场在约 75ms 出现过两层同时透明。现在用 178ms 的移动分界逐步揭开正文左侧，尚未交接的一侧仍可看见旧列表。</td>
+            <td>旧列表先退，所选标题独立移动到正文标题的位置。左上站标同时上移淡去，箭头从下方进入。</td>
           </tr>
           <tr>
             <th scope="row">新页落定</th>
@@ -182,26 +182,26 @@
   <article class="site">
     <div class="site-head">
       <h2>蓝笺</h2>
-      <p>本站个人博客，使用窄屏底栏和文章入口。</p>
+      <p>从左侧拉出导航，进入归档并连续阅读两篇文章。</p>
     </div>
     <div class="site-controls">
       <label>操作 <select aria-label="蓝笺取样路径">
-        <option value="current-mobile.webp" data-note="触摸视口中的首页入场、分篇卡片、无外框正文与原位返回。">首页与阅读转场</option>
+        <option value="current-mobile.webp" data-note="左侧向右拖，正文跟手让位。在归档打开文章 A，从文末进入 B，再按页头箭头回到 A 所在行。">右拉抽屉、连续读文与返回</option>
         <option value="material-navigation.webp" data-note="历史样本。当时主导航使用 Material Web 渐变水波；在固定触点比较层叠修复前后与官方 Labs 导航，取扩散第 120 毫秒。">历史 · 导航渐变水波</option>
         <option value="blog-mobile.webp" data-note="11 月 25 日的版本。390 × 650，第二篇文章进入与返回。">上一版 · 换页与返回</option>
         <option value="press-mobile.webp" data-note="历史采样，390 × 844。五种入口均在同一位置按住约 85ms，比较当时改动前后图标与文字的位移。">历史 · 控件按压</option>
       </select>
     </label>
   </div>
-  <a class="panel-link" href="current-mobile.webp" aria-label="蓝笺，手机首页与阅读转场样本，查看原图">
-    <img src="current-mobile.webp" alt="手机首页的头像、姓名与社交入口先后出现，随后进入独立文章卡与正文">
+  <a class="panel-link" href="current-mobile.webp" aria-label="蓝笺，抽屉与归档返回分镜，查看原图">
+    <img src="current-mobile.webp" alt="跟手拖动、抽屉打开、归档选文、连续阅读两篇和返回最初文章行">
     <span class="enlarge">放大 ↗</span>
   </a>
-  <p class="fig-note">390 × 844。首访的前三帧依次出现头像、姓名和入口，随后从文章卡进入正文并返回。</p>
+  <p class="fig-note">390 × 844。先看正文如何随手右移，再对照开头选中的归档文章行与最后的返回位置。</p>
 </article>
 </div>
 <details class="walkthrough">
-  <summary>查看本站首页与阅读转场的原速录像</summary>
+  <summary>查看本站右拉抽屉、连读两篇与返回归档的原速录像</summary>
   <video controls playsinline preload="none" aria-label="本站手机原速操作录像" src="current-mobile.webm">
   </video>
 </details>

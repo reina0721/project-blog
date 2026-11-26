@@ -1,190 +1,108 @@
-/* Capture the article once inside its own group. The navigation and site identity
-   stay live around independent, naturally sized old and new content snapshots. */
+/* A static page still supplies a content snapshot if scripting or per-route
+   metadata is unavailable. Chrome, Safari and Firefox can opt in independently. */
 html { view-transition-name: none; }
+#main { view-transition-name: page-content; }
 [data-article-slug]:not([data-motion-selected]) { view-transition-name: none !important; }
-[data-article-slug][data-motion-selected] {
+[data-motion-driver="native"] [data-motion-selected] {
   view-transition-name: var(--selected-title-name) !important;
   view-transition-class: article-title;
 }
 [data-reading-return] { position: relative; }
 [data-reading-return]::after {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  z-index: 2;
-  inset-inline-start: 6px;
-  top: 50%;
-  translate: 0 -50%;
-  width: 3px;
-  height: clamp(18px, 44%, 30px);
-  border-radius: 2px;
-  background: var(--blue);
+  content:""; position:absolute; pointer-events:none; z-index:2;
+  inset-inline-start:6px; top:50%; translate:0 -50%; width:3px;
+  height:clamp(18px,44%,30px); border-radius:2px; background:var(--blue);
 }
-@keyframes source-line {
-  0%, 66% { opacity: 1; }
-  100% { opacity: 0; }
+@keyframes source-line { 0%,66% { opacity:1; } to { opacity:0; } }
+@media (prefers-reduced-motion:no-preference) {
+  [data-reading-return]::after { animation:source-line 850ms ease-out both; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  [data-reading-return]::after { animation: source-line 850ms ease-out both; }
-}
-:root[data-motion-marker] .main-nav [aria-current="page"] i.nav-marker {
-  view-transition-name: active-nav-marker;
-}
-.main-nav .nav-item[data-nav-pending] { color: var(--strong-blue); }
-.main-nav .nav-item[data-nav-pending] .nav-hit::before { opacity: 1; }
-:root[data-motion-stage="leave"] #main { view-transition-name: page-leaving; }
-:root[data-motion-stage="enter"] #main { view-transition-name: page-arriving; }
-:root[data-motion-stage] #main { clip-path: inset(var(--motion-pane-clip, 0px) 0 var(--motion-pane-bottom, 0px)); }
 
 :root[data-page-motion] {
-  --pane-out: -15px;
-  --old-clip: inset(0 0 0 100%);
-  --new-clip: inset(0 100% 0 0);
-  --motion-curve: cubic-bezier(.2, .73, .21, 1);
+  --pane-out:-12px; --pane-in:16px; --lead-exit:-40px; --lead-enter:40px;
+  --old-clip:inset(0 0 0 100%); --new-clip:inset(0 100% 0 0);
+  --route-ease:cubic-bezier(.2,.7,.24,1);
 }
 :root[data-motion-direction="back"] {
-  --pane-out: 15px;
-  --old-clip: inset(0 100% 0 0);
-  --new-clip: inset(0 0 0 100%);
+  --pane-out:12px; --pane-in:-16px;
+  --old-clip:inset(0 100% 0 0); --new-clip:inset(0 0 0 100%);
 }
-:root[data-page-motion="article"] {
-  --pane-in: 12px;
-  --pane-out: -7px;
-  --plane-time: 178ms;
-}
-:root[data-page-motion="article"][data-motion-direction="back"] {
-  --pane-in: -12px;
-  --pane-out: 7px;
-}
-:root[data-page-motion="chapter"] { --pane-out: -8px; }
-:root[data-page-motion="chapter"][data-motion-direction="back"] { --pane-out: 8px; }
+:root[data-motion-leading="close"] { --lead-exit:40px; --lead-enter:-40px; }
 
-::view-transition { pointer-events: none; }
-/* The complementary clips meet at a single moving edge, so old and new
-   paragraphs never print over one another. */
-::view-transition-group(page-leaving) {
-  z-index: 1;
-  animation: close-plane var(--plane-time, 150ms) cubic-bezier(.32,.60,.38,1) both;
-}
-::view-transition-group(page-arriving) {
-  z-index: 2;
-  animation: open-plane var(--plane-time, 150ms) cubic-bezier(.32,.60,.38,1) both;
-}
-::view-transition-old(page-leaving) {
-  animation: section-retire 150ms cubic-bezier(.32, .05, .58, 1) both;
-  mix-blend-mode: normal;
-}
-/* Content groups move within this live image. Leave their containing page
-   stationary, so short rows and tall article paragraphs travel equally far. */
-::view-transition-new(page-arriving) {
-  animation: section-surface 170ms ease-out both;
-  mix-blend-mode: normal;
-}
-@keyframes section-retire {
-  from { translate: 0; opacity: 1; }
-  to { translate: var(--pane-out) -6px; opacity: 0; }
-}
-@keyframes section-surface {
-  from { opacity: .78; }
-  to { opacity: 1; }
-}
+.main-nav .nav-item[data-nav-pending] { color:var(--strong-blue); }
+:root[data-motion-driver="native"][data-motion-marker] .main-nav [aria-current="page"] .nav-marker { view-transition-name:active-nav-marker; }
+:root[data-motion-driver="native"][data-motion-leading] .site-leading { view-transition-name:header-leading; }
+:root[data-motion-driver="native"][data-motion-stage="leave"] #main { view-transition-name:page-leaving; }
+:root[data-motion-driver="native"][data-motion-stage="enter"] #main { view-transition-name:page-arriving; }
+:root[data-motion-driver="native"][data-motion-stage] #main { clip-path:inset(var(--motion-pane-clip,0px) 0 0); }
+::view-transition { pointer-events:none; }
 
-::view-transition-group(.article-title) {
-  z-index: 3;
-  animation-duration: 276ms;
-  animation-timing-function: cubic-bezier(.28, .57, .20, 1);
-}
-/* The moving line retains its paper directly behind the glyphs as it crosses
-   the old index. Nearby lines can never show through the title. */
-::view-transition-image-pair(.article-title) { background: var(--surface); }
-@keyframes close-plane { from { clip-path: inset(0); } to { clip-path: var(--old-clip); } }
-@keyframes open-plane { from { clip-path: var(--new-clip); } to { clip-path: inset(0); } }
-:root[data-page-motion="article"]::view-transition-old(page-leaving) { animation: article-out 178ms ease-out both; }
-:root[data-page-motion="article"]::view-transition-new(page-arriving) { animation: article-in 178ms var(--motion-curve) both; }
-@keyframes article-out { from { translate: 0; opacity: 1; } to { translate: var(--pane-out) 0; opacity: .76; } }
-@keyframes article-in { from { translate: var(--pane-in) 0; opacity: .76; } to { translate: 0; opacity: 1; } }
-::view-transition-old(.article-title), ::view-transition-old(active-nav-marker) { display: none; }
-::view-transition-new(.article-title), ::view-transition-new(active-nav-marker) {
-  animation: none;
-  mix-blend-mode: normal;
-  object-position: left top;
-}
-::view-transition-group(active-nav-marker) {
-  z-index: 5;
-  animation-duration: 270ms;
-  animation-timing-function: cubic-bezier(.24, .85, .3, 1);
-}
-@keyframes nav-label-enter {
-  from { grid-template-rows: 0fr; opacity: 0; }
-  to { grid-template-rows: 1fr; opacity: 1; }
-}
-@keyframes nav-label-leave {
-  from { grid-template-rows: 1fr; opacity: 1; }
-  to { grid-template-rows: 0fr; opacity: 0; }
-}
-@media (max-width: 720px) and (prefers-reduced-motion: no-preference) {
-  .main-nav:has(.nav-item[data-nav-pending]) .nav-item[aria-current] .nav-label {
-    grid-template-rows: 0fr;
-    opacity: 0;
-  }
-  .main-nav .nav-item[data-nav-pending] .nav-label { grid-template-rows: 1fr; opacity: 1; }
-  :root[data-motion-stage="enter"] [data-motion-label="leave"] .nav-label {
-    animation: nav-label-leave 180ms ease-in-out calc(0ms - var(--nav-lead, 0ms)) both;
-  }
-  :root[data-motion-stage="enter"] [data-motion-label="enter"] .nav-label {
-    animation: nav-label-enter 235ms ease-out calc(0ms - var(--nav-lead, 0ms)) both;
-  }
-}
+/* The border between the two snapshots moves once. The arriving page never
+   overprints the outgoing paragraph. Neither header nor drawer rides the page. */
+::view-transition-group(page-leaving) { z-index:1; animation:close-plane 210ms var(--route-ease) 90ms both; }
+::view-transition-group(page-arriving) { z-index:2; animation:open-plane 210ms var(--route-ease) 90ms both; }
+::view-transition-old(page-leaving) { animation:retire-plane 200ms cubic-bezier(.35,.02,.6,1) both; mix-blend-mode:normal; }
+::view-transition-new(page-arriving) { animation:arrive-surface 210ms var(--route-ease) 90ms both; mix-blend-mode:normal; }
+@keyframes close-plane { from { clip-path:inset(0); } to { clip-path:var(--old-clip); } }
+@keyframes open-plane { from { clip-path:var(--new-clip); } to { clip-path:inset(0); } }
+@keyframes retire-plane { from { translate:0; opacity:1; } to { translate:var(--pane-out) -34px; opacity:.12; } }
+@keyframes retire-while-loading { from { translate:0; opacity:1; } to { translate:var(--pane-out) -30px; opacity:.72; } }
+@keyframes arrive-surface { from { opacity:.88; } to { opacity:1; } }
+::view-transition-group(.article-title) { z-index:3; animation-duration:300ms; animation-timing-function:cubic-bezier(.28,.57,.20,1); }
+::view-transition-image-pair(.article-title) { background:var(--surface); }
+::view-transition-old(.article-title),::view-transition-old(active-nav-marker) { display:none; }
+::view-transition-new(.article-title),::view-transition-new(active-nav-marker) { animation:none; mix-blend-mode:normal; object-position:left top; }
+::view-transition-group(active-nav-marker) { z-index:5; animation-duration:250ms; animation-timing-function:var(--route-ease); }
+::view-transition-group(header-leading) { z-index:5; animation:none; }
+::view-transition-image-pair(header-leading) { overflow:clip; }
+::view-transition-old(header-leading) { animation:leading-out 240ms ease-out both; mix-blend-mode:normal; }
+::view-transition-new(header-leading) { animation:leading-in 320ms var(--route-ease) both; mix-blend-mode:normal; }
+@keyframes leading-out { from { opacity:1; translate:0; } to { opacity:0; translate:0 var(--lead-exit); } }
+@keyframes leading-in { from { opacity:0; translate:0 var(--lead-enter); } to { opacity:1; translate:0; } }
 
-/* Only the arriving blog owns the blue cut. Its entire height fits between the
-   masthead and the start of the journal. The hard color stops keep the nose legible. */
+/* During a slow full navigation keep the old document readable. Start the
+   local departure immediately and use the arriving document for the second leg. */
+@media (prefers-reduced-motion:no-preference) {
+  [data-motion-driver="css"][data-motion-stage="leave"] #main { animation:retire-while-loading 200ms ease-out both; }
+  [data-motion-driver="css"][data-motion-stage="enter"] #main { animation:arrive-surface 220ms ease-out both; }
+  [data-motion-driver="css"][data-motion-leading] .site-leading { overflow:clip; }
+  [data-motion-driver="css"][data-motion-stage="leave"][data-motion-leading] .site-leading > .action-link { animation:leading-out 240ms ease-out both; }
+  [data-motion-driver="css"][data-motion-stage="enter"][data-motion-leading] .site-leading > .action-link { animation:leading-in 320ms var(--route-ease) both; }
+  [data-motion-driver="css"][data-motion-stage="enter"] [data-motion-selected] {
+    transform-origin:left top; position:relative; z-index:1;
+    animation:title-from-source 300ms cubic-bezier(.28,.57,.20,1) both;
+  }
+  [data-group-order] { animation:group-arrive 410ms cubic-bezier(.2,.73,.21,1) calc(var(--entry-lead,0ms) + var(--entry-wait,0ms)) backwards; }
+}
+@keyframes title-from-source {
+  from { transform:translate(var(--title-x),var(--title-y)) scale(var(--title-scale)); }
+  to { transform:none; }
+}
+@keyframes group-arrive { from { opacity:.12; translate:0 38px; } to { opacity:1; translate:0; } }
+
 :root[data-motion-stage="enter"][data-page-motion="home-blog"] #motion-page-end {
-  display: block !important;
-  position: fixed;
-  pointer-events: none;
-  left: 0;
-  top: calc(var(--motion-header-edge, 78px) + 2px);
-  width: clamp(104px, 27vw, 330px);
-  height: clamp(7px, 1.05vw, 12px);
-  background: linear-gradient(112deg, color-mix(in srgb, var(--blue) 24%, var(--paper)) 0 42%,
-      var(--blue) 42% 89%, color-mix(in srgb, var(--blue) 55%, white) 89% 100%);
-  clip-path: polygon(4% 0, 100% 0, 96% 100%, 0% 100%);
-  view-transition-name: entry-wash;
+  display:block !important; position:fixed; pointer-events:none; z-index:4; left:0;
+  top:calc(var(--motion-header-edge,78px) + 2px); width:clamp(104px,27vw,330px); height:clamp(7px,1.05vw,12px);
+  background:linear-gradient(112deg,color-mix(in srgb,var(--blue) 24%,var(--paper)) 0 42%,var(--blue) 42% 89%,color-mix(in srgb,var(--blue) 55%,white) 89% 100%);
+  clip-path:polygon(4% 0,100% 0,96% 100%,0% 100%);
 }
-::view-transition-group(entry-wash) { z-index: 4; animation: none; }
-::view-transition-new(entry-wash) {
-  mix-blend-mode: normal;
-  animation: entry-cut-through 330ms cubic-bezier(.27, .65, .45, 1) both;
+:root[data-motion-driver="native"][data-page-motion="home-blog"] #motion-page-end {view-transition-name:entry-wash;}
+::view-transition-group(entry-wash) { z-index:4; animation:none; }
+::view-transition-new(entry-wash),:root[data-motion-driver="css"][data-page-motion="home-blog"] #motion-page-end {
+  mix-blend-mode:normal; animation:entry-cut-through 330ms cubic-bezier(.27,.65,.45,1) both;
 }
 @keyframes entry-cut-through {
-  0% { translate: -88% 0; opacity: .82; }
-  62% { opacity: .95; }
-  100% { translate: 100vw 0; opacity: 0; }
+  from { translate:-88% 0; opacity:.82; }
+  62% { opacity:.95; }
+  to { translate:100vw 0; opacity:0; }
 }
-
-/* Only the first visible groups run. Their slots exist at full size from first
-   paint. A reader who arrives midway through an article keeps their position. */
-@keyframes group-arrive {
-  from { opacity: .2; translate: 0 29px; }
-  to { opacity: 1; translate: 0 0; }
+@media (scripting:none) and (prefers-reduced-motion:no-preference) {
+  [data-enter-group] { animation:group-arrive 360ms ease-out backwards; }
+  [data-enter-group]:nth-child(2) { animation-delay:60ms; }
+  [data-enter-group]:nth-child(n + 3) { animation-delay:120ms; }
+  body:has(:target) [data-enter-group] { animation:none; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  [data-group-order] {
-    animation: group-arrive 410ms cubic-bezier(.2, .73, .21, 1) var(--entry-wait, 0ms) backwards;
-  }
-}
-@media (scripting: none) and (prefers-reduced-motion: no-preference) {
-  [data-enter-group] { animation: group-arrive 360ms ease-out backwards; }
-  [data-enter-group]:nth-child(2) { animation-delay: 55ms; }
-  [data-enter-group]:nth-child(n + 3) { animation-delay: 100ms; }
-  @supports selector(:has(:target)) {
-    body:has(:target) [data-enter-group] { animation: none; }
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  :root[data-page-motion="home-blog"] #motion-page-end { display: none !important; }
-  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
+@media (prefers-reduced-motion:reduce) {
+  :root[data-page-motion="home-blog"] #motion-page-end { display:none !important; }
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*) { animation-duration:0s !important; animation-delay:0s !important; }
 }

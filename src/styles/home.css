@@ -83,7 +83,7 @@
 @keyframes hint-arrives {from{opacity:0;translate:0 -9px;}}
 @keyframes scroll-nudge {50%{translate:0 3px;}}
 @media(max-width:720px) {
-  .identity-stage { min-height:calc(100svh - var(--bar-height) - 67px - env(safe-area-inset-bottom)); padding:32px 22px 62px; }
+  .identity-stage { padding:32px 22px max(62px,env(safe-area-inset-bottom)); }
   .identity-lockup { display:flex;flex-direction:column;gap:clamp(23px,4.5svh,45px);width:100%; }
   .portrait-link {width:clamp(142px,min(44vw,24svh),218px);}
   .identity-copy {max-width:100%;width:100%; text-align:center;}
@@ -92,7 +92,7 @@
   .identity-name {font-size:clamp(53px,14.7vw,89px);}
   .motto {font-size:clamp(15px,4.1vw,20px);margin-top:12px;}
   .identity-actions {justify-content:center;margin-top:17px;gap:15px;}
-  .stage-scroll {bottom:5px;}
+  .stage-scroll {bottom:max(8px,env(safe-area-inset-bottom));}
   .recent-area {padding:38px 20px 45px;}
   .recent-story p {font-size:13px;}
 }

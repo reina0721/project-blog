@@ -28,7 +28,12 @@
   let pendingTimer: number | undefined;
   function settle() {
     window.clearTimeout(pendingTimer);
+    pendingTimer = undefined;
     progress.hidden = true;
+  }
+  function begin() {
+    if (pendingTimer !== undefined) return;
+    pendingTimer = window.setTimeout(() => { progress.hidden = false; }, 240);
   }
   interface RouteNavigation extends Event {
     destination: { url: string; sameDocument: boolean };
@@ -37,15 +42,16 @@
   }
   const navigationEvents: EventTarget | undefined = Reflect.get(window, 'navigation');
   navigationEvents?.addEventListener('navigate', (event) => {
-    settle();
     const { destination, downloadRequest, signal } = event as RouteNavigation;
-    if (destination.sameDocument || downloadRequest != null || signal.aborted) return;
+    if (destination.sameDocument || downloadRequest != null || signal.aborted) { settle(); return; }
     const target = new URL(destination.url);
-    if (target.origin !== location.origin || target.pathname === location.pathname) return;
-    pendingTimer = window.setTimeout(() => { progress.hidden = false; }, 240);
+    if (target.origin !== location.origin || target.pathname === location.pathname) { settle(); return; }
+    begin();
     signal.addEventListener('abort', settle, { once:true });
   });
   navigationEvents?.addEventListener('navigateerror', settle);
+  document.addEventListener('blue:route-request', begin);
+  document.addEventListener('blue:route-cancel', settle);
   window.addEventListener('pageswap', settle);
   window.addEventListener('pagehide', settle);
   window.addEventListener('pageshow', settle);

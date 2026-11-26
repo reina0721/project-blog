@@ -48,14 +48,16 @@ summary: 这篇文章写了什么。
 
 - [按钮封装](src/components/ActionLink.astro) 在静态 HTML 中提供链接，加载后交给 `md-filled-tonal-button`、`md-text-button` 或 `md-icon-button` 的链接模式。图标单独响应悬停和按住。
 - [文章与友链封装](src/components/MaterialEntry.astro) 使用 `md-list-item type="link"`。博客和首页的每篇文章各有独立的 `md-elevated-card`，归档按年使用 `md-list`。文章入口的悬停层透明，友链保留组件自带的悬停反馈。
-- [主导航](src/components/SiteNav.astro) 提供五个可在新标签页打开的原生链接，使用 `md-icon` 和 `md-focus-ring`。手机上胶囊标记当前栏目，按下时水波在所点导航项内扩散。
+- [主导航](src/components/SiteNav.astro) 从同一份配置生成五个栏目。桌面显示顶部导航。手机从左侧向右拖动，或点右上角菜单按钮，正文会向右让位，露出抽屉。点露出的页面、向左拖或按 Escape 都能收回。
 
-[首页样式](src/styles/home.css) 控制头像、网名和社区入口的出场间隔。内页用 `data-enter-group` 标出应先后出现的标题、文章卡或年份组；[转场实现](src/lib/motion-inline.js) 负责路由、所选标题及来源位置，[动效样式](src/styles/motion.css) 控制交接。正文行宽和卡片间距在[页面样式](src/styles/pages.css)调整。
+[首页样式](src/styles/home.css) 控制头像、网名和社区入口的出场间隔。内页用 `data-enter-group` 标出依次进入的标题、文章卡或年份组。[转场实现](src/lib/motion-inline.js) 和[动效样式](src/styles/motion.css) 负责旧页退场、标题交接与内容载入。正文行宽和卡片间距在[页面样式](src/styles/pages.css)调整。
+
+进入文章后，左上站标换成返回箭头。从归档进入一篇文章，连续读到另一篇再点箭头，仍回到归档中最初选的那一行。浏览器的后退键可以逐篇回看。直接打开分享链接时，左上箭头通往博客列表。[阅读来源与位置恢复](src/lib/reading-origin-inline.js)
 
 ## 研究与验收
 
 - [博客文章卡、归档文章行与归档页首按钮的水波实拍](research/comparison/ripple-modes.webp)
-- [三站按下、换页与返回的双端对照](research/comparison/index.html) · [桌面首页与阅读转场录像](research/comparison/current-desktop.webm) · [手机首页与阅读转场录像](research/comparison/current-mobile.webm)
+- [三站按下、换页与返回的双端对照](research/comparison/index.html) · [桌面选文与左上返回录像](research/comparison/current-desktop.webm) · [手机抽屉、归档与连续读文返回录像](research/comparison/current-mobile.webm)
 - [参考站截图、双端线框、游戏分镜、灰度和原色对照](research/index.html)
 - [四种转场的可操作对照实验](research/motion.html)
 - [正式站原速导航录屏](research/samples/navigation.webm)
