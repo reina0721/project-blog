@@ -1,5 +1,23 @@
 @import 'viewerjs/dist/viewer.css';
 
+.article-image-preview[open] {
+  display: grid;
+  gap: 8px;
+  margin: auto;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #12151b;
+  color: #fff;
+}
+.article-image-preview::backdrop { background: rgb(13 16 23 / 96%); }
+.article-image-preview img { max-width: 100%; max-height: 80dvh; margin: auto; object-fit: contain; }
+.article-image-preview button {
+  justify-self: end; min-height: 40px; padding: 0 14px; border: 0; border-radius: 6px;
+  color: inherit; background: #344461; cursor: pointer;
+}
+:root:has(.article-image-preview[open]) { overflow: hidden; }
+
 .article-gallery.viewer-container {
   --gallery-bg: rgb(13 16 23 / 96%);
   --gallery-control: 42px;

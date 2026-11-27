@@ -38,6 +38,34 @@ function fullImageURL(image: HTMLImageElement) {
   return image.currentSrc || image.src;
 }
 
+// A linked image can render even when its host serves it as a generic binary.
+// Keep it in the document if the gallery chunk could not load.
+function showImagePreview(trigger: HTMLImageElement, signal: AbortSignal) {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'article-image-preview';
+  dialog.setAttribute('aria-label', '原图预览');
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.textContent = '关闭';
+  close.addEventListener('click', () => dialog.close());
+  const image = new Image();
+  image.alt = trigger.alt;
+  image.src = fullImageURL(trigger);
+  dialog.append(close, image);
+  document.body.append(dialog);
+
+  function dispose() {
+    dialog.remove();
+    delete document.documentElement.dataset.galleryOpen;
+    signal.removeEventListener('abort', dispose);
+    if (!signal.aborted) (trigger.closest('a') || trigger).focus({ preventScroll: true });
+  }
+  signal.addEventListener('abort', dispose, { once: true });
+  dialog.addEventListener('close', dispose, { once: true });
+  document.documentElement.dataset.galleryOpen = '';
+  dialog.showModal();
+}
+
 // Keep the library's pan, zoom and rotation on the live image while moving
 // between its current bounds and the thumbnail in the reading column.
 function thumbnailTransition(image: HTMLImageElement, thumbnail: HTMLImageElement, closing: boolean) {
@@ -246,7 +274,7 @@ function installGallery() {
   signal.addEventListener('abort', () => observer.disconnect(), { once: true });
 
   async function activate(event: MouseEvent | KeyboardEvent) {
-    if (opening || event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
     if (event instanceof KeyboardEvent && !['Enter', ' '].includes(event.key)) return;
     if (!(event.target instanceof Element)) return;
     const img = event.target instanceof HTMLImageElement ? event.target : event.target.closest('a[href]')?.querySelector('img');
@@ -254,6 +282,7 @@ function installGallery() {
     const images = articleImages(article);
     if (!images.includes(img)) return;
     event.preventDefault();
+    if (opening) return;
     opening = true;
     try {
       const { default: ViewerClass } = await import('viewerjs');
@@ -262,13 +291,13 @@ function installGallery() {
     } catch (error) {
       opening = false;
       console.error('Article gallery could not be opened.', error);
-      const original = img.closest<HTMLAnchorElement>('a[href]');
-      if (!signal.aborted && original?.isConnected) window.location.assign(original.href);
+      if (!signal.aborted && img.isConnected) showImagePreview(img, signal);
     }
   }
   article.addEventListener('click', activate, { signal });
   article.addEventListener('keydown', activate, { signal });
 }
 
-document.addEventListener('astro:page-load', installGallery);
+installGallery();
+document.addEventListener('astro:after-swap', installGallery);
 document.addEventListener('astro:before-swap', () => { page?.abort(); page = undefined; });

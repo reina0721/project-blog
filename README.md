@@ -76,6 +76,8 @@ summary: 这篇文章写了什么。
 
 在阿里云 ESA Pages 中使用 Node.js `24.x`，安装命令 `pnpm install`，构建命令 `pnpm build`，静态资源目录 `dist`。构建直接读取仓库中的 Mermaid SVG。
 
+文章原图的 HTTP 响应应使用对应的图片类型。若 WebP 返回 `application/octet-stream`，Chrome 打开原图直链时会下载文件。在 ESA 站点的「规则 → 转换规则 → 修改响应头 → ESA 到客户端」中，匹配 `/images/` 下以 `.webp` 结尾的图片请求，将 `Content-Type` 设为 `image/webp`。发布后可用浏览器直接打开一张原图验证。[阿里云出站响应头配置](https://help.aliyun.com/zh/edge-security-acceleration/esa/user-guide/modify-outgoing-response-header)
+
 ## 素材
 
 头像与文章里的桔梗图版由内置图像生成工具制作。头像提示为「蓝发、中性原创动漫角色、三分之二侧脸、星形发夹、白色与钴蓝衣领、适合圆形头像裁切」；图版提示为「深普鲁士蓝底的桔梗蓝晒植物图、白色叶脉、满版、无文字」。站标是原创几何图形。实心导航与 GitHub 字形来自 [Pictogrammers](public/licenses/material-design-icons.txt)，哔哩哔哩字形来自 [Simple Icons](public/licenses/simple-icons.md)。
