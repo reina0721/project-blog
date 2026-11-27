@@ -55,6 +55,11 @@ img { max-width:100%; }
 .action-link:focus-visible:has(>md-focus-ring:defined) { outline:none; }
 .site-header { min-block-size:var(--bar-height); position:sticky; top:0; z-index:5; flex:none; display:flex;justify-content:space-between;align-items:center;
   padding-inline:clamp(15px,2.4vw,56px); color:var(--blue); background:var(--paper); }
+.site-header[data-scroll-hidden] { translate:0 -100%; }
+.site-header[data-scroll-keyboard]:focus-within { translate:none; transition:none; }
+@media (prefers-reduced-motion:no-preference) {
+  .site-header:not([data-scroll-instant]) { transition:translate 300ms ease-in-out; }
+}
 .site-viewport :is(main, main [id]):target { scroll-margin-block-start:var(--header-height,var(--bar-height)); }
 /* Both silhouettes size the same grid cell, including when the wordmark wraps. */
 .site-leading { align-self:stretch; flex:1 1 0; min-inline-size:0; display:grid; grid-template-columns:minmax(0,1fr); align-items:center; }

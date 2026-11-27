@@ -58,18 +58,7 @@ const { title, description = site.motto, section, reading = false } = Astro.prop
       import '@material/web/ripple/ripple.js';
       import '@material/web/focus/md-focus-ring.js';
       import '../lib/motion';
-
-      const headerSize = new ResizeObserver(([entry]) => {
-        const viewport = entry.target.parentElement;
-        viewport?.style.setProperty('--header-height', `${entry.borderBoxSize[0].blockSize}px`);
-      });
-      function observeHeader() {
-        headerSize.disconnect();
-        const header = document.querySelector('.site-header');
-        if (header) headerSize.observe(header, { box: 'border-box' });
-      }
-      document.addEventListener('astro:after-swap', observeHeader);
-      observeHeader();
+      import '../lib/header-scroll';
     </script>
   </body>
 </html>

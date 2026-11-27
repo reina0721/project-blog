@@ -14,6 +14,7 @@ interface RouteMotion {
   direction: Direction;
   wasReading: boolean;
   willRead: boolean;
+  headerWasVisible: boolean;
   title?: { slug: string; x: number; y: number; font: number };
 }
 
@@ -38,6 +39,12 @@ function sectionIndex(url: URL) {
   return tabs().findIndex(tab => path(new URL(tab.href)) === target);
 }
 
+function headerFullyVisible() {
+  const header = document.querySelector('.site-header:not([data-scroll-hidden])');
+  const rect = header?.getBoundingClientRect();
+  return !!rect && rect.height > 0 && rect.top >= -0.5 && rect.top < innerHeight;
+}
+
 function routeMotion(from: URL, to: URL, incoming: Document, hint?: Direction): RouteMotion | undefined {
   if (samePage(from, to)) return;
   const wasReading = !!document.querySelector('.site-leading[data-leading="back"]');
@@ -54,13 +61,14 @@ function routeMotion(from: URL, to: URL, incoming: Document, hint?: Direction): 
     const rel = adjacent?.getAttribute('rel');
     if (rel === 'prev' || rel === 'next') direction = rel === 'next' ? 'forward' : 'back';
   }
-  return { from, to, kind, direction, wasReading, willRead };
+  return { from, to, kind, direction, wasReading, willRead, headerWasVisible: headerFullyVisible() };
 }
 
 function measureTitle(node?: HTMLElement) {
   if (!node?.dataset.articleSlug) return;
   const rect = node.getBoundingClientRect();
-  if (!rect.width || !rect.height || rect.bottom <= 0 || rect.top >= innerHeight) return;
+  const headerEdge = Math.max(0, document.querySelector('.site-header')?.getBoundingClientRect().bottom ?? 0);
+  if (!rect.width || !rect.height || rect.bottom <= headerEdge || rect.top >= innerHeight) return;
   return { slug: node.dataset.articleSlug, x: rect.left, y: rect.top, font: parseFloat(getComputedStyle(node).fontSize) };
 }
 
@@ -114,7 +122,7 @@ function enterGroups(title?: HTMLElement, lead = 0) {
 
 function clearScene() {
   clearTimeout(finishTimer);
-  for (const key of ['pageMotion', 'motionStage', 'motionDirection', 'motionDriver', 'motionMarker', 'motionLeading', 'motionTitle']) {
+  for (const key of ['pageMotion', 'motionStage', 'motionDirection', 'motionDriver', 'motionMarker', 'motionLeading', 'motionTitle', 'motionArrivingHeader']) {
     delete root.dataset[key];
   }
   root.style.removeProperty('--motion-pane-clip');
@@ -132,13 +140,15 @@ function setScene(info: RouteMotion, stage: 'leave' | 'enter', mode: 'native' | 
   root.dataset.motionStage = stage;
   root.dataset.motionDriver = mode;
   root.dataset.motionDirection = info.direction;
-  const slot = document.querySelector('.site-leading');
-  const slotBox = slot?.getBoundingClientRect();
-  if (info.wasReading !== info.willRead && slotBox?.height && slotBox.bottom > 0 && slotBox.top < innerHeight) {
+  const headerVisible = stage === 'leave' ? info.headerWasVisible : headerFullyVisible();
+  const matchHeader = info.headerWasVisible && headerVisible;
+  // The outgoing page can contain text all the way to the top of the screen.
+  if (!info.headerWasVisible && headerVisible && mode === 'native') root.dataset.motionArrivingHeader = '';
+  if (matchHeader && info.wasReading !== info.willRead) {
     root.dataset.motionLeading = info.willRead ? 'open' : 'close';
   }
   const navBar = document.querySelector('.main-nav');
-  if (navBar?.getClientRects().length && sectionIndex(info.from) !== sectionIndex(info.to) &&
+  if (matchHeader && navBar?.getClientRects().length && sectionIndex(info.from) !== sectionIndex(info.to) &&
       navBar.querySelector('[aria-current="page"] .nav-marker')) root.dataset.motionMarker = '';
   const headerEdge = Math.max(0, document.querySelector('.site-header')?.getBoundingClientRect().bottom || 0);
   const mainTop = document.getElementById('main')?.getBoundingClientRect().top || 0;

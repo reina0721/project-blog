@@ -39,6 +39,7 @@ html { view-transition-name: none; }
 .main-nav .nav-item[data-nav-pending] { color:var(--strong-blue); }
 :root[data-motion-driver="native"][data-motion-marker] .main-nav [aria-current="page"] .nav-marker { view-transition-name:active-nav-marker; }
 :root[data-motion-driver="native"][data-motion-leading] .site-leading { view-transition-name:header-leading; }
+:root[data-motion-arriving-header] .site-header { view-transition-name:arriving-header; }
 :root[data-motion-driver="native"][data-motion-stage="leave"] #main { view-transition-name:page-leaving; }
 :root[data-motion-driver="native"][data-motion-stage="enter"] #main { view-transition-name:page-arriving; }
 :root[data-motion-driver="native"][data-motion-stage] #main { clip-path:inset(var(--motion-pane-clip,0px) 0 0); }
@@ -67,6 +68,11 @@ html { view-transition-name: none; }
 ::view-transition-new(.article-title),::view-transition-new(active-nav-marker) { animation:none; mix-blend-mode:normal; object-position:left top; }
 ::view-transition-group(active-nav-marker) { z-index:5; animation-duration:250ms; animation-timing-function:var(--route-ease); }
 ::view-transition-group(header-leading) { z-index:5; animation:none; }
+::view-transition-group(arriving-header) { z-index:5; animation:none; }
+::view-transition-new(arriving-header) { animation:none; mix-blend-mode:normal; }
+/* A restored page can have a hidden header. Discard unmatched outgoing art. */
+:root:not([data-motion-leading])::view-transition-group(header-leading),
+:root:not([data-motion-marker])::view-transition-group(active-nav-marker) { display:none; }
 ::view-transition-image-pair(header-leading) { overflow:clip; isolation:isolate; }
 ::view-transition-old(header-leading) { animation:leading-out 380ms linear both; mix-blend-mode:normal; }
 ::view-transition-new(header-leading) { animation:leading-in 440ms linear both; mix-blend-mode:normal; }

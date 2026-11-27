@@ -1,4 +1,5 @@
 import type { TransitionBeforeSwapEvent } from 'astro:transitions/client';
+import { headerIsHidden, restoreHeaderVisibility } from './header-scroll';
 
 type Route = Pick<TransitionBeforeSwapEvent, 'from' | 'to' | 'navigationType'>;
 
@@ -8,6 +9,7 @@ interface Position {
   width: number;
   height: number;
   keyboard: boolean;
+  headerHidden?: boolean;
 }
 
 type SourceMark = Position & { slug: string };
@@ -108,7 +110,10 @@ function setBackLink(entry: ReadingEntry) {
 
 function position(link: Element, keyboard: boolean): Position {
   const row = link.closest('li') || link;
-  return { scroll: scrollY, offset: row.getBoundingClientRect().top, width: innerWidth, height: innerHeight, keyboard };
+  return {
+    scroll: scrollY, offset: row.getBoundingClientRect().top, width: innerWidth, height: innerHeight,
+    keyboard, headerHidden: headerIsHidden(),
+  };
 }
 
 export function prepareReading(link: Element, url: URL, keyboard: boolean) {
@@ -194,6 +199,8 @@ function restore(session: Restoration) {
   const sameSize = mark.width === innerWidth && mark.height === innerHeight;
   const y = sameSize ? mark.scroll : scrollY + row.getBoundingClientRect().top - mark.offset;
   if (Math.abs(scrollY - y) > 1) scrollTo({ top: y, behavior: 'instant' });
+  // A late layout update can make a previously clamped scroll position reachable.
+  restoreHeaderVisibility(mark.headerHidden === true);
 }
 
 function startRestoring(mark: SourceMark | ChapterMark, keyboard: boolean) {
