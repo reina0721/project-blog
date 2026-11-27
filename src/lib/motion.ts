@@ -10,7 +10,7 @@ import {
 interface RouteMotion {
   from: URL;
   to: URL;
-  kind: 'section' | 'article' | 'chapter' | 'home-blog';
+  kind: 'section' | 'article' | 'chapter';
   direction: Direction;
   wasReading: boolean;
   willRead: boolean;
@@ -47,8 +47,6 @@ function routeMotion(from: URL, to: URL, incoming: Document, hint?: Direction): 
   if ((isIndex(from) && willRead) || (wasReading && isIndex(to))) {
     kind = 'article';
     direction = willRead ? 'forward' : 'back';
-  } else if (path(from) === '/' && path(to) === '/blog') {
-    kind = 'home-blog';
   } else if (wasReading && willRead) {
     kind = 'chapter';
     const adjacent = Array.from(document.querySelectorAll('.notes-adjacent [rel][href]'))
@@ -83,7 +81,6 @@ let groups: HTMLElement[] = [];
 let groupTimer: number | undefined;
 let finishTimer: number | undefined;
 let currentTitle: HTMLElement | undefined;
-let previousLeading: Element | undefined;
 let currentMotion: RouteMotion | undefined;
 
 function clearGroups() {
@@ -92,6 +89,7 @@ function clearGroups() {
     delete node.dataset.groupOrder;
     node.style.removeProperty('--entry-wait');
     node.style.removeProperty('--entry-lead');
+    node.style.removeProperty('--entry-start-opacity');
   }
   groups = [];
 }
@@ -99,30 +97,32 @@ function clearGroups() {
 function enterGroups(title?: HTMLElement, lead = 0) {
   clearGroups();
   if (reduced.matches || location.hash || isReadingReturning()) return;
+  const openingTitle = root.dataset.motionTitle === 'open';
+  if (openingTitle) lead = 185;
   for (const node of document.querySelectorAll<HTMLElement>('#main [data-enter-group]')) {
     const rect = node.getBoundingClientRect();
     if (node.contains(title ?? null) || !rect.height || rect.bottom <= 0 || rect.top >= innerHeight) continue;
     node.style.setProperty('--entry-wait', `${groups.length * 60}ms`);
     node.style.setProperty('--entry-lead', `${lead}ms`);
+    if (openingTitle) node.style.setProperty('--entry-start-opacity', '0');
     node.dataset.groupOrder = String(groups.length);
     groups.push(node);
     if (groups.length === 4) break;
   }
-  if (groups.length) groupTimer = window.setTimeout(clearGroups, 740);
+  if (groups.length) groupTimer = window.setTimeout(clearGroups, lead + 650);
 }
 
 function clearScene() {
   clearTimeout(finishTimer);
-  for (const key of ['pageMotion', 'motionStage', 'motionDirection', 'motionDriver', 'motionMarker', 'motionLeading']) {
+  for (const key of ['pageMotion', 'motionStage', 'motionDirection', 'motionDriver', 'motionMarker', 'motionLeading', 'motionTitle']) {
     delete root.dataset[key];
   }
-  for (const key of ['--motion-header-edge', '--motion-pane-clip']) root.style.removeProperty(key);
+  root.style.removeProperty('--motion-pane-clip');
   if (currentTitle) {
     delete currentTitle.dataset.motionSelected;
     for (const key of ['--selected-title-name', '--title-x', '--title-y', '--title-scale']) currentTitle.style.removeProperty(key);
   }
-  previousLeading?.remove();
-  previousLeading = currentTitle = currentMotion = undefined;
+  currentTitle = currentMotion = undefined;
 }
 
 function setScene(info: RouteMotion, stage: 'leave' | 'enter', mode: 'native' | 'css') {
@@ -136,24 +136,19 @@ function setScene(info: RouteMotion, stage: 'leave' | 'enter', mode: 'native' | 
   const slotBox = slot?.getBoundingClientRect();
   if (info.wasReading !== info.willRead && slotBox?.height && slotBox.bottom > 0 && slotBox.top < innerHeight) {
     root.dataset.motionLeading = info.willRead ? 'open' : 'close';
-    if (mode === 'css' && stage === 'enter') {
-      const template = slot?.querySelector<HTMLTemplateElement>('template[data-leading-previous]');
-      previousLeading = template?.content.firstElementChild?.cloneNode(true) as Element | undefined;
-      if (previousLeading) slot?.append(previousLeading);
-    }
   }
   const navBar = document.querySelector('.main-nav');
   if (navBar?.getClientRects().length && sectionIndex(info.from) !== sectionIndex(info.to) &&
       navBar.querySelector('[aria-current="page"] .nav-marker')) root.dataset.motionMarker = '';
   const headerEdge = Math.max(0, document.querySelector('.site-header')?.getBoundingClientRect().bottom || 0);
   const mainTop = document.getElementById('main')?.getBoundingClientRect().top || 0;
-  root.style.setProperty('--motion-header-edge', `${headerEdge}px`);
   root.style.setProperty('--motion-pane-clip', `${Math.max(0, headerEdge - mainTop)}px`);
   const node = selectedTitle(info, stage);
   if (node && (stage === 'leave' || node.dataset.articleSlug === info.title?.slug)) {
     currentTitle = node;
+    root.dataset.motionTitle = info.willRead ? 'open' : 'close';
     node.style.setProperty('--selected-title-name', CSS.escape('a-title-' + node.dataset.articleSlug));
-    if (mode === 'css' && info.title) {
+    if (mode === 'css' && info.willRead && info.title) {
       const rect = node.getBoundingClientRect();
       node.style.setProperty('--title-x', `${info.title.x - rect.left}px`);
       node.style.setProperty('--title-y', `${info.title.y - rect.top}px`);

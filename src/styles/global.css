@@ -53,25 +53,31 @@ img { max-width:100%; }
 .action-link { position:relative; -webkit-tap-highlight-color:transparent; }
 .action-link > :is(md-ripple,md-focus-ring):not(:defined) { display:none; }
 .action-link:focus-visible:has(>md-focus-ring:defined) { outline:none; }
-.site-header { height:var(--bar-height); position:sticky; top:0; z-index:5; flex:none; display:flex;justify-content:space-between;align-items:center;
+.site-header { min-block-size:var(--bar-height); position:sticky; top:0; z-index:5; flex:none; display:flex;justify-content:space-between;align-items:center;
   padding-inline:clamp(15px,2.4vw,56px); color:var(--blue); background:var(--paper); }
-.site-viewport :is(main, main [id]):target { scroll-margin-block-start:var(--bar-height); }
-.site-leading { flex:none; display:flex; align-items:center; inline-size:clamp(128px,12vw,160px); block-size:100%; }
-.site-leading .reading-back { inline-size:48px; block-size:48px; min-inline-size:48px;
+.site-viewport :is(main, main [id]):target { scroll-margin-block-start:var(--header-height,var(--bar-height)); }
+/* Both silhouettes size the same grid cell, including when the wordmark wraps. */
+.site-leading { align-self:stretch; flex:1 1 0; min-inline-size:0; display:grid; grid-template-columns:minmax(0,1fr); align-items:center; }
+.site-leading > :is(.leading-current,.leading-art) { grid-area:1 / 1; justify-self:start; display:inline-flex; align-items:center; min-inline-size:0; max-inline-size:100%; }
+.site-leading :is(.action-link,.leading-art).reading-back { inline-size:48px; block-size:48px; min-inline-size:48px;
   --md-icon-button-state-layer-width:48px; --md-icon-button-state-layer-height:48px;
   --md-icon-button-icon-color:var(--muted); --md-icon-button-hover-icon-color:var(--strong-blue); }
 .site-leading .reading-back:focus-visible { outline-offset:0; }
-.site-leading .leading-art { display:inline-flex; align-items:center; justify-content:center; pointer-events:none; }
-.site-leading .leading-art.brand { padding-inline:12px; }
+.site-leading .leading-art { visibility:hidden; justify-content:center; pointer-events:none; }
+.site-leading .brand { min-inline-size:0; max-inline-size:100%; }
+.site-leading .leading-art.brand { padding:10px 12px; min-block-size:48px; }
 .site-leading .leading-art.reading-back { color:var(--muted); }
-.brand-lockup { display:flex; align-items:center; gap:5px; color:var(--blue);
+.brand-lockup { display:flex; align-items:center; min-inline-size:0; max-inline-size:100%; gap:5px; color:var(--blue);
   font:870 clamp(21px,1.7vw,32px)/1 var(--sans); letter-spacing:-.055em; }
+.brand-lockup [data-action-label] { min-inline-size:0; white-space:normal; overflow-wrap:anywhere; }
+.brand-lockup :is(svg,i) { flex:none; }
 .brand svg { width:clamp(28px,2.7vw,43px);height:auto; }
 @media(prefers-reduced-motion:no-preference) {
   .brand svg {transition:transform 145ms ease-out;}
   .brand[data-pressed] svg {transform:translateX(-3px) scale(.9);transition-duration:65ms;}
 }
-.brand i { width:.6em;height:.61em; transform:skew(-25deg) rotate(-22deg);margin-left:.2em;background:linear-gradient(currentColor 0 19%,transparent 19% 40%,currentColor 40% 60%,transparent 60%); }
+/* Leave space inside the button label for the slanted stroke's painted tip. */
+.brand i { width:.6em;height:.61em; transform:skew(-25deg) rotate(-22deg);margin-inline:.2em .12em;background:linear-gradient(currentColor 0 19%,transparent 19% 40%,currentColor 40% 60%,transparent 60%); }
 .main-nav {
   --md-navigation-bar-active-icon-color: var(--md-sys-color-on-secondary-container);
   --md-navigation-bar-inactive-icon-color: var(--md-sys-color-on-surface-variant);

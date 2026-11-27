@@ -44,23 +44,32 @@ const { title, description = site.motto, section, reading = false } = Astro.prop
               </ActionLink>
             )}
           </span>
-          <template data-leading-previous>
-            {reading ? (
-              <span class="leading-art brand" aria-hidden="true" inert><BrandLockup /></span>
-            ) : (
-              <span class="leading-art reading-back" aria-hidden="true" inert><Icon name="arrow-left" size={24} /></span>
-            )}
-          </template>
+          {reading ? (
+            <span class="leading-art brand" aria-hidden="true" inert><BrandLockup /></span>
+          ) : (
+            <span class="leading-art reading-back" aria-hidden="true" inert><Icon name="arrow-left" size={24} /></span>
+          )}
         </div>
         <SiteNav section={section}/>
       </header>
       <main id="main" tabindex="-1"><slot /></main>
     </div>
-    <span id="motion-page-end" hidden></span>
     <script>
       import '@material/web/ripple/ripple.js';
       import '@material/web/focus/md-focus-ring.js';
       import '../lib/motion';
+
+      const headerSize = new ResizeObserver(([entry]) => {
+        const viewport = entry.target.parentElement;
+        viewport?.style.setProperty('--header-height', `${entry.borderBoxSize[0].blockSize}px`);
+      });
+      function observeHeader() {
+        headerSize.disconnect();
+        const header = document.querySelector('.site-header');
+        if (header) headerSize.observe(header, { box: 'border-box' });
+      }
+      document.addEventListener('astro:after-swap', observeHeader);
+      observeHeader();
     </script>
   </body>
 </html>

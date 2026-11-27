@@ -46,16 +46,23 @@ html { view-transition-name: none; }
 
 /* The border between the two snapshots moves once. The arriving page never
    overprints the outgoing paragraph. Neither header nor drawer rides the page. */
-::view-transition-group(page-leaving) { z-index:1; animation:close-plane 210ms var(--route-ease) 90ms both; }
-::view-transition-group(page-arriving) { z-index:2; animation:open-plane 210ms var(--route-ease) 90ms both; }
+::view-transition-group(page-leaving) { z-index:1; animation:close-plane 210ms var(--route-ease) var(--plane-delay,90ms) both; }
+::view-transition-group(page-arriving) { z-index:2; animation:open-plane 210ms var(--route-ease) var(--plane-delay,90ms) both; }
 ::view-transition-old(page-leaving) { animation:retire-plane 200ms cubic-bezier(.35,.02,.6,1) both; mix-blend-mode:normal; }
-::view-transition-new(page-arriving) { animation:arrive-surface 210ms var(--route-ease) 90ms both; mix-blend-mode:normal; }
+::view-transition-new(page-arriving) { animation:arrive-surface 210ms var(--route-ease) var(--plane-delay,90ms) both; mix-blend-mode:normal; }
 @keyframes close-plane { from { clip-path:inset(0); } to { clip-path:var(--old-clip); } }
 @keyframes open-plane { from { clip-path:var(--new-clip); } to { clip-path:inset(0); } }
 @keyframes retire-plane { from { translate:0; opacity:1; } to { translate:var(--pane-out) -34px; opacity:.12; } }
 @keyframes arrive-surface { from { opacity:.88; } to { opacity:1; } }
-::view-transition-group(.article-title) { z-index:3; animation-duration:300ms; animation-timing-function:cubic-bezier(.28,.57,.20,1); }
-::view-transition-image-pair(.article-title) { background:var(--surface); }
+/* Give the list heading time to clear the moving letters. On return, the
+   reading text recedes first and the original row comes back into view. */
+:root[data-motion-title="open"] { --title-delay:55ms; --title-duration:245ms; }
+:root[data-motion-title="close"] { --title-delay:20ms; --title-duration:280ms; --plane-delay:55ms; }
+:root[data-motion-title="close"]::view-transition-old(page-leaving) { animation-duration:85ms; animation-timing-function:ease-out; }
+::view-transition-group(.article-title) {
+  z-index:3; animation-duration:var(--title-duration,300ms); animation-delay:var(--title-delay,0ms);
+  animation-timing-function:cubic-bezier(.28,.57,.20,1); animation-fill-mode:both;
+}
 ::view-transition-old(.article-title),::view-transition-old(active-nav-marker) { display:none; }
 ::view-transition-new(.article-title),::view-transition-new(active-nav-marker) { animation:none; mix-blend-mode:normal; object-position:left top; }
 ::view-transition-group(active-nav-marker) { z-index:5; animation-duration:250ms; animation-timing-function:var(--route-ease); }
@@ -63,7 +70,6 @@ html { view-transition-name: none; }
 ::view-transition-image-pair(header-leading) { overflow:clip; isolation:isolate; }
 ::view-transition-old(header-leading) { animation:leading-out 380ms linear both; mix-blend-mode:normal; }
 ::view-transition-new(header-leading) { animation:leading-in 440ms linear both; mix-blend-mode:normal; }
-.leading-current { display:inline-flex; align-items:center; }
 /* A legible first beat, then two separate silhouettes at different heights.
    Clip the stationary slot, never the glyph that has to travel through it. */
 @keyframes leading-out {
@@ -80,17 +86,16 @@ html { view-transition-name: none; }
 /* Without native snapshots, animate the newly swapped content in place. */
 @media (prefers-reduced-motion:no-preference) {
   [data-motion-driver="css"][data-motion-stage="enter"] #main { animation:arrive-surface 220ms ease-out both; }
-  [data-motion-driver="css"][data-motion-stage="enter"][data-motion-leading] .site-leading { overflow:clip; position:relative; }
+  [data-motion-driver="css"][data-motion-stage="enter"][data-motion-leading] .site-leading { overflow:clip; }
   [data-motion-driver="css"][data-motion-stage="enter"][data-motion-leading] .site-leading > .leading-art {
-    position:absolute; inset-inline-start:0; inset-block:0; margin-block:auto; max-height:100%;
-    pointer-events:none; animation:leading-out 380ms linear both;
+    visibility:visible; animation:leading-out 380ms linear both;
   }
   [data-motion-driver="css"][data-motion-stage="enter"][data-motion-leading] .site-leading > .leading-current {
     animation:leading-in 440ms linear both;
   }
-  [data-motion-driver="css"][data-motion-stage="enter"] [data-motion-selected] {
+  [data-motion-driver="css"][data-motion-title="open"] [data-motion-selected] {
     transform-origin:left top; position:relative; z-index:1;
-    animation:title-from-source 300ms cubic-bezier(.28,.57,.20,1) both;
+    animation:title-from-source var(--title-duration) cubic-bezier(.28,.57,.20,1) var(--title-delay) both;
   }
   [data-group-order] { animation:group-arrive 410ms cubic-bezier(.2,.73,.21,1) calc(var(--entry-lead,0ms) + var(--entry-wait,0ms)) backwards; }
 }
@@ -98,24 +103,8 @@ html { view-transition-name: none; }
   from { transform:translate(var(--title-x),var(--title-y)) scale(var(--title-scale)); }
   to { transform:none; }
 }
-@keyframes group-arrive { from { opacity:.12; translate:0 38px; } to { opacity:1; translate:0; } }
+@keyframes group-arrive { from { opacity:var(--entry-start-opacity,.12); translate:0 38px; } to { opacity:1; translate:0; } }
 
-:root[data-motion-stage="enter"][data-page-motion="home-blog"] #motion-page-end {
-  display:block !important; position:fixed; pointer-events:none; z-index:4; left:0;
-  top:calc(var(--motion-header-edge,78px) + 2px); width:clamp(104px,27vw,330px); height:clamp(7px,1.05vw,12px);
-  background:linear-gradient(112deg,color-mix(in srgb,var(--blue) 24%,var(--paper)) 0 42%,var(--blue) 42% 89%,color-mix(in srgb,var(--blue) 55%,white) 89% 100%);
-  clip-path:polygon(4% 0,100% 0,96% 100%,0% 100%);
-}
-:root[data-motion-driver="native"][data-page-motion="home-blog"] #motion-page-end {view-transition-name:entry-wash;}
-::view-transition-group(entry-wash) { z-index:4; animation:none; }
-::view-transition-new(entry-wash),:root[data-motion-driver="css"][data-page-motion="home-blog"] #motion-page-end {
-  mix-blend-mode:normal; animation:entry-cut-through 330ms cubic-bezier(.27,.65,.45,1) both;
-}
-@keyframes entry-cut-through {
-  from { translate:-88% 0; opacity:.82; }
-  62% { opacity:.95; }
-  to { translate:100vw 0; opacity:0; }
-}
 @media (scripting:none) and (prefers-reduced-motion:no-preference) {
   [data-enter-group] { animation:group-arrive 360ms ease-out backwards; }
   [data-enter-group]:nth-child(2) { animation-delay:60ms; }
@@ -123,6 +112,5 @@ html { view-transition-name: none; }
   body:has(:target) [data-enter-group] { animation:none; }
 }
 @media (prefers-reduced-motion:reduce) {
-  :root[data-page-motion="home-blog"] #motion-page-end { display:none !important; }
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*) { animation-duration:0s !important; animation-delay:0s !important; }
 }
