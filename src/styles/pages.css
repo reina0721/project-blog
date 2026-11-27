@@ -229,6 +229,10 @@ body:has(.reading-page) {background-image:none;}
 .article-prose li + li { margin-block-start: .3em; }
 .article-prose img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(65vh,480px); margin: 1.6em auto; object-fit: contain; border-radius: 6px; }
 .article-prose img[role="button"] { cursor: zoom-in; }
+.article-prose figure { margin: 1.6em 0; }
+.article-prose figure > a:has(> img:only-child) { display: block; width: fit-content; max-width: 100%; margin-inline: auto; cursor: zoom-in; }
+.article-prose figure > a > img { margin: 0; }
+.article-prose figcaption { margin-top: .55em; text-align: center; font-size: .9em; color: var(--muted); }
 .article-prose pre, .article-prose table { max-width: 100%; overflow-x: auto; }
 .article-prose pre { padding: .85em 1em; border-radius: 7px; font-size: .86em; line-height: 1.6; }
 .article-prose .mermaid-preview {

@@ -66,6 +66,7 @@ function showGallery(ViewerClass: typeof Viewer, article: HTMLElement, images: H
   const listeners = { signal: session.signal };
   let overlay: HTMLElement;
   let current = trigger;
+  let caption = '';
   let firstView = true;
   let returning = false;
   let autoplay: number | undefined;
@@ -88,13 +89,21 @@ function showGallery(ViewerClass: typeof Viewer, article: HTMLElement, images: H
   }
 
   function togglePlay() {
-    if (autoplay === undefined) autoplay = window.setInterval(() => viewer.next(true), 4000);
+    if (autoplay === undefined) autoplay = window.setInterval(() => {
+      const control = overlay.querySelector<HTMLElement>('.viewer-toolbar :focus, .viewer-navigation :focus');
+      viewer.next(true);
+      control?.focus({ preventScroll: true });
+    }, 4000);
     else { clearInterval(autoplay); autoplay = undefined; }
     setPressed('play', autoplay !== undefined);
   }
 
   function toggleThumbs() {
-    setPressed('thumbs', !overlay.classList.toggle('gallery-thumbs-hidden'));
+    const hidden = overlay.classList.toggle('gallery-thumbs-hidden');
+    const navbar = overlay.querySelector<HTMLElement>('.viewer-navbar')!;
+    navbar.inert = hidden;
+    navbar.setAttribute('aria-hidden', String(hidden));
+    setPressed('thumbs', !hidden);
   }
 
   async function toggleFullscreen() {
@@ -112,7 +121,7 @@ function showGallery(ViewerClass: typeof Viewer, article: HTMLElement, images: H
     filter: image => images.includes(image),
     url: fullImageURL,
     inheritedAttributes: ['crossOrigin', 'decoding', 'referrerPolicy'],
-    title: () => current.alt,
+    title: () => caption,
     navbar: multi, navigation: multi, button: false,
     zoomOnWheel: true, slideOnWheel: false, rotateOnTouch: false, maxZoomRatio: 3,
     transition: reducedMotion.matches ? false : { show: false, hide: false, view: false },
@@ -177,6 +186,10 @@ function showGallery(ViewerClass: typeof Viewer, article: HTMLElement, images: H
     },
     view({ detail }) {
       current = detail.originalImage;
+      caption = current.closest('figure')?.querySelector(':scope > figcaption')?.textContent.trim() || current.alt.trim();
+      // Viewer fits the photo before painting its title. The CSS placeholder
+      // reserves the same wrapped text height during that first measurement.
+      overlay.querySelector<HTMLElement>('.viewer-title')!.dataset.caption = caption;
       const counter = overlay.querySelector('.gallery-counter');
       if (counter) counter.textContent = `${detail.index + 1} / ${images.length}`;
     },

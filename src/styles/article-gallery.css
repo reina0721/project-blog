@@ -104,10 +104,11 @@
   outline: 2px solid #fff;
   outline-offset: -2px;
 }
-.article-gallery.gallery-thumbs-hidden .viewer-navbar { display: none; }
+.article-gallery.gallery-thumbs-hidden .viewer-navbar { visibility: hidden; pointer-events: none; }
 .article-gallery .viewer-title {
   bottom: var(--gallery-bottom);
   margin: 0;
+  width: max-content;
   max-width: min(80%, 70ch);
   padding: 5px 12px;
   border-radius: 6px;
@@ -115,9 +116,16 @@
   color: #fff;
   opacity: 1;
   font: 500 14px/1.4 var(--sans);
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .article-gallery .viewer-title:empty { display: none; }
-.article-gallery:not(.gallery-thumbs-hidden) .viewer-title-navbar-bottom {
+.article-gallery .viewer-title:empty[data-caption]:not([data-caption=""]) {
+  display: inline-block;
+  visibility: hidden;
+}
+.article-gallery .viewer-title:empty::before { content: attr(data-caption); }
+.article-gallery .viewer-title-navbar-bottom {
   bottom: calc(var(--gallery-thumb) + var(--gallery-bottom) + 12px);
 }
 .article-gallery [role="button"]:focus-visible {
